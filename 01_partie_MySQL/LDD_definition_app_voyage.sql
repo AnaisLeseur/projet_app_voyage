@@ -93,5 +93,7 @@ create table lignes_commandes (	commande_id int(20),
 												foreign key (panier_id) references paniers (id_panier)
 													);         
                                                         
-             	Drop table lignes_commandes;                           
+             	Drop table lignes_commandes;          
+                
+                
    
