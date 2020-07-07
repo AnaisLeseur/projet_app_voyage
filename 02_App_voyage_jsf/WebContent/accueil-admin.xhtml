@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head></h:head>
+<body>
+
+	<b:tabLinks>
+		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" active="true" />
+		<b:navLink value="Catégories" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" />
+
+	</b:tabLinks>
+	<b:messages />
+
+
+	<b:panel>
+		<f:facet name="heading">
+			<i class="fa fa-battery-three-quarters" style="padding-right: 20px" />
+			<h:outputText value="Ajouter un produit" />
+			<b:badge style="margin-left:10px; background-color:#5cb85c"
+				value="good" />
+		</f:facet>
+
+
+
+		<b:panelGrid columns="2">
+			<b:inputText value="#{inputTextBean.text}"
+				label="nom de la destination" render-label="true" />
+			<b:inputText value="#{inputTextBean.text}" label="Description"
+				render-label="true" />
+			<b:inputText value="#{inputTextBean.text}" mask="decimal"
+				label="Prix (en €)" render-label="true" />
+			<b:inputText value="#{inputTextBean.text}" mask="integer"
+				label="Quantité" render-label="true" />
+
+			<b:selectBooleanCheckbox value="#{settingsBean.checkbox1}"
+				caption="Selectionné" label="Veuillez choisir" />
+			<div>
+				<label for="image"> Photo :</label>
+				<h:inputFile id="image"></h:inputFile>
+			</div>
+			
+			
+			<b:button value="Ajouter cette destination"></b:button>
+
+
+
+		</b:panelGrid>
+
+
+	</b:panel>
+
+
+	<h2>Liste des produits :</h2>
+	<b:row>
+
+
+		<b:column col-md="8">
+			<h:dataTable styleClass="table" value="#{itemBean.items}" var="item"
+				rows="8">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Id" />
+					</f:facet>
+					<h:outputText value="#{itemBean.items.rowIndex + 1}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Nom / Destination" />
+					</f:facet>
+					<h:outputText value="#{item.name}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Visuel" />
+					</f:facet>
+					<h:outputText value="#{item.price}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Description" />
+					</f:facet>
+					<h:outputText value="#{item.code}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Prix" />
+					</f:facet>
+					<h:outputText value="#{item.price}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Quantité" />
+					</f:facet>
+					<h:outputText value="#{item.price}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Selectionné" />
+					</f:facet>
+					<h:outputText value="#{item.price}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Catégorie produit" />
+					</f:facet>
+					<h:outputText value="#{item.price}" />
+				</h:column>
+			</h:dataTable>
+
+
+		</b:column>
+	</b:row>
+
+	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+
+
+</body>
+</html>
