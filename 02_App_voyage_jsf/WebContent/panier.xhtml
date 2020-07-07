@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head></h:head>
+<body>
+
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+
+	<h2>Votre panier :</h2>
+
+	<b:row>
+		<b:column col-md="8">
+			<h:dataTable styleClass="table" value="#{itemBean.items}" var="item"
+				rows="8" >
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:outputText value="#{itemBean.items.rowIndex + 1}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Destination" />
+					</f:facet>
+					<h:outputText value="#{item.name}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Nombre de personnes" />
+					</f:facet>
+					<h:outputText value="#{item.code}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Prix" />
+					</f:facet>
+					<h:outputText value="#{item.price}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Supprimer" />
+					</f:facet>
+					<h:outputText value="#{item.price}" />
+				</h:column>
+			</h:dataTable>
+			
+			<b:button size="lg" value="Procéder au paiement" />#{' '}
+		</b:column>
+	</b:row>
+
+	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+
+</body>
+</html>
