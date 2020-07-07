@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+<h:head>
+	
+
+</h:head>
+<body>
+	<ui:composition>
+
+		<b:navBar brand="Brand" brandHref="#" inverse="true" fixed="top" position="absolute">
+			<b:navbarLinks>
+				<b:navLink value="Accueil" href="#"></b:navLink>
+				<b:navLink value="Rechercher un voyage" href="#"></b:navLink>
+				<b:navLink value="Contact" href="#"></b:navLink>
+				<b:navLink value="Connectez-vous" href="#"></b:navLink>
+				
+			</b:navbarLinks>
+			<h:form styleClass="navbar-form navbar-right">
+				
+				<div class="form-group">
+					<b:inputText placeholder="rechercher..." fieldSize="sm" />
+				</div> 
+                #{' '}
+                <b:commandButton action="a" value="Recherche"
+					look="success" icon="chevron-right" iconAlign="right" />
+			</h:form>
+		</b:navBar>
+
+	</ui:composition>
+</body>
+</html>
