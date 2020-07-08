@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui"
+	>
+
+<h:head>
+<style type="text/css">
+.form-signin {
+	margin: 0 auto;
+	max-width: 350px;
+	padding: 15px;
+}
+
+body {
+	background-color: white;
+}
+</style>
+</h:head>
+<body>
+
+	<ui:decorate template="/templates/header.xhtml">
+
+	</ui:decorate>
+
+
+	<h:body style="background-color: white;">
+		<b:container>
+			<h:form styleClass="form-signin" prependId="false">
+				<h2 class="form-signin-heading" align="center">Veuillez
+					vous connectez</h2>
+				<b:inputText id="email" placeholder="Email">
+					<f:facet name="prepend">
+						<b:icon name="user" />
+					</f:facet>
+				</b:inputText>
+				<b:inputText id="password" placeholder="Mot de passe"
+					type="password">
+					<f:facet name="prepend">
+						<b:iconAwesome name="key" />
+					</f:facet>
+				</b:inputText>
+				<b:selectBooleanCheckbox value="true" caption="Administrateur" />
+				<b:commandButton look="default btn-block" value="Se connecter"
+					icon="log-in" size="lg" />
+			</h:form>
+		</b:container>
+
+		<ui:decorate template="/templates/footer.xhtml">
+
+		</ui:decorate>
+		</h:body>
+</body>
+</html>
