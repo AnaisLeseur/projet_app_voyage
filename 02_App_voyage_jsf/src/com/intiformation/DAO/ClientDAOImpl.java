@@ -28,14 +28,14 @@ public class ClientDAOImpl implements IClientDAO {
 					+ "(identifiant_client, mot_de_passe_client, nom_client, prenom_client, adresse_client, email_client, tel_client, activated_client) "
 					+ "values (?, ?, ?, ?, ?, ?, ?, ?)");
 			
-			ps.setString(1, pClient.);
-			ps.setString(2, pClient.);
-			ps.setString(3, pClient.);
-			ps.setString(4, pClient.);
-			ps.setString(5, pClient.);
-			ps.setString(6, pClient.);
-			ps.setString(7, pClient.);
-			ps.setBoolean(8, pClient.);
+			ps.setString(1, pClient.getIdentifiant_client());
+			ps.setString(2, pClient.getMot_de_passe_client());
+			ps.setString(3, pClient.getNom_client());
+			ps.setString(4, pClient.getPrenom_client());
+			ps.setString(5, pClient.getAdresse_client());
+			ps.setString(6, pClient.getEmail_client());
+			ps.setString(7, pClient.getTel_client());
+			ps.setBoolean(8, pClient.isActivated_client());
 			
 			int verif = ps.executeUpdate();
 				
@@ -69,15 +69,15 @@ public class ClientDAOImpl implements IClientDAO {
 													+ "nom_client=?, prenom_client=?, adresse_client=?, email_client=?, "
 													+ "tel_client=?, activated_client=? where id_client=?");
 			
-			ps.setString(1, pClient.);
-			ps.setString(2, pClient.);
-			ps.setString(3, pClient.);
-			ps.setString(4, pClient.);
-			ps.setString(5, pClient.);
-			ps.setString(6, pClient.);
-			ps.setString(7, pClient.);
-			ps.setBoolean(8, pClient.);
-			ps.setInt(9, pClient.);
+			ps.setString(1, pClient.getIdentifiant_client());
+			ps.setString(2, pClient.getMot_de_passe_client());
+			ps.setString(3, pClient.getNom_client());
+			ps.setString(4, pClient.getPrenom_client());
+			ps.setString(5, pClient.getAdresse_client());
+			ps.setString(6, pClient.getEmail_client());
+			ps.setString(7, pClient.getTel_client());
+			ps.setBoolean(8, pClient.isActivated_client());
+			ps.setInt(9, pClient.getId_client());
 			
 			int verif = ps.executeUpdate();
 				
