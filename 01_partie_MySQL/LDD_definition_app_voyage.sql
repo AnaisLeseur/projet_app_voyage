@@ -56,14 +56,12 @@ create table categories ( id_categorie int(20) primary key,
                                         prix_produit decimal(7,3),
                                         quantite_produit int(5),
                                         selectionne_produit boolean not null default 0,
-										image_produit mediumblob
+										image_produit varchar (1000)
 									);
                                         
 			Drop table produits;
             
-            
-            ALTER TABLE produits
-			ALTER COLUMN selectionne_produit not null DEFAULT 0;
+           
             
             
 create table produits_categories (	categorie_id int(20),
