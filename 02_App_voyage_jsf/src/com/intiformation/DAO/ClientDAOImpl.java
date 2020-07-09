@@ -230,12 +230,12 @@ try {
 	 * vérif si le client existe dans bdd avec identifiant et mdp
 	 */
 	@Override
-	public boolean isClientExists(String pMail, String pMdp) {
+	public boolean isClientExists(String pIdentifiant, String pMdp) {
 		try {
 			
 			ps = this.connexion.prepareStatement("select count(*) from clients WHERE identifiant_client= ? AND mot_de_passe_client=?");
 			
-			ps.setString(1, pMail);
+			ps.setString(1, pIdentifiant);
 			ps.setString(2, pMdp);
 			
 			rs = ps.executeQuery();

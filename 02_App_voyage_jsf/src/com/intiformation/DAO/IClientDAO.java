@@ -6,6 +6,6 @@ public interface IClientDAO extends IGenerique<Client> {
 	
 	// meth spé à client
 	
-	public boolean isClientExists(String pMail, String pMdp);
+	public boolean isClientExists(String pIdentifiant, String pMdp);
 
 }// end interface
