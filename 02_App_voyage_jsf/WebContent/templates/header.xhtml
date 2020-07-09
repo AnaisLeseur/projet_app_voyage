@@ -7,31 +7,35 @@
 
 
 <h:head>
-	
+
 
 </h:head>
 <body>
 	<ui:composition>
 
-		<b:navBar brand="Brand" brandHref="#" inverse="true" fixed="top" position="absolute">
+		<b:navBar brand="Brand" brandHref="#" inverse="true" fixed="top"
+			position="absolute">
 			<b:navbarLinks>
 				<b:navLink value="Accueil" href="#"></b:navLink>
 				<b:navLink value="Rechercher un voyage" href="#"></b:navLink>
 				<b:navLink value="Contact" href="#"></b:navLink>
 				<b:navLink value="Connectez-vous" href="#"></b:navLink>
-				
+
 			</b:navbarLinks>
 			<h:form styleClass="navbar-form navbar-right">
-				
+
 				<div class="form-group">
 					<b:inputText placeholder="rechercher..." fieldSize="sm" />
 				</div> 
                 #{' '}
                 <b:commandButton action="a" value="Recherche"
 					look="success" icon="chevron-right" iconAlign="right" />
-					
-				<b:navLink value="Panier" href=""></b:navLink>	
+
 			</h:form>
+			<b:navbarLinks>
+				<b:navLink value="Panier" href="" ></b:navLink>
+			</b:navbarLinks>
+
 		</b:navBar>
 
 	</ui:composition>
