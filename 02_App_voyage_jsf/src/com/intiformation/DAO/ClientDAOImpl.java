@@ -226,4 +226,40 @@ try {
 	}// end geById
 
 
+	/**
+	 * vérif si le client existe dans bdd avec identifiant et mdp
+	 */
+	@Override
+	public boolean isClientExists(String pIdentifiant, String pMdp) {
+		try {
+			
+			ps = this.connexion.prepareStatement("select count(*) from clients WHERE identifiant_client= ? AND mot_de_passe_client=?");
+			
+			ps.setString(1, pIdentifiant);
+			ps.setString(2, pMdp);
+			
+			rs = ps.executeQuery();
+			
+			rs.next();
+			
+			int verif = rs.getInt(1);
+			
+			return (verif == 1);
+			
+			
+		} catch (SQLException e) {
+			System.out.println("ClientDAOImpl : erreur isClientExists()");
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				ps.close();
+			}catch (Exception e) {
+			}// end catch
+		}// end finally
+		
+		return false;
+	}
+
+
 }// end clientDAOImpl
