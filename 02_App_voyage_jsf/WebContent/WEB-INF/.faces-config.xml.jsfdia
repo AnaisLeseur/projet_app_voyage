@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#accueil-client.xhtml"
+  PATH="/accueil-client.xhtml" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#accueil-client.xhtml:0" NAME="item"
+   PATH="/accueil-client.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="recherche::#recherche-produit-motcle.xhtml"
+    NAME="output" PATH="/recherche-produit-motcle.xhtml"
+    TARGET="rules:#recherche-produit-motcle.xhtml" TITLE="recherche" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#recherche-produit-motcle.xhtml"
+  PATH="/recherche-produit-motcle.xhtml" SHAPE="272,321,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>
