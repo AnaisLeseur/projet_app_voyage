@@ -70,26 +70,30 @@ create table produits_categories (	categorie_id int(20),
 													);         
          
          	Drop table produits_categories;
+		
+
+   
+   
+   create table paniers ( 	id_panier int(20) primary key auto_increment
+										);
+
+
+			Drop table paniers;    
+            
             
                                                         
 create table lignes_commandes (	commande_id int(20),
 														produit_id int(20),
 														quantite_ligne int(5),
 														prix_ligne decimal(7,3),
+                                                        panier_id int(20),
                                                 primary key( commande_id, produit_id),
                                                 foreign key (commande_id) references commandes (id_commande),
-                                                foreign key (produit_id) references produits (id_produit)
+                                                foreign key (produit_id) references produits (id_produit),
+												foreign key (panier_id) references paniers (id_panier)
 													);         
                                                         
-             	Drop table lignes_commandes;                           
+             	Drop table lignes_commandes;          
+                
+                
    
-   
-   create table paniers ( 	id_panier int(20) primary key auto_increment,
-										produit_id int(20),
-										commande_id int(20),
-										foreign key (produit_id) references lignes_commandes (produit_id),
-                                        foreign key (commande_id) references lignes_commandes (commande_id)
-										);
-
-
-			Drop table paniers;       

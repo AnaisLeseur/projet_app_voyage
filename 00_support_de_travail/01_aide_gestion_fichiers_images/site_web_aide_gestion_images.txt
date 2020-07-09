@@ -1,0 +1,7 @@
+Site internet:
+——————————————
+
+
+> pour gérer les images :
+	- https://www.mysqltutorial.org/mysql-jdbc-blob/
+	- https://ricky81.developpez.com/tutoriel/java/jdbc/blob/
