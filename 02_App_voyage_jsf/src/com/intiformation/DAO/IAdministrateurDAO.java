@@ -1,5 +1,10 @@
 package com.intiformation.DAO;
 
-public interface IAdministrateurDAO {
+import com.intiformation.modeles.Administrateur;
 
-}
+public interface IAdministrateurDAO extends IGenerique<Administrateur> {
+	
+	// meth spé à administrateur
+	public boolean isAdministrateurExists(String pIdentifiant, String pMdp);
+
+}// end interface
