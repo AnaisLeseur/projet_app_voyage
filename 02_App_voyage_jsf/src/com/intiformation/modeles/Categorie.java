@@ -2,7 +2,7 @@ package com.intiformation.modeles;
 
 
 /**
- * Implémentation concrète de la DAO pour une catégorie
+ * modele de données pour une catégorie
  * mappé sur la table 'categories' de la bdd 
  * 
  * @author vincent
