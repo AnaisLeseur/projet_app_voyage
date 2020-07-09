@@ -33,7 +33,7 @@ create table clients ( id_client int(10) primary key not null auto_increment,
 create table commandes ( id_commande int(20) primary key auto_increment,
 											date_commande date,
                                             client_id int(10),
-                                            constraint fk_commande_client_id foreign key (client_id) references clients (id_client)
+                                            constraint fk_commande_client_id foreign key (client_id) references clients (id_client) on delete cascade
 										);
                                         
 	Drop table commandes;
@@ -55,45 +55,43 @@ create table categories ( id_categorie int(20) primary key,
                                         description_produit varchar(500),
                                         prix_produit decimal(7,3),
                                         quantite_produit int(5),
-                                        selectionne_produit boolean,
-										image_produit mediumblob
+                                        selectionne_produit boolean not null default 0,
+										image_produit varchar (1000)
 									);
                                         
 			Drop table produits;
+            
+           
             
             
 create table produits_categories (	categorie_id int(20),
 														produit_id int(20),
                                                 primary key( categorie_id, produit_id),
-                                                foreign key (categorie_id) references categories (id_categorie),
-                                                foreign key (produit_id) references produits (id_produit)
+                                                foreign key (categorie_id) references categories (id_categorie) on delete cascade,
+                                                foreign key (produit_id) references produits (id_produit) on delete cascade
 													);         
          
          	Drop table produits_categories;
-		
-
-   
-   
-   create table paniers ( 	id_panier int(20) primary key auto_increment
-										);
-
-
-			Drop table paniers;    
-            
             
                                                         
 create table lignes_commandes (	commande_id int(20),
 														produit_id int(20),
 														quantite_ligne int(5),
 														prix_ligne decimal(7,3),
-                                                        panier_id int(20),
                                                 primary key( commande_id, produit_id),
-                                                foreign key (commande_id) references commandes (id_commande),
-                                                foreign key (produit_id) references produits (id_produit),
-												foreign key (panier_id) references paniers (id_panier)
+                                                foreign key (commande_id) references commandes (id_commande) on delete cascade,
+                                                foreign key (produit_id) references produits (id_produit) on delete cascade
 													);         
                                                         
-             	Drop table lignes_commandes;          
-                
-                
+             	Drop table lignes_commandes;                           
    
+   
+   create table paniers ( 	id_panier int(20) primary key auto_increment,
+										produit_id int(20),
+										commande_id int(20),
+										foreign key (produit_id) references lignes_commandes (produit_id) on delete cascade,
+                                        foreign key (commande_id) references lignes_commandes (commande_id) on delete cascade
+										);
+
+
+			Drop table paniers;       

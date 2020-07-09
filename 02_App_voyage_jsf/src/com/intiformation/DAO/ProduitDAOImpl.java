@@ -223,10 +223,11 @@ public class ProduitDAOImpl implements IProduitDAO {
 		pMotClé = pMotClé.replace("%", "!%");
 		
 		try {
-			ps = this.connexion.prepareStatement("select * from produits where nom_produit or description_produit like ? ");
+			ps = this.connexion.prepareStatement("select * from produits where nom_produit like ? or description_produit like ? ");
 			
 			ps.setString(1,"%" + pMotClé + "%" );
-		
+			ps.setString(2,"%" + pMotClé + "%" );
+			
 			rs = ps.executeQuery();
 			
 			List<Produit> listeProduitsDB = new ArrayList<>();
@@ -267,18 +268,11 @@ public class ProduitDAOImpl implements IProduitDAO {
 	@Override
 	public List<Produit> getByCategorie(Integer idCategorie) {
 
-		String requeteVue ="create view produit_categ as\n" + 
-				"	select * \n" + 
-				"	from produits p \n" + 
-				"	left join produits_categories pc\n" + 
-				"	on p.id_produit = pc.produit_id";
-		String requeteSelect =" select * \n" + 
-				"    from produit_categ \n" + 
-				"    where categorie_id = 2"; 
 		
-		try {
-			
-			ps.executeQuery(requeteVue); 
+		String requeteSelect =" select * from produit_categ where categorie_id = ?"; 
+		
+		try {	
+			ps.setInt(1, idCategorie);
 			
 			rs = ps.executeQuery(requeteSelect); 
 			

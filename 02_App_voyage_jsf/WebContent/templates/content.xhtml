@@ -5,6 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
 	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
 	>
 
 <h:head>
@@ -16,45 +17,7 @@
 <body>
 	<ui:composition>
 
-		<style type="text/css">
-.value {
-	font-weight: bold;
-}
-</style>
 
-
-		<h:form id="form">
-			<p:dataGrid var="car" value="#{dataGridView.cars}" columns="3"
-				layout="grid" rows="12" paginator="true" id="cars"
-				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="6,12,16" class="table-primary">
-
-				<f:facet name="header">
-            Destinations
-        </f:facet>
-
-				<p:panel header="#{car.id}" style="text-align:center"
-					class="table-primary">
-					<h:panelGrid columns="1" style="width:100%">
-						<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
-
-						<h:outputText value="#{car.year}" />
-
-						<p:commandLink update=":form:carDetail"
-							oncomplete="PF('carDialog').show()" title="View Detail">
-							<h:outputText styleClass="pi pi-search" style="margin:0 auto;" />
-							<f:setPropertyActionListener value="#{car}"
-								target="#{dataGridView.selectedCar}" />
-						</p:commandLink>
-					</h:panelGrid>
-				</p:panel>
-
-			</p:dataGrid>
-
-			
-		</h:form>
-
-	</ui:composition>
 
 </body>
 </html>
