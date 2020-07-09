@@ -1,5 +1,6 @@
 package com.intiformation.modeles;
 
+
 /**
  * Modèle pour une produit Mappé sur la table 'produits' dans la base de données
  * db_gestion_voyage
