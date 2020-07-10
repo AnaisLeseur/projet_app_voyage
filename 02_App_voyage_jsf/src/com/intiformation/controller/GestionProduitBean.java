@@ -14,6 +14,7 @@ import net.bootsfaces.utils.FacesMessages;
 
 import java.util.*;
 import javax.faces.event.*;
+import javax.servlet.http.HttpSession;
 import javax.faces.component.*;
 import javax.faces.context.FacesContext;
 
@@ -25,7 +26,11 @@ public class GestionProduitBean implements Serializable {
 
 	private List<Produit> listeProduits;
 	private Produit produit;
-	private String motCle; 
+	private String motCle;
+	private boolean selectionProduit;
+	private List<Produit> listePanier;
+	private ActionEvent event;
+	HttpSession session;
 
 	IProduitDAO produitDAO;
 
@@ -51,42 +56,110 @@ public class GestionProduitBean implements Serializable {
 
 		return listeProduits;
 
+		/*
+		 * =============================================================================
+		 * ===
+		 */
+
 	}// end findAllProduitsBDD
 
 	public List<Produit> findProduitByMotCle(String motCle) {
 
-		
 		System.out.println("Mot clé :" + motCle);
-		
-		
+
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
-		
+
 		listeProduits = produitDAO.getByKeyword(motCle);
 
-		/*if (motCle != null) {
-
-			listeProduits = produitDAO.getByKeyword(motCle);
-
-			if (listeProduits.isEmpty()) {
-
-				contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Pas de voyage",
-						": Aucun voyage correspondant à votre recherche..."));
-			} else {
-			
-			*/
-				return listeProduits;
-			/*}
-
-		} else {
-
-			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Pas de voyage",
-					": vous avez pas rentré de requête"));
-
-		} // end else
-		*/
-		
+		/*
+		 * if (motCle != null) {
+		 * 
+		 * listeProduits = produitDAO.getByKeyword(motCle);
+		 * 
+		 * if (listeProduits.isEmpty()) {
+		 * 
+		 * contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+		 * "Pas de voyage", ": Aucun voyage correspondant à votre recherche...")); }
+		 * else {
+		 * 
+		 */
+		return listeProduits;
+		/*
+		 * }
+		 * 
+		 * } else {
+		 * 
+		 * contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+		 * "Pas de voyage", ": vous avez pas rentré de requête"));
+		 * 
+		 * } // end else
+		 */
 
 	}// end findProduitByMotClé
+
+	/*
+	 * =============================================================================
+	 * ===
+	 */
+
+	public void selectionnerProduit(ActionEvent event) {
+
+		UIParameter uip = (UIParameter) event.getComponent().findComponent("selectID");
+		UIParameter uip2 = (UIParameter) event.getComponent().findComponent("selectIsDispo");
+
+		int idProduit = (int) uip.getValue();
+		boolean isDispo = (boolean) uip2.getValue();
+		
+		//selection du produit
+		Produit produitASelectionner = produitDAO.getById(idProduit);
+
+		
+		//update du selection en true
+		isDispo = true;
+
+		//
+		produitASelectionner.setSelectionProduit(isDispo);
+
+		//
+		produitDAO.update(produitASelectionner);
+
+		listePanier = produitDAO.getProduitSelectionnes(isDispo);
+		
+		FacesContext contextJSF = FacesContext.getCurrentInstance();
+		if (session == null) {
+			
+			
+			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(true);
+			
+			session.setAttribute("listePanier", listePanier);
+		}else {
+			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
+			
+			session.setAttribute("listePanier", listePanier);
+			
+		}
+
+		
+
+	}// end selectionnerProduit
+	
+	/*
+	 * ================================================================================
+	 */
+
+	public List<Produit> ListeProduitsSelectionnes() {
+
+		
+		listePanier.forEach(e->System.out.println(e.getNomProduit()));
+		
+		return listePanier;
+		
+		
+	}//end ListeProduitsSelectionnes()
+
+	/*
+	 * ================================================================================
+	 */
 
 	/**
 	 * Méthode pour supprimer un produit dans la db Invoquée au clic sur lien
@@ -146,6 +219,13 @@ public class GestionProduitBean implements Serializable {
 	public void setMotCle(String motCle) {
 		this.motCle = motCle;
 	}
-	
+
+	public boolean isSelectionProduit() {
+		return selectionProduit;
+	}
+
+	public void setSelectionProduit(boolean selectionProduit) {
+		this.selectionProduit = selectionProduit;
+	}
 
 }// end classe

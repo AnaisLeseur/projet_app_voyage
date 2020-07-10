@@ -14,7 +14,7 @@
 
 	<b:row>
 		<b:column col-md="8">
-			<h:dataTable styleClass="table" value="#{itemBean.items}" var="item"
+			<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeProduitsSelectionnes()}" var="produit"
 				rows="8" >
 				<h:column>
 					<f:facet name="header">
@@ -26,7 +26,7 @@
 					<f:facet name="header">
 						<h:outputText value="Destination" />
 					</f:facet>
-					<h:outputText value="#{item.name}" />
+					<h:outputText value="#{produit.nomProduit}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
@@ -38,7 +38,7 @@
 					<f:facet name="header">
 						<h:outputText value="Prix" />
 					</f:facet>
-					<h:outputText value="#{item.price}" />
+					<h:outputText value="#{produit.prixProduit}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">

@@ -63,6 +63,26 @@
 					<h:outputText value="#{produit.selectionProduit}" />
 				</h:column>
 				
+				
+				<h:column>
+				<h:form>
+					<f:facet name="header">
+						<h:outputText value="Ajouter au panier" />
+					</f:facet>
+					
+					<h:commandLink id="edit" action="ajoutPanier"
+					actionListener="#{GestionProduitBean.selectionnerProduit}">
+
+					<f:param id="selectID" name="id" value="#{produit.idProduit}" />
+					<f:param id="selectIsDispo" name="selection" value="#{produit.selectionProduit}" />
+
+					<h:outputText value="Choisir ce voyage!" />
+
+
+				</h:commandLink>
+				</h:form>
+				</h:column>
+				
 			</h:dataTable>
 
 

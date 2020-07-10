@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-[[{"location":"/Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home","type":"JRE","hints":{}},"jre:jre:1.8.0"]]
-=======
-{}
->>>>>>> 7346ff29480d67b28c6bccc837c3d5ec88f1f5f4
+[[{"location":"/Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home","type":"JRE","hints":{}},"jre:jre:1.8.0"],[{"location":"/Library/Serveur/apache-tomcat-8.5.41/lib/servlet-api.jar","type":"JAR","hints":{}},"ABSENT"]]

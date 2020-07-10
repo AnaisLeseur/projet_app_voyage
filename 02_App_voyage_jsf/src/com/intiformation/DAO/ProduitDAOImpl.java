@@ -74,6 +74,7 @@ public class ProduitDAOImpl implements IProduitDAO {
 			ps.setInt(4, pProduit.getQuantitéProduit());
 			ps.setBoolean(5, pProduit.isSelectionProduit());
 			ps.setString(6, pProduit.getUrlImageProduit());
+			ps.setInt(7, pProduit.getIdProduit());
 			
 			int verifUpdate = ps.executeUpdate();
 			
