@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"	
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+	
+<h:head>
+
+	<title>edit-voyage.xhtml</title>
+	<h:outputStylesheet library="styles" name="style.css" />
+</h:head>
+
+
+<h:body>
+
+<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+
+	<h:form enctype="multipart/form-data">
+
+		<h:inputHidden value="#{GestionProduitBean.produit.idProduit}" />
+
+		<h:panelGrid columns="2" border="1">
+
+			<h:outputLabel value="Nom du voyage : " />
+			<h:inputText value="#{GestionProduitBean.produit.nomProduit}" />
+
+			<h:outputLabel value="Description du voyage : " />
+			<h:inputText value="#{GestionProduitBean.produit.descriptionProduit}" />
+			
+			<h:outputLabel value="Prix du voyage : " />
+			<h:inputText value="#{GestionProduitBean.produit.prixProduit}" />
+			
+			<h:outputLabel value="Quantité : " />
+			<h:inputText value="#{GestionProduitBean.produit.quantitéProduit}" />
+			
+			<h:outputLabel value="Selection : " />
+			<h:inputText value="#{GestionProduitBean.produit.selectionProduit}" />
+			
+			<h:outputLabel value="Selection : " />
+			<h:inputText value="#{GestionProduitBean.produit.urlImageProduit}" />
+
+			<h:outputLabel value="Image du voyage : " />
+			<h:panelGroup>
+				<h:graphicImage
+					value="images/#{GestionProduitBean.produit.urlImageProduit}" width="50"
+					height="90" rendered="#{GestionProduitBean.produit.idProduit gt 0}" />
+				<h:inputFile id="file" value="#{GestionProduitBean.uploadedFile}" />
+			</h:panelGroup>
+
+			<f:facet name="footer">
+				<h:commandButton value="Enregistrer le nouveau voyage" action="accueilAdmin"
+					actionListener="#{GestionProduitBean.saveVoyage}" />
+			</f:facet>
+
+		</h:panelGrid>
+
+	</h:form>
+
+</h:body>
+</html>
+

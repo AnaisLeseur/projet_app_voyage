@@ -19,15 +19,31 @@
 
 
 	<b:panel>
+	</b:panel>
+	
+	
+	<div>
+	<h:form>
 		<f:facet name="heading">
 			<i class="fa fa-battery-three-quarters" style="padding-right: 20px" />
-			<h:outputText value="Ajouter un produit" />
+		</f:facet>	
+			<h:outputText value="Ajouter un produit" action="editVoyage" actionListener="#{GestionProduitBean.initVoyage}"/>
 			<b:badge style="margin-left:10px; background-color:#5cb85c"
-				value="good" />
-		</f:facet>
+				value="New" />
+				
+	
+					<h:commandLink id="edit" action="editVoyage"
+					actionListener="#{GestionProduitBean.initVoyage}">
+	
+						<h:outputText value="Ajouter un produit" />
 
 
-
+					</h:commandLink>
+				
+		
+	</h:form>
+	</div>
+<!--
 		<b:panelGrid columns="2">
 			<b:inputText value="#{inputTextBean.text}"
 				label="nom de la destination" render-label="true" />
@@ -51,9 +67,11 @@
 
 
 		</b:panelGrid>
+		
+-->		
 
 
-	</b:panel>
+	
 
 
 	<h2>Liste des produits :</h2>

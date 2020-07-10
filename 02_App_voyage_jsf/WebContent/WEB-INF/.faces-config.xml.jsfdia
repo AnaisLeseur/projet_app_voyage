@@ -13,19 +13,18 @@
     NAME="output1" PATH="/recherche-produit-motcle.xhtml"
     TARGET="rules:#recherche-produit-motcle.xhtml" TITLE="recherche" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="ajoutPanier::#accueil-client.xhtml"
-    NAME="output1" PATH="/accueil-client.xhtml"
+    NAME="output2" PATH="/accueil-client.xhtml"
     TARGET="rules:#accueil-client.xhtml" TITLE="ajoutPanier" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="GoToPanier::#panier.xhtml" NAME="output2"
+   <PROCESS-ITEM-OUTPUT ID="GoToPanier::#panier.xhtml" NAME="output3"
     PATH="/panier.xhtml" TARGET="rules:#panier.xhtml" TITLE="GoToPanier" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#authentification-admin.xhtml"
   PATH="/authentification-admin.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#recherche-produit-motcle.xhtml"
-<<<<<<< HEAD
-  PATH="/recherche-produit-motcle.xhtml" SHAPE="272,321,0,0" model-entity="JSFProcessGroup"/>
+  PATH="/recherche-produit-motcle.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#panier.xhtml" PATH="/panier.xhtml"
-  SHAPE="48,273,0,0" model-entity="JSFProcessGroup">
+  SHAPE="48,225,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#panier.xhtml:0" NAME="item"
    PATH="/panier.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="retourAccueil::#accueil-client.xhtml"
@@ -33,7 +32,22 @@
     TARGET="rules:#accueil-client.xhtml" TITLE="retourAccueil" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
-=======
-  PATH="/recherche-produit-motcle.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
->>>>>>> e8ab8c873e0507580077ebaa79389347e149ca35
+ <PROCESS-ITEM NAME="rules:#accueil-admin.xhtml"
+  PATH="/accueil-admin.xhtml" SHAPE="64,449,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#accueil-admin.xhtml:0" NAME="item"
+   PATH="/accueil-admin.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="editVoyage::#edit-voyage.xhtml"
+    NAME="output" PATH="/edit-voyage.xhtml"
+    TARGET="rules:#edit-voyage.xhtml" TITLE="editVoyage" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#edit-voyage.xhtml" PATH="/edit-voyage.xhtml"
+  SHAPE="320,577,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#edit-voyage.xhtml:0" NAME="item"
+   PATH="/edit-voyage.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="accueilAdmin::#accueil-admin.xhtml"
+    NAME="output" PATH="/accueil-admin.xhtml"
+    TARGET="rules:#accueil-admin.xhtml" TITLE="accueilAdmin" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>

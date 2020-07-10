@@ -1,5 +1,10 @@
 package com.intiformation.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
@@ -13,8 +18,12 @@ import com.intiformation.modeles.Produit;
 import net.bootsfaces.utils.FacesMessages;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.faces.event.*;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import javax.faces.component.*;
 import javax.faces.context.FacesContext;
 
@@ -31,6 +40,10 @@ public class GestionProduitBean implements Serializable {
 	private List<Produit> listePanier;
 	private ActionEvent event;
 	HttpSession session;
+	
+	
+	// file upload de l'API servlet
+    private Part uploadedFile;
 
 	IProduitDAO produitDAO;
 
@@ -194,6 +207,99 @@ public class GestionProduitBean implements Serializable {
 
 		} // end else
 	}// end supprimerProduit
+	
+	
+	
+	
+	/**
+     * permet d'initialiser un produit 
+     * methode appelée lors de l'ajout du produit
+     *
+     * @param event
+     */
+    public void initVoyage(ActionEvent event) {
+        setProduit(new Produit());
+    }// end initVoyage
+    
+    
+
+	
+	
+    
+    public void saveVoyage(ActionEvent event) {
+
+        //-------------------------------------------
+        // cas : ajout 
+        //-------------------------------------------
+        if (produit.getIdProduit() == 0) {
+
+            try {
+                // traitement du fileUpload : recup du nom de l'image
+                String fileName = uploadedFile.getSubmittedFileName();
+                
+                // affectation du nom a la prop urlImage du voyage
+                produit.setUrlImageProduit(fileName);
+                
+                // ajout du voyage dans la bdd
+                produitDAO.add(produit);
+
+                //----------------------------------------------
+                // ajout de la photo dans le dossier images
+                //-----------------------------------------------
+                
+                /*++++++++++++++++++++++++++++++++ version 1 ++++++++++++++++++*/
+                
+                // recup du contenu de l'image
+                InputStream imageContent = uploadedFile.getInputStream();
+
+                // recup de la valeur du param d'initialisation context-param de web.xml
+                FacesContext fContext = FacesContext.getCurrentInstance();
+                String pathTmp = fContext.getExternalContext().getInitParameter("file-upload");
+                
+                String filePath = fContext.getExternalContext().getRealPath(pathTmp);
+
+                // creation du fichier image (conteneur de l'image) 
+                File targetFile = new File(filePath, fileName);
+
+                // instanciation du flux de sortie vers le fichier image
+                OutputStream outStream = new FileOutputStream(targetFile);
+                byte[] buf = new byte[1024];
+                int len;
+
+                while ((len = imageContent.read(buf)) > 0) {
+                    outStream.write(buf, 0, len);
+                }
+                
+                outStream.close();
+
+            } catch (IOException ex) {
+                Logger.getLogger(GestionProduitBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        //-------------------------------------------
+        // cas : modif 
+        //-------------------------------------------
+        if (produit.getIdProduit() != 0) {
+
+            if (uploadedFile != null) {
+
+                String fileNameToUpdate = uploadedFile.getSubmittedFileName();
+
+                if (!"".equals(fileNameToUpdate) && fileNameToUpdate != null) {
+
+                    // affectation du nouveau nom à la prop urlImage du voyage 
+                    produit.setUrlImageProduit(fileNameToUpdate);
+                }// end if equals
+            }// end if uploadedFile != null
+
+            produitDAO.update(produit);
+        }// end if modif 
+
+    }//end saveBook()
+	
+	
+	
 
 	// _____ Getter /setter ______//
 	public List<Produit> getListeProduits() {
@@ -226,6 +332,14 @@ public class GestionProduitBean implements Serializable {
 
 	public void setSelectionProduit(boolean selectionProduit) {
 		this.selectionProduit = selectionProduit;
+	}
+
+	public Part getUploadedFile() {
+		return uploadedFile;
+	}
+
+	public void setUploadedFile(Part uploadedFile) {
+		this.uploadedFile = uploadedFile;
 	}
 
 }// end classe

@@ -22,6 +22,13 @@
 				rows="8">
 				<h:column>
 					<f:facet name="header">
+						<h:outputText value="Couverture" />
+					</f:facet>
+					<h:graphicImage library="images" name="#{produit.urlImageProduit}"
+					width="80" height="120" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
 						<h:outputText value="Id" />
 					</f:facet>
 					<h:outputText value="#{produit.idProduit}" />
@@ -73,13 +80,13 @@
 					<h:commandLink id="edit" action="ajoutPanier"
 					actionListener="#{GestionProduitBean.selectionnerProduit}">
 
-					<f:param id="selectID" name="id" value="#{produit.idProduit}" />
-					<f:param id="selectIsDispo" name="selection" value="#{produit.selectionProduit}" />
+						<f:param id="selectID" name="id" value="#{produit.idProduit}" />
+						<f:param id="selectIsDispo" name="selection" value="#{produit.selectionProduit}" />
+	
+						<h:outputText value="Choisir ce voyage!" />
 
-					<h:outputText value="Choisir ce voyage!" />
 
-
-				</h:commandLink>
+					</h:commandLink>
 				</h:form>
 				</h:column>
 				
