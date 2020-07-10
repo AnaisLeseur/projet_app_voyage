@@ -9,11 +9,14 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import com.intiformation.DAO.AdministrateurDAOImpl;
+import com.intiformation.DAO.ClientDAOImpl;
 import com.intiformation.DAO.IAdministrateurDAO;
+import com.intiformation.DAO.IClientDAO;
 import com.intiformation.modeles.Administrateur;
+import com.intiformation.modeles.Client;
 
 /**
- * MB pour la gestion de l'authentification de l'administrateur 
+ * MB pour la gestion de l'authentification de l'administrateur ou du client
  * 
  * @author vincent
  *
@@ -27,15 +30,25 @@ public class AuthentificationAdminBean implements Serializable {
 	private String adminIdentifiant;
 	private String adminMotDePasse;
 	
+	private String clientIdentifiant;
+	private String clientMotDePasse;
+	
 	private Administrateur administrateur;
+	
+	private Client client;
 	
 	// déclaration de la DAO
 	private IAdministrateurDAO administrateurDAO;
+	
+	private IClientDAO clientDAO;
 
 	
 	//  ----- Ctors ---- ctor vide pour l'instanciation du MB 
 	public AuthentificationAdminBean() {
 		administrateurDAO = new AdministrateurDAOImpl();
+		
+		clientDAO = new ClientDAOImpl();
+				
 	}// end ctor 
 	
 	
@@ -117,6 +130,50 @@ public class AuthentificationAdminBean implements Serializable {
 				
 		
 	}// end deconnecterAdministrateur()
+	
+	
+	
+	/**
+	 * meth qui permet de faire connecter le client à son espace
+	 * la meth sera invoquée à la soumission du formulaire d'authentification client
+	 * 
+	 * @return la page d'accueil-client
+	 */
+	public String connecterClient() {
+		
+		// 1. déclaration du context de JSF (l'objet FacesContext)
+		FacesContext contextJSF = FacesContext.getCurrentInstance();
+		
+		// 2.vérif si le client existe dans la bdd 
+		if (clientDAO.isClientExists(clientIdentifiant, clientMotDePasse)) {
+			
+			// si vrai => client existe dans bdd
+			// -> création de la session
+			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
+			
+			// -> sauvegarde du login de l'utilisateur dans la session
+			session.setAttribute("user_login", clientIdentifiant);
+			
+			// -> navigation vers la page "accueil-admin.xhtml"
+			return "accueil-client.xhtml?faces-redirect=true";
+			
+			
+		}else {
+			// l'admin n'existe pas la bdd
+			
+			// definition du msg à envoyer via un objet de type 'FacesMassage'
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Echec de connexion :", " Identifiant ou MdP invalide ");
+			
+			// envoi du msg vers la vue via le context de JSF (l'objet 'FacesContext') et sa methode addMessage
+			contextJSF.addMessage(null, message);
+			
+			// -> navigation vers la page du formulaire "authentification.xhtml"
+						return "authentication.xhtml?faces-redirect=true";
+			
+			
+		}// end else
+	}// end connecterClient
+	
 
 
 
@@ -154,6 +211,42 @@ public class AuthentificationAdminBean implements Serializable {
 
 	public void setAdministrateur(Administrateur administrateur) {
 		this.administrateur = administrateur;
+	}
+
+
+
+	public String getClientIdentifiant() {
+		return clientIdentifiant;
+	}
+
+
+
+	public void setClientIdentifiant(String clientIdentifiant) {
+		this.clientIdentifiant = clientIdentifiant;
+	}
+
+
+
+	public String getClientMotDePasse() {
+		return clientMotDePasse;
+	}
+
+
+
+	public void setClientMotDePasse(String clientMotDePasse) {
+		this.clientMotDePasse = clientMotDePasse;
+	}
+
+
+
+	public Client getClient() {
+		return client;
+	}
+
+
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 
