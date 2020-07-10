@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PROCESS model-entity="JSFProcess">
  <PROCESS-ITEM NAME="rules:#accueil-client.xhtml"
-  PATH="/accueil-client.xhtml" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  PATH="/accueil-client.xhtml" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#accueil-client.xhtml:0" NAME="item"
    PATH="/accueil-client.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="authentificationAdmin::#authentification-admin.xhtml"
+    NAME="output" PATH="/authentification-admin.xhtml"
+    TARGET="rules:#authentification-admin.xhtml"
+    TITLE="authentificationAdmin" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="recherche::#recherche-produit-motcle.xhtml"
-    NAME="output" PATH="/recherche-produit-motcle.xhtml"
+    NAME="output1" PATH="/recherche-produit-motcle.xhtml"
     TARGET="rules:#recherche-produit-motcle.xhtml" TITLE="recherche" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="ajoutPanier::#accueil-client.xhtml"
     NAME="output1" PATH="/accueil-client.xhtml"
@@ -14,7 +19,10 @@
     PATH="/panier.xhtml" TARGET="rules:#panier.xhtml" TITLE="GoToPanier" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#authentification-admin.xhtml"
+  PATH="/authentification-admin.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#recherche-produit-motcle.xhtml"
+<<<<<<< HEAD
   PATH="/recherche-produit-motcle.xhtml" SHAPE="272,321,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#panier.xhtml" PATH="/panier.xhtml"
   SHAPE="48,273,0,0" model-entity="JSFProcessGroup">
@@ -25,4 +33,7 @@
     TARGET="rules:#accueil-client.xhtml" TITLE="retourAccueil" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
+=======
+  PATH="/recherche-produit-motcle.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
+>>>>>>> e8ab8c873e0507580077ebaa79389347e149ca35
 </PROCESS>
