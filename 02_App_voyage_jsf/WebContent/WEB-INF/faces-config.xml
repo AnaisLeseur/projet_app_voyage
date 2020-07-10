@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config
-    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
-    version="2.2">
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+	<!-- 1. règles de navigation pour 'accueil-client.xhtml' -->
+	<!-- ==================================================== -->
+	<navigation-rule>
+
+		<!-- 1.1 page départ -->
+		<from-view-id>/accueil-client.xhtml</from-view-id>
+
+		<!-- 1.2 cas de navigation de accueil.xhtml vers accueil.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcome -->
+			<from-outcome>recherche</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/recherche-produit-motcle.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+
+
+	</navigation-rule>
 
 </faces-config>
