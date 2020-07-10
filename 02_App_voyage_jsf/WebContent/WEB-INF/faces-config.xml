@@ -23,6 +23,15 @@
     			<!--  redirection (pour ne pas avoir de pb avec url décalé) -->
     			<redirect/>
     		</navigation-case>
+    		
+    		<!-- 1.2 cas de navigation de accueil.xhtml vers accueil.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcome -->
+			<from-outcome>recherche</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/recherche-produit-motcle.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
   </navigation-rule>
-    
+ 
 </faces-config>
