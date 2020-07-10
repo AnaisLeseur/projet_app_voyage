@@ -11,3 +11,5 @@
 /.recommenders/
 
 /Servers
+
+/02_App_voyage_jsf/WebContent/WEB-INF/.faces-config.xml.jsfdia

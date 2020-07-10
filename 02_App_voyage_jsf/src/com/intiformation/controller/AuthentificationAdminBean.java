@@ -105,12 +105,12 @@ public class AuthentificationAdminBean implements Serializable {
 	
 	
 	/**
-	 * meth qui permet de faire deconnecter l'administrateur de son espace et de détruire la session http
-	 * la meth sera invoquée au click sur se deconnecter
+	 * meth qui permet de faire deconnecter l'administrateur ou le client de son espace et de détruire la session http
+	 * la meth sera invoquée au click sur se deconnecter (dans le header de toutes les pages)
 	 * 
 	 * @return page d'accueil-client du site
 	 */
-	public String deconnecterAdministrateur() {
+	public String deconnecterUser() {
 		
 		// 1. récup du contexte de JSF 
 		FacesContext contextJSF = FacesContext.getCurrentInstance();

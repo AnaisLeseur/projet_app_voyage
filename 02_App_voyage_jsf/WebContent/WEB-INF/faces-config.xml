@@ -32,7 +32,7 @@
 			<to-view-id>/recherche-produit-motcle.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-<<<<<<< HEAD
+		
 		
 		<navigation-case>
 			<!-- 1.2.1 clé d'outcome -->
@@ -55,7 +55,7 @@
 		
 	<!-- 2. règles de navigation pour 'panier.xhtml' -->
 	<!-- ==================================================== -->
-		<navigation-rule>
+	<navigation-rule>
 
 		<!-- 1.1 page départ -->
 		<from-view-id>/panier.xhtml</from-view-id>
@@ -67,16 +67,12 @@
 			<!-- 1.2.2 destination -->
 			<to-view-id>/accueil-client.xhtml</to-view-id>
 			<redirect />
+			
+
 		</navigation-case>
 		
 
 	</navigation-rule>
 			
-		
-		
 
-=======
-  </navigation-rule>
- 
->>>>>>> e8ab8c873e0507580077ebaa79389347e149ca35
 </faces-config>
