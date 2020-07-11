@@ -19,30 +19,24 @@
 
 
 	<b:panel>
-	</b:panel>
 	
-	
-	<div>
 	<h:form>
 		<f:facet name="heading">
 			<i class="fa fa-battery-three-quarters" style="padding-right: 20px" />
 		</f:facet>	
-			<h:outputText value="Ajouter un produit" action="editVoyage" actionListener="#{GestionProduitBean.initVoyage}"/>
-			<b:badge style="margin-left:10px; background-color:#5cb85c"
-				value="New" />
-				
-	
+
 					<h:commandLink id="edit" action="editVoyage"
-					actionListener="#{GestionProduitBean.initVoyage}">
-	
+						actionListener="#{GestionProduitBean.initVoyage}">
 						<h:outputText value="Ajouter un produit" />
-
-
 					</h:commandLink>
-				
+					<b:badge style="margin-left:10px; background-color:#5cb85c"
+						value="New" />
 		
 	</h:form>
-	</div>
+	</b:panel>
+	
+	
+
 <!--
 		<b:panelGrid columns="2">
 			<b:inputText value="#{inputTextBean.text}"
@@ -73,69 +67,105 @@
 
 	
 
-
-	<h2>Liste des produits :</h2>
+<h2>Liste des produits :</h2>
 	<b:row>
 
-
-		<b:column col-md="8">
+		<b:column col-md="10">
 		
-			<h:dataTable styleClass="table" value="#{itemBean.items}" var="item"
+			<h:dataTable styleClass="table" value="#{GestionProduitBean.findAllProduitsBDD()}" var="produit"
 				rows="8">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Photo" />
+					</f:facet>
+					<h:graphicImage library="images" name="#{produit.urlImageProduit}"
+					width="180" height="140" />
+				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Id" />
 					</f:facet>
-					<h:outputText value="#{itemBean.items.rowIndex + 1}" />
+					<h:outputText value="#{produit.idProduit}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Nom / Destination" />
 					</f:facet>
-					<h:outputText value="#{item.name}" />
+					<h:outputText value="#{produit.nomProduit}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Visuel" />
 					</f:facet>
-					<h:outputText value="#{item.price}" />
+					<h:outputText value="#{produit.urlImageProduit}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Description" />
 					</f:facet>
-					<h:outputText value="#{item.code}" />
+					<h:outputText value="#{produit.descriptionProduit}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Prix" />
 					</f:facet>
-					<h:outputText value="#{item.price}" />
+					<h:outputText value="#{produit.prixProduit}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Quantité" />
 					</f:facet>
-					<h:outputText value="#{item.price}" />
+					<h:outputText value="#{produit.quantitéProduit}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Selectionné" />
 					</f:facet>
-					<h:outputText value="#{item.price}" />
+					<h:outputText value="#{produit.selectionProduit}" />
 				</h:column>
+				
+				
 				<h:column>
+				
 					<f:facet name="header">
-						<h:outputText value="Catégorie produit" />
+						<h:outputText value="Modification" />
 					</f:facet>
-					<h:outputText value="#{item.price}" />
+				<h:form>	
+					<h:commandLink id="edit" action="modifierVoyage">
+
+						<f:param id="editID" name="id" value="#{produit.idProduit}" />
+
+					<h:outputText value="Modifier le voyage" />
+
+					</h:commandLink>
+				</h:form>
 				</h:column>
+				
+				
+				<h:column>
+				
+					<f:facet name="header">
+						<h:outputText value="Suppression" />
+					</f:facet>
+				<h:form>	
+					<h:commandLink id="supp" action="supprimerVoyage">
+
+						<f:param id="suppID" name="id" value="#{produit.idProduit}" />
+
+					<h:outputText value="Supprimer le voyage" />
+
+					</h:commandLink>
+				</h:form>
+				</h:column>				
+				
+				
+				
 			</h:dataTable>
 
 
 		</b:column>
 	</b:row>
-
+	
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 
 

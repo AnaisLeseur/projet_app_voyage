@@ -3,9 +3,12 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui"> 
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"> 
 
 <h:head>
+
+	<h:outputStylesheet library="styles" name="bootstrap.css" />
 
 </h:head> 
 <body> 
@@ -14,7 +17,6 @@
 
 <h2>Liste des produits :</h2>
 	<b:row>
-
 
 		<b:column col-md="8">
 		
@@ -96,6 +98,103 @@
 		</b:column>
 	</b:row>
 	
+
+
+
+	
+<h3>Responsive (Basic)</h3>
+
+
+<p:panelGrid columns="3" layout="grid" styleClass="showcase-text-align-center" >
+
+		
+		
+		<p:panelGrid columns="2">
+		    <f:facet name="header">
+		        <p:graphicImage name="/images/image1.jpg" />
+		    </f:facet>
+		     
+		    <h:outputText value="Name:" />
+		    <h:outputText value="Kobe Bryant" />
+		     
+		    <h:outputText value="Team:" />
+		    <h:outputText value="Los Angeles Lakers" />
+		     
+		    <h:outputText value="Position:" />
+		    <h:outputText value="Shooting Guard" />
+		     
+		    <h:outputText value="Number:" />
+		    <h:outputText value="24" />
+		    
+		</p:panelGrid>
+		
+		
+	<p:panelGrid columns="2">
+	  <div class="card">
+	  <f:facet name="header">
+    <h:graphicImage library="images" name="image1.jpg"/>
+    </f:facet>
+    <div class="card-body">
+    <h:dataTable styleClass="table" value="#{GestionProduitBean.findAllProduitsBDD()}" var="produit">
+      <h5 class="card-title">
+      	<h:outputText value="#{produit.idProduit}" />
+      </h5>
+      <p class="card-text">This is a longer card with supporting text below 
+      as a natural lead-in to additional content. This content is a little bit longer.</p>
+   	 <br />
+		<p>
+		<h:outputText value="24" />
+		</p>
+		</h:dataTable>
+    </div>
+    </div>
+    	</p:panelGrid>
+	 
+	<p:panelGrid columns="3">
+	  <div class="card">
+	  <f:facet name="header">
+    <h:graphicImage library="images" name="image1.jpg"/>
+    </f:facet>
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+    </div>
+    	</p:panelGrid>
+    	
+    	
+    	<p:panelGrid columns="3">
+	  <div class="card">
+    	
+   		    <h:panelGrid id="panel" columns="2" border="1">
+				<f:facet name="header">
+			       <h:graphicImage library="images" name="image1.jpg" />
+			    </f:facet>
+
+ 					<h:outputText value="Name:" />
+					<h:outputText value="#{GestionProduitBean.produit.nomProduit}" />
+
+					<h:outputText value="#{produit.nomProduit}" />
+	
+					<h:outputText value="#{produit.urlImageProduit}" />
+
+					<h:outputText value="#{produit.descriptionProduit}" />
+	
+					<h:outputText value="#{produit.prixProduit}" />
+
+					<h:outputText value="#{produit.quantitéProduit}" />
+					<h:outputText value="#{produit.selectionProduit}" />
+
+			</h:panelGrid> 	
+    	
+    	   </div>
+    	</p:panelGrid>
+    	
+  
+</p:panelGrid>
+
+
 		
 	
 	
