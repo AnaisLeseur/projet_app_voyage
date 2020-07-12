@@ -123,6 +123,7 @@ public class AuthentificationAdminBean implements Serializable {
 		
 		// 4. message de deconnexion vers la vue 
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Deconnexion", " - vous êtes maintenant déconnecté");
+		System.out.println("FacesMessage message =" + message);
 		contextJSF.addMessage(null, message);
 		
 		// 5. redirection vers la page du formulaire

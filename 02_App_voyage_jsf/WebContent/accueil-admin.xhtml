@@ -15,7 +15,10 @@
 			icon="tag" iconAlign="right" />
 
 	</b:tabLinks>
-	<b:messages />
+	
+	
+	
+	
 
 
 	<b:panel>
@@ -34,6 +37,8 @@
 		
 	</h:form>
 	</b:panel>
+	
+	<h:messages globalOnly="true" layout="table" showDetail="true" styleClass="error" fatalClass="error" infoClass="message"/>
 	
 	
 
@@ -160,7 +165,10 @@
 				</h:form>
 				</h:column>				
 				
-				
+				<h:column>
+					<h:message for="supp" styleClass="error" />
+					<h:message for="modif" styleClass="error" />
+				</h:column>	
 				
 			</h:dataTable>
 

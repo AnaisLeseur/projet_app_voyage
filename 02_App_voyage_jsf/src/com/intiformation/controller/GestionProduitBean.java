@@ -42,6 +42,10 @@ public class GestionProduitBean implements Serializable {
 	HttpSession session;
 	
 	
+	FacesContext contextJSF = FacesContext.getCurrentInstance();
+
+	
+	
 	// file upload de l'API servlet
     private Part uploadedFile;
 
@@ -242,6 +246,8 @@ public class GestionProduitBean implements Serializable {
 	
     
     public void saveVoyage(ActionEvent event) {
+    	
+    	FacesContext contextJSF = FacesContext.getCurrentInstance();
 
         //-------------------------------------------
         // cas : ajout 
@@ -255,8 +261,16 @@ public class GestionProduitBean implements Serializable {
                 // affectation du nom a la prop urlImage du voyage
                 produit.setUrlImageProduit(fileName);
                 
-                // ajout du voyage dans la bdd
-                produitDAO.add(produit);
+                // ajout du voyage dans la bdd + message
+                if (produitDAO.add(produit)) {
+                	
+	        			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout du produit",
+	        					"- Le produit a été ajouté avec succès"));
+
+                } else {
+	        			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
+	        					" l'ajout du produit a échoué", " - le produit n'a pas été ajouté"));
+                	}// end else pour msg ajout
 
                 //----------------------------------------------
                 // ajout de la photo dans le dossier images
@@ -283,14 +297,14 @@ public class GestionProduitBean implements Serializable {
 
                 while ((len = imageContent.read(buf)) > 0) {
                     outStream.write(buf, 0, len);
-                }
+                }// end while
                 
                 outStream.close();
 
             } catch (IOException ex) {
                 Logger.getLogger(GestionProduitBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+            }// end catch 
+        }// end if ajout
 
         //-------------------------------------------
         // cas : modif 
@@ -308,7 +322,18 @@ public class GestionProduitBean implements Serializable {
                 }// end if equals
             }// end if uploadedFile != null
 
-            produitDAO.update(produit);
+            
+            if (produitDAO.update(produit)) {
+
+    			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification du produit",
+    					"- Le produit a été modifié avec succès"));
+
+            } else {
+    			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
+    					" la modification du produit a échouée", " - le produit n'a pas été modifié"));
+            }// end else pour msg ajout
+            
+            
         }// end if modif 
 
     }//end saveBook()
