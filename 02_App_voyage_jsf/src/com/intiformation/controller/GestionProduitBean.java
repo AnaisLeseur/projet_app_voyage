@@ -185,10 +185,10 @@ public class GestionProduitBean implements Serializable {
 	public void supprimerProduit(ActionEvent event) {
 
 		// 1. récup du param passé dans le composant au clic sur le lien 'supprimer'
-		UIParameter uip = (UIParameter) event.getComponent().findComponent("deleteId");
+		UIParameter uip = (UIParameter) event.getComponent().findComponent("suppID");
 
 		// 2. récup de la valeur du param
-		int idProduit = (int) uip.getValue();
+		int idProduitSupp = (int) uip.getValue();
 
 		// 3. suppression du produit dans la bdd via id
 
@@ -196,7 +196,7 @@ public class GestionProduitBean implements Serializable {
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 
 		// 3.2 suppression du livre
-		if (produitDAO.delete(idProduit)) {
+		if (produitDAO.delete(idProduitSupp)) {
 
 			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Suppression du produit",
 					"- Le produit a été surpprimé avec succès"));
@@ -221,7 +221,22 @@ public class GestionProduitBean implements Serializable {
         setProduit(new Produit());
     }// end initVoyage
     
-    
+    /**
+     * recup d'un produit 
+     *
+     * @param event
+     */
+    public void recupProduit(ActionEvent event) {
+
+        UIParameter cp = (UIParameter) event.getComponent().findComponent("modifId");
+        int id = (int) cp.getValue();
+
+        Produit produit = produitDAO.getById(id);
+
+        setProduit(produit);
+       
+    }// end recupProduit
+
 
 	
 	

@@ -131,9 +131,10 @@
 						<h:outputText value="Modification" />
 					</f:facet>
 				<h:form>	
-					<h:commandLink id="edit" action="modifierVoyage">
+					<h:commandLink id="modif" action="editVoyage"
+						actionListener="#{GestionProduitBean.recupProduit}">
 
-						<f:param id="editID" name="id" value="#{produit.idProduit}" />
+						<f:param id="modifId" name="id" value="#{produit.idProduit}" />
 
 					<h:outputText value="Modifier le voyage" />
 
@@ -148,7 +149,8 @@
 						<h:outputText value="Suppression" />
 					</f:facet>
 				<h:form>	
-					<h:commandLink id="supp" action="supprimerVoyage">
+					<h:commandLink id="supp" 
+					actionListener="#{GestionProduitBean.supprimerProduit}">
 
 						<f:param id="suppID" name="id" value="#{produit.idProduit}" />
 
