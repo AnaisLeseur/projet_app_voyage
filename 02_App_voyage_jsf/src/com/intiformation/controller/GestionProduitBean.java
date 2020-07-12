@@ -21,6 +21,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 import javax.faces.event.*;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
@@ -40,6 +41,7 @@ public class GestionProduitBean implements Serializable {
 	private List<Produit> listePanier;
 	private ActionEvent event;
 	HttpSession session;
+
 	
 	
 	FacesContext contextJSF = FacesContext.getCurrentInstance();
@@ -173,6 +175,65 @@ public class GestionProduitBean implements Serializable {
 		
 		
 	}//end ListeProduitsSelectionnes()
+	
+	
+
+	
+	/*
+	 * ================================================================================
+	 */
+
+	/**
+	 * Méthode pour supprimer un produit DU PANIER Invoquée au clic sur lien
+	 * 'retirer du panier' dans PANIER au clic, l'évenement
+	 * 'javax.faces.event.ActionEvent' se déclenche et encapsule toutes les infos
+	 * concernant le composant
+	 * 
+	 * @param event
+	 */
+	public List<Produit> supprimerProduitduPanier(ActionEvent event) {
+
+		// 1. récup du param passé dans le composant au clic sur le lien 'retirer du panier'
+		
+		UIParameter uip = (UIParameter) event.getComponent().findComponent("selectSuppIdPanier");
+
+		// 2. récup de la valeur du param
+		int idProduitSuppDuPanier = (int) uip.getValue();
+
+		// 3. récup du panier à retirer du panier
+		Produit produitARetirerDuPanier = produitDAO.getById(idProduitSuppDuPanier);
+		
+		//update du selection en true
+		produitARetirerDuPanier.setSelectionProduit(false);
+
+
+		// 3.1 récup du context de JSF
+		FacesContext contextJSF = FacesContext.getCurrentInstance();
+
+		// 3.2 suppression du livre
+		if (produitDAO.update(produitARetirerDuPanier)) {
+
+			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Le produit a été supprimé du panier",
+					""));
+
+		} else {
+			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
+					" la suppression du produit à échouée", " - le produit n'a pas été supprimé du panier"));
+
+		} // end else
+		
+		
+		listePanier = produitDAO.getProduitSelectionnes(true);
+		return listePanier;
+	}// end supprimerProduit
+	
+
+
+
+		
+
+	
+	
 
 	/*
 	 * ================================================================================

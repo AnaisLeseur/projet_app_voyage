@@ -18,8 +18,7 @@
 
 	<b:row>
 		<b:column col-md="8">
-			<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeProduitsSelectionnes()}" var="produit"
-				rows="8" >
+			<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeProduitsSelectionnes()}" var="produit">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="#" />
@@ -36,20 +35,49 @@
 					<f:facet name="header">
 						<h:outputText value="Nombre de personnes" />
 					</f:facet>
-					<h:outputText value="#{item.code}" />
+					<h:outputText id="nbPersonne" value="#" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Prix" />
+						<h:outputText value="Prix par personne" />
 					</f:facet>
 					<h:outputText value="#{produit.prixProduit}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Supprimer" />
+						<h:outputText value="Prix du voyage" />
 					</f:facet>
-					<h:outputText value="#{item.price}" />
+					<h:outputText value="#{produit.prixProduit*2}" />
 				</h:column>
+				
+				
+				<h:column>
+					<h:form>
+						<f:facet name="header">
+							<h:outputText value="Supprimer le voyage" />
+						</f:facet>
+						<h:commandLink id="suppIdPanier" action="supprimerPanier"
+						actionListener="#{GestionProduitBean.supprimerProduitduPanier}">
+	
+							<f:param id="selectSuppIdPanier" name="id" value="#{produit.idProduit}" />
+			
+							<h:outputText value="Retirer du panier" />
+	
+	
+						</h:commandLink>
+					</h:form>
+				</h:column>
+				
+				
+
+			 	    <h:column>
+				        #{produit.idProduit}
+				    </h:column>
+<!--				    <f:facet name="footer">
+				        Total: #{GestionProduitBean.produit.stream().map(produit->produit.idProduit).sum()}
+				    </f:facet>
+
+ -->
 			</h:dataTable>
 			
 			<b:button size="lg" value="Procéder au paiement" />#{' '}

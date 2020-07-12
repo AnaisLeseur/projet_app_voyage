@@ -60,7 +60,7 @@
 		<!-- 1.1 page départ -->
 		<from-view-id>/panier.xhtml</from-view-id>
 
-		<!-- 1.2 cas de navigation de accueil.xhtml vers accueil.xhtml -->
+		<!-- 1.2 cas de navigation de panier.xhtml vers accueil-client.xhtml -->
 		<navigation-case>
 			<!-- 1.2.1 clé d'outcome -->
 			<from-outcome>retourAccueil</from-outcome>
@@ -69,6 +69,19 @@
 			<redirect />
 
 		</navigation-case>
+
+		<!-- 1.2 cas de navigation de panier.xhtml vers panier.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcome -->
+			<from-outcome>supprimerPanier</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/panier.xhtml</to-view-id>
+			<redirect />
+
+		</navigation-case>
+
+
+
 
 	</navigation-rule>
 	
