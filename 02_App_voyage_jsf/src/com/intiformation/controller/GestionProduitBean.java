@@ -136,10 +136,10 @@ public class GestionProduitBean implements Serializable {
 		//update du selection en true
 		isDispo = true;
 
-		//
+		
 		produitASelectionner.setSelectionProduit(isDispo);
 
-		//
+		
 		produitDAO.update(produitASelectionner);
 
 		listePanier = produitDAO.getProduitSelectionnes(isDispo);
@@ -169,7 +169,7 @@ public class GestionProduitBean implements Serializable {
 	public List<Produit> ListeProduitsSelectionnes() {
 
 		
-		listePanier.forEach(e->System.out.println(e.getNomProduit()));
+	//	listePanier.forEach(e->System.out.println(e.getNomProduit()));
 		
 		return listePanier;
 		
