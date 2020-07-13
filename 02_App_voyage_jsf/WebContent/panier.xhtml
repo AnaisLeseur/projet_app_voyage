@@ -39,7 +39,21 @@
 					<f:facet name="header">
 						<h:outputText value="Nombre de personnes" />
 					</f:facet>
-					<h:outputText id="nbPersonne" value="2" />
+					
+				<h:form>
+					 <b:touchSpin min="1" max="200" step="1" value="#{GestionProduitBean.nbPersonne}" />
+					 
+					 <h:commandLink id="nbPersonne" action="supprimerPanier" actionListener="#{GestionProduitBean.sommePanier}">
+	
+							<f:param id="selectQuantitePanier" name="id" value="#{GestionProduitBean.nbPersonne}" />
+			
+							<h:outputText value="OK" />
+	
+	
+						</h:commandLink>
+				</h:form>		
+						
+					    
 				</h:column>
 				<h:column>
 					<f:facet name="header">
@@ -72,16 +86,12 @@
 					</h:form>
 				</h:column>
 				
-				
 
-			 	    <h:column>
-				        #{produit.idProduit}
-				    </h:column>
-<!--				    <f:facet name="footer">
-				        Total: #{GestionProduitBean.produit.stream().map(produit->produit.idProduit).sum()}
+ 				    <f:facet name="footer">
+				        Total: #{GestionProduitBean.sommePanier()}
 				    </f:facet>
 
- -->
+
 			</h:dataTable>
 			
 			<b:button size="lg" value="Procéder au paiement" rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" />

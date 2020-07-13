@@ -39,11 +39,11 @@ public class GestionProduitBean implements Serializable {
 	private String motCle;
 	private boolean selectionProduit;
 	private List<Produit> listePanier;
-	private ActionEvent event;
 	HttpSession session;
+	
+	private int nbPersonne;
 
-	
-	
+
 	FacesContext contextJSF = FacesContext.getCurrentInstance();
 
 	
@@ -171,10 +171,21 @@ public class GestionProduitBean implements Serializable {
 		
 	//	listePanier.forEach(e->System.out.println(e.getNomProduit()));
 		
+	//	session.setAttribute("listePanier", listePanier);
 		return listePanier;
-		
-		
+	
 	}//end ListeProduitsSelectionnes()
+	
+	
+	
+	
+	public double sommePanier() {
+		
+		 double sommePanier = listePanier.stream().mapToDouble(produit->produit.getPrixProduit()*getNbPersonne()).sum();
+		
+		return sommePanier;
+		
+	}// end 
 	
 	
 
@@ -441,6 +452,14 @@ public class GestionProduitBean implements Serializable {
 
 	public void setUploadedFile(Part uploadedFile) {
 		this.uploadedFile = uploadedFile;
+	}
+
+	public int getNbPersonne() {
+		return nbPersonne;
+	}
+
+	public void setNbPersonne(int nbPersonne) {
+		this.nbPersonne = nbPersonne;
 	}
 
 }// end classe
