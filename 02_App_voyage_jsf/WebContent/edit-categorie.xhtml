@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<title>Modification/Ajout Catégorie</title>
+	<h:outputStylesheet library="styles" name="style.css" />
+</h:head>
+
+<body>
+
+
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+
+	<h:form enctype="multipart/form-data">
+
+		<h:inputHidden value="#{GestionCategorieBean.categorie.id_categorie}" /> 
+
+		<h:panelGrid columns="2" border="1">
+
+			
+			
+			<h:outputLabel value="Nom de la catégorie : " />
+			<h:inputText value="#{GestionCategorieBean.categorie.nom_categorie}" />
+
+			<h:outputLabel value="Description de la catégorie : " />
+			<h:inputText
+				value="#{GestionCategorieBean.categorie.description_categorie}" />
+
+			<h:outputLabel value="Image de la catégorie : " />
+
+			<h:panelGroup>
+				<h:graphicImage
+					value="images/#{GestionCategorieBean.categorie.urlImageCategorie}"
+					width="50" height="90"
+					rendered="#{GestionCategorieBean.categorie.id_categorie gt 0}" />
+				<h:inputFile id="file" value="#{GestionCategorieBean.uploadedFile}" />
+			</h:panelGroup>
+
+			<f:facet name="footer">
+				<h:commandButton value="Enregistrer le nouveau voyage"
+					action="accueilAdminCateg"
+					actionListener="#{GestionCategorieBean.saveCategorie}" />
+			</f:facet>
+
+		</h:panelGrid>
+
+	</h:form>
+
+	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+</body>
+</html>

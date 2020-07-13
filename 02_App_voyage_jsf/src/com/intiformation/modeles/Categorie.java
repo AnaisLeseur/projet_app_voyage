@@ -25,7 +25,7 @@ public class Categorie {
 	}// end ctor vide
 	
 	// ctor chargé complet
-	public Categorie(int id_categorie, String nom_categorie, String description_categorie, String urlImageProduit) {
+	public Categorie(int id_categorie, String nom_categorie, String urlImageProduit, String description_categorie) {
 		this.id_categorie = id_categorie;
 		this.nom_categorie = nom_categorie;
 		this.description_categorie = description_categorie;

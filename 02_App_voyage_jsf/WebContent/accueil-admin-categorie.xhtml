@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<title>Administrateur - catégories</title>
+</h:head>
+
+<body>
+
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+	<b:tabLinks>
+		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin.xhtml" />
+		<b:navLink value="Catégories" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" active="true" />
+
+	</b:tabLinks>
+
+	<b:panel>
+
+		<h:form>
+			<f:facet name="heading">
+				<i class="fa fa-battery-three-quarters" style="padding-right: 20px" />
+			</f:facet>
+
+			<h:commandLink id="edit" action="editCategorie"
+				actionListener="#{GestionCategorieBean.initCategorie}">
+				<h:outputText value="Ajouter une catégorie" />
+			</h:commandLink>
+			<b:badge style="margin-left:10px; background-color:#5cb85c"
+				value="New" />
+
+		</h:form>
+	</b:panel>
+
+	<h2>Liste des catégories :</h2>
+	<b:row>
+
+		<b:column col-md="10">
+
+			<h:dataTable styleClass="table"
+				value="#{GestionCategorieBean.findAllCategoriesBDD()}" var="categ"
+				rows="8">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Photo" />
+					</f:facet>
+					<h:graphicImage library="images" name="#{categ.urlImageCategorie}"
+						width="250" height="160" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Id" />
+					</f:facet>
+					<h:outputText value="#{categ.id_categorie}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Nom de la catégorie" />
+					</f:facet>
+					<h:outputText value="#{categ.nom_categorie}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Description" />
+					</f:facet>
+					<h:outputText value="#{categ.description_categorie}" />
+				</h:column>
+				
+
+				<h:column>
+
+					<f:facet name="header">
+						<h:outputText value="Modification" />
+					</f:facet>
+					<h:form>
+						<h:commandLink id="modif" action="editCategorie"
+							actionListener="#{GestionCategorieBean.recupCategorie}">
+
+							<f:param id="modifId" name="id" value="#{categ.id_categorie}" />
+
+							<h:outputText value="Modifier la catégorie" />
+
+						</h:commandLink>
+					</h:form>
+				</h:column>
+
+				<h:column>
+
+					<f:facet name="header">
+						<h:outputText value="Suppression" />
+					</f:facet>
+					<h:form>
+						<h:commandLink id="supp"
+							actionListener="#{GestionCategorieBean.supprimerCategorie}">
+
+							<f:param id="suppID" name="id" value="#{categ.id_categorie}" />
+
+							<h:outputText value="Supprimer la catégorie" />
+
+						</h:commandLink>
+					</h:form>
+				</h:column>
+
+				<h:column>
+					<h:message for="supp" styleClass="error" />
+					<h:message for="modif" styleClass="error" />
+				</h:column>
+
+			</h:dataTable>
+
+
+		</b:column>
+	</b:row>
+
+	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+
+
+</body>
+
+</html>

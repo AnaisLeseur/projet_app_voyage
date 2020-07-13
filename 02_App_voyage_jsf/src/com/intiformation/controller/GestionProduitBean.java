@@ -156,7 +156,7 @@ public class GestionProduitBean implements Serializable {
 			
 			session.setAttribute("listePanier", listePanier);
 			
-		}
+		}//end else
 
 		
 
@@ -175,8 +175,6 @@ public class GestionProduitBean implements Serializable {
 		return listePanier;
 	
 	}//end ListeProduitsSelectionnes()
-	
-	
 	
 	
 	public double sommePanier() {
@@ -314,9 +312,6 @@ public class GestionProduitBean implements Serializable {
     }// end recupProduit
 
 
-	
-	
-    
     public void saveVoyage(ActionEvent event) {
     	
     	FacesContext contextJSF = FacesContext.getCurrentInstance();

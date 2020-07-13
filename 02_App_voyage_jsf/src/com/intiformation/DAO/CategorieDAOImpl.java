@@ -29,13 +29,13 @@ public class CategorieDAOImpl implements ICategorieDAO {
 
 		try {
 			ps = this.connexion.prepareStatement(
-					"INSERT into categories(id_categorie, nom_categorie, image_categorie, description_categorie ) "
-							+ "VALUES (?,?,?,?)");
+					"INSERT into categories( nom_categorie, image_categorie, description_categorie ) "
+							+ "VALUES (?,?,?)");
 
-			ps.setInt(1, pCategorie.getId_categorie());
-			ps.setString(2, pCategorie.getNom_categorie());
-			ps.setString(3, pCategorie.getUrlImageCategorie());
-			ps.setString(4, pCategorie.getDescription_categorie());
+			
+			ps.setString(1, pCategorie.getNom_categorie());
+			ps.setString(2, pCategorie.getUrlImageCategorie());
+			ps.setString(3, pCategorie.getDescription_categorie());
 
 			int verifAjout = ps.executeUpdate();
 
@@ -67,6 +67,7 @@ public class CategorieDAOImpl implements ICategorieDAO {
 			ps = this.connexion.prepareStatement("update categories set nom_categorie=?, "
 					+ "image_categorie=?, description_categorie=? where id_categorie=?  ");
 
+			
 			ps.setString(1, pCategorie.getNom_categorie());
 			ps.setString(2, pCategorie.getUrlImageCategorie());
 			ps.setString(3, pCategorie.getDescription_categorie());
