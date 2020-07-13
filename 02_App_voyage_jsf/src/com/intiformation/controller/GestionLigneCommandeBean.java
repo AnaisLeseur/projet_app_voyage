@@ -68,6 +68,7 @@ public class GestionLigneCommandeBean implements Serializable {
 	
 	
 	
+	
 	public void updateQuantite(ActionEvent event) {
 		
 		
