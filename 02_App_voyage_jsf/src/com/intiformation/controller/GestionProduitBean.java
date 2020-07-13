@@ -29,7 +29,6 @@ public class GestionProduitBean implements Serializable {
 	private String motCle;
 	private boolean selectionProduit;
 	private List<Produit> listePanier;
-	private ActionEvent event;
 	HttpSession session;
 
 	IProduitDAO produitDAO;
