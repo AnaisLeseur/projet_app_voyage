@@ -11,42 +11,43 @@
 
 </h:head>
 <body>
-<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 	<b:tabLinks>
 		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" active="true" />
 		<b:navLink value="Catégories" outcome="/bootstrap/labelsbadge"
-			icon="tag" iconAlign="right" />
+			icon="tag" iconAlign="right" href="accueil-admin-categorie.xhtml" />
 
 	</b:tabLinks>
-	
-	
-	
-	
+
+
+
+
 
 
 	<b:panel>
-	
-	<h:form>
-		<f:facet name="heading">
-			<i class="fa fa-battery-three-quarters" style="padding-right: 20px" />
-		</f:facet>	
 
-					<h:commandLink id="edit" action="editVoyage"
-						actionListener="#{GestionProduitBean.initVoyage}">
-						<h:outputText value="Ajouter un produit" />
-					</h:commandLink>
-					<b:badge style="margin-left:10px; background-color:#5cb85c"
-						value="New" />
-		
-	</h:form>
+		<h:form>
+			<f:facet name="heading">
+				<i class="fa fa-battery-three-quarters" style="padding-right: 20px" />
+			</f:facet>
+
+			<h:commandLink id="edit" action="editVoyage"
+				actionListener="#{GestionProduitBean.initVoyage}">
+				<h:outputText value="Ajouter un produit" />
+			</h:commandLink>
+			<b:badge style="margin-left:10px; background-color:#5cb85c"
+				value="New" />
+
+		</h:form>
 	</b:panel>
-	
-	<h:messages globalOnly="true" layout="table" showDetail="true" styleClass="error" fatalClass="error" infoClass="message"/>
-	
-	
 
-<!--
+	<h:messages globalOnly="true" layout="table" showDetail="true"
+		styleClass="error" fatalClass="error" infoClass="message" />
+
+
+
+	<!--
 		<b:panelGrid columns="2">
 			<b:inputText value="#{inputTextBean.text}"
 				label="nom de la destination" render-label="true" />
@@ -71,24 +72,25 @@
 
 		</b:panelGrid>
 		
--->		
+-->
 
 
-	
 
-<h2>Liste des produits :</h2>
+
+	<h2>Liste des produits :</h2>
 	<b:row>
 
 		<b:column col-md="10">
-		
-			<h:dataTable styleClass="table" value="#{GestionProduitBean.findAllProduitsBDD()}" var="produit"
+
+			<h:dataTable styleClass="table"
+				value="#{GestionProduitBean.findAllProduitsBDD()}" var="produit"
 				rows="8">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Photo" />
 					</f:facet>
 					<h:graphicImage library="images" name="#{produit.urlImageProduit}"
-					width="250" height="160" />
+						width="250" height="160" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
@@ -132,54 +134,54 @@
 					</f:facet>
 					<h:outputText value="#{produit.selectionProduit}" />
 				</h:column>
-				
-				
+
+
 				<h:column>
-				
+
 					<f:facet name="header">
 						<h:outputText value="Modification" />
 					</f:facet>
-				<h:form>	
-					<h:commandLink id="modif" action="editVoyage"
-						actionListener="#{GestionProduitBean.recupProduit}">
+					<h:form>
+						<h:commandLink id="modif" action="editVoyage"
+							actionListener="#{GestionProduitBean.recupProduit}">
 
-						<f:param id="modifId" name="id" value="#{produit.idProduit}" />
+							<f:param id="modifId" name="id" value="#{produit.idProduit}" />
 
-					<h:outputText value="Modifier le voyage" />
+							<h:outputText value="Modifier le voyage" />
 
-					</h:commandLink>
-				</h:form>
+						</h:commandLink>
+					</h:form>
 				</h:column>
-				
-				
+
+
 				<h:column>
-				
+
 					<f:facet name="header">
 						<h:outputText value="Suppression" />
 					</f:facet>
-				<h:form>	
-					<h:commandLink id="supp" 
-					actionListener="#{GestionProduitBean.supprimerProduit}">
+					<h:form>
+						<h:commandLink id="supp"
+							actionListener="#{GestionProduitBean.supprimerProduit}">
 
-						<f:param id="suppID" name="id" value="#{produit.idProduit}" />
+							<f:param id="suppID" name="id" value="#{produit.idProduit}" />
 
-					<h:outputText value="Supprimer le voyage" />
+							<h:outputText value="Supprimer le voyage" />
 
-					</h:commandLink>
-				</h:form>
-				</h:column>				
-				
+						</h:commandLink>
+					</h:form>
+				</h:column>
+
 				<h:column>
 					<h:message for="supp" styleClass="error" />
 					<h:message for="modif" styleClass="error" />
-				</h:column>	
-				
+				</h:column>
+
 			</h:dataTable>
 
 
 		</b:column>
 	</b:row>
-	
+
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 
 

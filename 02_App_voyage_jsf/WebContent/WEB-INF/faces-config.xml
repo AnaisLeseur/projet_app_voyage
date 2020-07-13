@@ -97,6 +97,16 @@
 			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
 			<redirect />
 		</navigation-case>
+		
+		<!-- 1.2 cas de navigation : de 'accueil-admin.xhtml' vers 'edit-voyage.xhtml' -->
+		<navigation-case>
+			<!-- 1.2.1 Clé d'outcom -->
+			<from-outcome>editCategorie</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/accueil-admin-categorie.xhtml</to-view-id>
+			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
+			
+		</navigation-case>
 
 	</navigation-rule>
 
@@ -118,5 +128,31 @@
 		</navigation-case>
 
 	</navigation-rule>
+	<!-- 1. règles de navigation pour la page 'accueil-admin-categorie.xhtml' -->
+	<navigation-rule>
+		<from-view-id>/accueil-admin-categorie.xhtml</from-view-id>
+		<navigation-case>
+			<!-- 1.2.1 Clé d'outcome -->
+			<from-outcome>editCategorie</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/edit-categorie.xhtml</to-view-id>
+			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- 1. règles de navigation pour la page 'edit-categorie.xhtml' -->
+	<navigation-rule>
+		<from-view-id>/edit-categorie.xhtml</from-view-id>
+		<navigation-case>
+			<!-- 1.2.1 Clé d'outcome -->
+			<from-outcome>accueilAdminCateg</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/accueil-admin-categorie.xhtml</to-view-id>
+			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
 
 </faces-config>
