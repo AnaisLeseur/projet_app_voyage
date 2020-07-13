@@ -14,7 +14,7 @@ public class Categorie {
 	private int id_categorie;
 	private String nom_categorie;
 	private String description_categorie;
-	private String urlImageProduit;
+	private String urlImageCategorie;
 	
 	
 	
@@ -29,14 +29,14 @@ public class Categorie {
 		this.id_categorie = id_categorie;
 		this.nom_categorie = nom_categorie;
 		this.description_categorie = description_categorie;
-		this.urlImageProduit = urlImageProduit;
+		this.urlImageCategorie = urlImageProduit;
 	}// end ctor chargé complet
 	
 	// ctor chargé sans id
 	public Categorie(String nom_categorie, String description_categorie, String urlImageProduit) {
 		this.nom_categorie = nom_categorie;
 		this.description_categorie = description_categorie;
-		this.urlImageProduit = urlImageProduit;
+		this.urlImageCategorie = urlImageProduit;
 	}// end ctor chargé sans id
 
 	
@@ -68,13 +68,15 @@ public class Categorie {
 		this.description_categorie = description_categorie;
 	}
 
-	public String getUrlImageProduit() {
-		return urlImageProduit;
+	public String getUrlImageCategorie() {
+		return urlImageCategorie;
 	}
 
-	public void setUrlImageProduit(String urlImageProduit) {
-		this.urlImageProduit = urlImageProduit;
+	public void setUrlImageCategorie(String urlImageCategorie) {
+		this.urlImageCategorie = urlImageCategorie;
 	}
+
+	
 	
 
 }// end Categorie
