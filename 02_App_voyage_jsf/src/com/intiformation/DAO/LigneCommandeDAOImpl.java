@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.intiformation.modeles.Client;
+
 import com.intiformation.modeles.LigneCommande;
 
 public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
@@ -97,15 +97,15 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 			rs = ps.executeQuery();
 			
 			List<LigneCommande> listeligneCommandeBdd = new ArrayList<>();
-			LigneCommande ligneCommmande = null;
+			LigneCommande ligneCommande = null;
 			
 			while (rs.next()) {
-				ligneCommmande = new LigneCommande(rs.getInt(1), 
+				ligneCommande = new LigneCommande(rs.getInt(1), 
 													rs.getInt(2), 
 													rs.getInt(3), 
 													rs.getDouble(4));
 				
-				listeligneCommandeBdd.add(ligneCommmande);
+				listeligneCommandeBdd.add(ligneCommande);
 				
 			}// end while
 			
@@ -129,7 +129,7 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 	
 
 	@Override
-	public LigneCommande getByDoubleId(Integer pIdCommande, Integer pIdProduit) {
+	public List<LigneCommande> getByDoubleId(Integer pIdCommande, Integer pIdProduit) {
 		try {
 			
 			ps = this.connexion.prepareStatement("select * from lignes_commandes where where commande_id=? and produit_id=?");
@@ -138,17 +138,20 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 			ps.setInt(2, pIdProduit);
 			
 			rs = ps.executeQuery();
-				
-			LigneCommande ligneCommande = null;
 			
+			List<LigneCommande> listeligneCommandeByDbleId = new ArrayList<>();
+			LigneCommande ligneCommande = null;
+				
 			while (rs.next()) {
 				ligneCommande = new LigneCommande(rs.getInt(1), 
 												rs.getInt(2), 
 												rs.getInt(3), 
-												rs.getDouble(4)); 									
+												rs.getDouble(4)); 		
+				
+				listeligneCommandeByDbleId .add(ligneCommande);
 			}// end while
 			
-			return ligneCommande;
+			return listeligneCommandeByDbleId ;
 			
 		} catch (SQLException e) {
 			System.out.println("LigneCommandeDAOImpl : erreur getByDoubleId()");

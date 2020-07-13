@@ -41,16 +41,14 @@
 					</f:facet>
 					
 				<h:form>
-					 <b:touchSpin min="1" max="200" step="1" value="#{GestionProduitBean.nbPersonne}" />
+					 
 					 
 					 <h:commandLink id="nbPersonne" action="supprimerPanier" actionListener="#{GestionProduitBean.sommePanier}">
-	
+							<b:touchSpin min="1" max="200" step="1" value="#" />
 							<f:param id="selectQuantitePanier" name="id" value="#{GestionProduitBean.nbPersonne}" />
 			
 							<h:outputText value="OK" />
-	
-	
-						</h:commandLink>
+					</h:commandLink>
 				</h:form>		
 						
 					    

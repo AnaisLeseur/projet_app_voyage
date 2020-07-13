@@ -1,5 +1,7 @@
 package com.intiformation.DAO;
 
+import java.util.List;
+
 import com.intiformation.modeles.LigneCommande;
 
 public interface ILigneCommandeDAO extends IGenerique<LigneCommande>{
@@ -13,7 +15,7 @@ public interface ILigneCommandeDAO extends IGenerique<LigneCommande>{
 	 * @param pIdProduit : id du produit
 	 * @return: l'obj LigneCommande
 	 */
-	public LigneCommande getByDoubleId (Integer pIdCommande, Integer pIdProduit);
+	public List<LigneCommande> getByDoubleId (Integer pIdCommande, Integer pIdProduit);
 	
 	
 	
