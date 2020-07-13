@@ -13,13 +13,15 @@
 <body>
 	<ui:composition>
 
-		<b:navBar brand="Brand" brandHref="#" inverse="true" fixed="top"
+		<b:navBar brand="Travel Company" brandHref="accueil-client.xhtml" inverse="true" fixed="top"
 			position="absolute">
 			<b:navbarLinks>
 				<b:navLink value="Accueil" href="accueil-client.xhtml"></b:navLink>
-				<b:navLink value="Rechercher un voyage" href="#"></b:navLink>
-				<b:navLink value="Contact" href="#"></b:navLink>
-				<b:navLink value="Connectez-vous" href="#"></b:navLink>
+				<b:navLink value="Rechercher un voyage" href="rechercher-voyage-par-categorie.xhtml"></b:navLink>
+				<b:navLink value="Contact" href="mailto:AppVoyage@voyage.com"></b:navLink>
+				<b:navLink value="Connectez-vous" href="authentication.xhtml"></b:navLink>
+				<b:navLink value="Panier" href="panier.xhtml" ></b:navLink>
+				<b:navLink value="Se déconnecter" action="#{AuthentificationAdminBean.deconnecterUser()}" href="accueil-client.xhtml"></b:navLink>
 
 			</b:navbarLinks>
 
@@ -40,14 +42,12 @@
 				</b:commandButton>
 
 			</h:form>
-
-
-
-			<b:navbarLinks>
-				<b:navLink value="Panier" href="panier.xhtml" ></b:navLink>
-			</b:navbarLinks>
+			
 
 		</b:navBar>
+		
+		
+		
 
 	</ui:composition>
 </body>

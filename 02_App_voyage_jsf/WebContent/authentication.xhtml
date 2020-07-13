@@ -18,6 +18,8 @@ body {
 	background-color: white;
 }
 </style>
+
+	<title>page d'authentification client</title>
 </h:head>
 <body>
 
@@ -25,11 +27,13 @@ body {
 
 	</ui:decorate>
 	
-	<h:messages globalOnly="true" layout="table" showDetail="true" styleClass="error" fatalClass="error" infoClass="message"/>
-
-
+	
 	<h:body style="background-color: white;">
+	
+	<h:messages globalOnly="true" layout="table" showDetail="true" styleClass="error" fatalClass="error" infoClass="message"/>
+	
 		<b:container>
+	
 			<h:form styleClass="form-signin" prependId="false">
 				<h2 class="form-signin-heading" align="center">Veuillez
 					vous connecter</h2>
@@ -41,7 +45,9 @@ body {
 					</f:facet>
 					<h:message for="idlogin" layout="table" showDetail="true" styleClass="error" fatalClass="error"/>
 				</b:inputText>
-				<b:inputText id="password" placeholder="Mot de passe"
+
+ 
+				<b:inputText id="password" placeholder="Mot de passe" required="true"
 					type="password" requiredMessage="Mot de passe obligatoire"
 						value="#{AuthentificationAdminBean.clientMotDePasse}">
 					<f:facet name="prepend">
@@ -50,7 +56,7 @@ body {
 					<h:message for="password" layout="table" showDetail="true" styleClass="error" fatalClass="error" infoClass="message"/>
 					
 				</b:inputText>
-				<!--   <b:selectBooleanCheckbox value="true" caption="Administrateur" /> -->
+
 				<b:commandButton look="default btn-block" value="Se connecter"
 					icon="log-in" size="lg" action="#{AuthentificationAdminBean.connecterClient()}" />
 			</h:form>

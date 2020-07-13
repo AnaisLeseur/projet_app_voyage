@@ -26,10 +26,31 @@
    <PROCESS-ITEM-OUTPUT ID="retourAccueil::#accueil-client.xhtml"
     NAME="output" PATH="/accueil-client.xhtml"
     TARGET="rules:#accueil-client.xhtml" TITLE="retourAccueil" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="supprimerPanier::#panier.xhtml"
+    NAME="output1" PATH="/panier.xhtml" TARGET="rules:#panier.xhtml"
+    TITLE="supprimerPanier" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#authentification-admin.xhtml"
   PATH="/authentification-admin.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#recherche-produit-motcle.xhtml"
   PATH="/recherche-produit-motcle.xhtml" SHAPE="304,241,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#accueil-admin.xhtml"
+  PATH="/accueil-admin.xhtml" SHAPE="240,609,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#accueil-admin.xhtml:0" NAME="item"
+   PATH="/accueil-admin.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="editVoyage::#edit-voyage.xhtml"
+    NAME="output" PATH="/edit-voyage.xhtml"
+    TARGET="rules:#edit-voyage.xhtml" TITLE="editVoyage" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#edit-voyage.xhtml" PATH="/edit-voyage.xhtml"
+  SHAPE="32,593,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#edit-voyage.xhtml:0" NAME="item"
+   PATH="/edit-voyage.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="accueilAdmin::#accueil-admin.xhtml"
+    NAME="output" PATH="/accueil-admin.xhtml"
+    TARGET="rules:#accueil-admin.xhtml" TITLE="accueilAdmin" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>

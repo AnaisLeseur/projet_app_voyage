@@ -5,7 +5,11 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:b="http://bootsfaces.net/ui">
 
-<h:head></h:head>
+<h:head>
+
+	<title>Votre panier</title>
+	
+</h:head>
 <body>
 
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
@@ -14,8 +18,11 @@
 
 	<b:row>
 		<b:column col-md="8">
-			<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeProduitsSelectionnes()}" var="produit"
-				rows="8" >
+		<h3 style="font-style: italic; text-decoration: underline;"><h:outputText value="Votre panier est vide!" rendered="#{empty GestionProduitBean.ListeProduitsSelectionnes()}" /></h3>
+		<br/>
+			<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeProduitsSelectionnes()}" var="produit" 
+						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}"
+						>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="#" />
@@ -32,23 +39,62 @@
 					<f:facet name="header">
 						<h:outputText value="Nombre de personnes" />
 					</f:facet>
-					<h:outputText value="#{item.code}" />
+					
+				<h:form>
+					 <b:touchSpin min="1" max="200" step="1" value="#{GestionProduitBean.nbPersonne}" />
+					 
+					 <h:commandLink id="nbPersonne" action="supprimerPanier" actionListener="#{GestionProduitBean.sommePanier}">
+	
+							<f:param id="selectQuantitePanier" name="id" value="#{GestionProduitBean.nbPersonne}" />
+			
+							<h:outputText value="OK" />
+	
+	
+						</h:commandLink>
+				</h:form>		
+						
+					    
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Prix" />
+						<h:outputText value="Prix par personne" />
 					</f:facet>
 					<h:outputText value="#{produit.prixProduit}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Supprimer" />
+						<h:outputText value="Prix du voyage" />
 					</f:facet>
-					<h:outputText value="#{item.price}" />
+					<h:outputText value="#{produit.prixProduit*2}" />
 				</h:column>
+				
+				
+				<h:column>
+					<h:form>
+						<f:facet name="header">
+							<h:outputText value="Supprimer le voyage" />
+						</f:facet>
+						<h:commandLink id="suppIdPanier" action="supprimerPanier"
+						actionListener="#{GestionProduitBean.supprimerProduitduPanier}">
+	
+							<f:param id="selectSuppIdPanier" name="id" value="#{produit.idProduit}" />
+			
+							<h:outputText value="Retirer du panier" />
+	
+	
+						</h:commandLink>
+					</h:form>
+				</h:column>
+				
+
+ 				    <f:facet name="footer">
+				        Total: #{GestionProduitBean.sommePanier()}
+				    </f:facet>
+
+
 			</h:dataTable>
 			
-			<b:button size="lg" value="Procéder au paiement" />#{' '}
+			<b:button size="lg" value="Procéder au paiement" rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" />
 		</b:column>
 	</b:row>
 

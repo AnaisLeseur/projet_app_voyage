@@ -1,6 +1,8 @@
 package com.intiformation.controller;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.ArrayList;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -12,8 +14,11 @@ import com.intiformation.DAO.AdministrateurDAOImpl;
 import com.intiformation.DAO.ClientDAOImpl;
 import com.intiformation.DAO.IAdministrateurDAO;
 import com.intiformation.DAO.IClientDAO;
+import com.intiformation.DAO.IProduitDAO;
+import com.intiformation.DAO.ProduitDAOImpl;
 import com.intiformation.modeles.Administrateur;
 import com.intiformation.modeles.Client;
+import com.intiformation.modeles.Produit;
 
 /**
  * MB pour la gestion de l'authentification de l'administrateur ou du client
@@ -33,6 +38,9 @@ public class AuthentificationAdminBean implements Serializable {
 	private String clientIdentifiant;
 	private String clientMotDePasse;
 	
+	private Produit produit;
+	private List<Produit> listePanier;
+	
 	private Administrateur administrateur;
 	
 	private Client client;
@@ -41,6 +49,7 @@ public class AuthentificationAdminBean implements Serializable {
 	private IAdministrateurDAO administrateurDAO;
 	
 	private IClientDAO clientDAO;
+	IProduitDAO produitDAO;
 
 	
 	//  ----- Ctors ---- ctor vide pour l'instanciation du MB 
@@ -48,6 +57,8 @@ public class AuthentificationAdminBean implements Serializable {
 		administrateurDAO = new AdministrateurDAOImpl();
 		
 		clientDAO = new ClientDAOImpl();
+		
+		produitDAO = new ProduitDAOImpl();
 				
 	}// end ctor 
 	
@@ -105,12 +116,12 @@ public class AuthentificationAdminBean implements Serializable {
 	
 	
 	/**
-	 * meth qui permet de faire deconnecter l'administrateur de son espace et de détruire la session http
-	 * la meth sera invoquée au click sur se deconnecter
+	 * meth qui permet de faire deconnecter l'administrateur ou le client de son espace et de détruire la session http
+	 * la meth sera invoquée au click sur se deconnecter (dans le header de toutes les pages)
 	 * 
 	 * @return page d'accueil-client du site
 	 */
-	public String deconnecterAdministrateur() {
+	public String deconnecterUser() {
 		
 		// 1. récup du contexte de JSF 
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
@@ -118,12 +129,29 @@ public class AuthentificationAdminBean implements Serializable {
 		// 2. récup de la session http de l'admin 
 		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
 		
+		// récup des produit sélectionné 
+		listePanier = produitDAO.getProduitSelectionnes(true);
+
+		int y = listePanier.size();
+		
+		for (int i = 0; i < y; i++) {
+
+
+			produit.setSelectionProduit(false);	
+			produitDAO.update(produit);
+		}
+	
+
+		
+	
+		
 		// 3. deconnexion
 		session.invalidate();
 		
 		// 4. message de deconnexion vers la vue 
-		FacesMessage messageDeconnexion = new FacesMessage(FacesMessage.SEVERITY_INFO, "Deconnexion", " - vous êtes maintenant déconnecté");
-		contextJSF.addMessage(null, messageDeconnexion);
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Deconnexion", " - vous êtes maintenant déconnecté");
+		System.out.println("FacesMessage message =" + message);
+		contextJSF.addMessage(null, message);
 		
 		// 5. redirection vers la page du formulaire
 		return "accueil-client.xhtml?faces-redirect=true";

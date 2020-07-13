@@ -1,0 +1,106 @@
+
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:p="http://primefaces.org/ui"
+	  xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	
+	<title>page de recherche d'un voyage par catégorie</title>
+
+</h:head> 
+<body> 
+<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+
+<h:form>
+    <p:growl>
+        <p:autoUpdate />
+    </p:growl>
+ 
+    <h:panelGrid columns="2" cellpadding="5">
+ 
+        <h:outputLabel for="menu" value="Basic:" />
+        <p:selectCheckboxMenu id="menu" value="#{GestionCategorieBean.selectedCities}" label="Cities"
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItems value="#{GestionCategorieBean.cities}" />
+        </p:selectCheckboxMenu>
+ 
+        <h:outputLabel for="multiple" value="Multiple:" />
+        <p:selectCheckboxMenu id="multiple" value="#{GestionCategorieBean.selectedCities2}" label="Cities" multiple="true"
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                              
+            <p:ajax event="toggleSelect" process="@this" listener="#{GestionCategorieBean.onItemUnselect}" />
+
+            <f:selectItems value="#{GestionCategorieBean.cities}" />
+        </p:selectCheckboxMenu>
+ 
+    </h:panelGrid>
+ 
+    <p:commandButton value="Submit" update="displayItems" oncomplete="PF('itemDialog').show()" style="margin-top:10px;" />
+ 
+    <p:dialog header="Selected Items" modal="true" showEffect="fade" hideEffect="fade" widgetVar="itemDialog" width="250">
+        <p:outputPanel id="displayItems">
+            <p:dataList value="#{GestionCategorieBean.selectedCities}" var="city" emptyMessage="No cities selected" style="margin-bottom: 10px;">
+                <f:facet name="header">
+                    Basic
+                </f:facet>
+                #{city}
+            </p:dataList>
+ 
+            <p:dataList value="#{GestionCategorieBean.selectedCities2}" var="city" emptyMessage="No cities selected" style="margin-bottom: 10px;">
+                <f:facet name="header">
+                    Multiple
+                </f:facet>
+                #{city}
+            </p:dataList>
+ 
+
+        </p:outputPanel>
+    </p:dialog>
+</h:form>
+
+<h3>Spinner Slider</h3>
+    <h:panelGrid columns="1" style="margin-bottom: 10px">
+        <p:spinner id="spinner1" value="#{GestionCategorieBean.number3}" min="0" max="1000" stepFactor="50" suffix=" €" valueChangeListener="#{GestionCategorieBean.onInputChanged}">
+            <p:ajax process="@this"  />
+        </p:spinner>
+        <p:slider for="spinner1" minValue="0" maxValue="1000" step="50" />
+    </h:panelGrid>
+ 
+ 
+  <h3>Prix</h3>
+    <h:panelGrid columns="1" style="margin-bottom: 10px">
+        <h:outputText id="displayRange" value="Entre #{GestionCategorieBean.number8}€ and #{GestionCategorieBean.number9}€" />
+        <p:slider for="txt6,txt7" display="displayRange" style="width: 400px" min="0" max="3000" range="true" displayTemplate="Entre {min}€ and {max}€" />
+    </h:panelGrid>
+    <h:inputHidden id="txt6" value="#{GestionCategorieBean.number8}" />
+    <h:inputHidden id="txt7" value="#{GestionCategorieBean.number9}" />
+
+
+ <p:dialog header="Slider Values" showEffect="fade" hideEffect="fade" widgetVar="dlg">
+        <h:panelGrid id="display" columns="1" cellpadding="5">
+ 
+            <h:outputText value="Range: [#{GestionCategorieBean.number8},#{GestionCategorieBean.number9}]" />
+        </h:panelGrid>
+    </p:dialog>
+    
+    
+      <h3>Quantité</h3>
+    <b:form>
+  <b:panelGrid colSpans="2,10" size="md">
+    <b:touchSpin min="0" max="200" step="1" value="0" />
+
+  </b:panelGrid>
+</b:form>
+
+
+
+
+<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+
+
+</body> 
+</html>
