@@ -13,6 +13,7 @@ import javax.faces.bean.SessionScoped;
 
 import com.intiformation.DAO.IProduitDAO;
 import com.intiformation.DAO.ProduitDAOImpl;
+import com.intiformation.modeles.LigneCommande;
 import com.intiformation.modeles.Produit;
 
 import net.bootsfaces.utils.FacesMessages;
@@ -40,8 +41,9 @@ public class GestionProduitBean implements Serializable {
 	private boolean selectionProduit;
 	private List<Produit> listePanier;
 	HttpSession session;
+	private List<LigneCommande> listeLigneCommande;
 	
-	private int nbPersonne;
+	private int nbPersonne = 1;
 
 
 	FacesContext contextJSF = FacesContext.getCurrentInstance();
@@ -144,6 +146,14 @@ public class GestionProduitBean implements Serializable {
 
 		listePanier = produitDAO.getProduitSelectionnes(isDispo);
 		
+// liste ligne commande		
+		for (Produit produit : listePanier) {
+			LigneCommande ligneCommande = new LigneCommande(produit.getIdProduit(), 1, 1.00);
+			System.out.println("LigneCommande ligneCommande: " + ligneCommande.getProduit_id());
+			listeLigneCommande = new ArrayList<>();
+			listeLigneCommande.add(ligneCommande);
+		}
+		
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 		if (session == null) {
 			
@@ -151,10 +161,12 @@ public class GestionProduitBean implements Serializable {
 			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(true);
 			
 			session.setAttribute("listePanier", listePanier);
+			session.setAttribute("listeLigneCommande", listeLigneCommande);
 		}else {
 			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
 			
 			session.setAttribute("listePanier", listePanier);
+			session.setAttribute("listeLigneCommande", listeLigneCommande);
 			
 		}//end else
 
@@ -175,6 +187,16 @@ public class GestionProduitBean implements Serializable {
 		return listePanier;
 	
 	}//end ListeProduitsSelectionnes()
+	
+	
+	
+	public List<LigneCommande> ListeLigneCommande() {
+
+		return listeLigneCommande;
+	
+	}//end ListeLigneCommande()
+	
+	
 	
 	
 	public double sommePanier() {
