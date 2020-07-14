@@ -33,7 +33,7 @@
 					<f:facet name="header">
 						<h:outputText value="Destination" />
 					</f:facet>
-					<h:outputText value="#{produit.nomProduit}" />
+					<h:outputText  value="#{produit.nomProduit}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
@@ -41,11 +41,14 @@
 					</f:facet>
 					
 				<h:form>
-					 <h:commandLink id="nbPersonne" action="supprimerPanier" actionListener="#{GestionProduitBean.sommePanier}">
-							<b:touchSpin min="1" max="200" step="1" value="#" />
-							<f:param id="selectQuantitePanier" name="id" value="#{GestionProduitBean.nbPersonne}" />
-			
-							<h:outputText value="OK" />
+					 <h:commandLink id="nbPersonne" action="supprimerPanier" actionListener="#{GestionLigneCommandeBean.updateQuantitePrix}">
+							
+							<b:touchSpin  min="1" max="200" step="1" value="#" />
+							<f:param id="QuantiteProduit" name="id" value="#{GestionProduitBean.nbPersonne}" />
+							<f:param id="IdProduit" name="id" value="#{produit.idProduit}" />
+							<f:param id="PrixProduit" name="id" value="#{produit.prixProduit}" />
+							<h:outputText value="OK" >
+							</h:outputText>
 					</h:commandLink>
 				</h:form>		
 						

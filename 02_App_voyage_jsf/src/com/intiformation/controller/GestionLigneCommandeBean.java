@@ -5,10 +5,12 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIParameter;
 import javax.faces.event.ActionEvent;
 
 import com.intiformation.DAO.ILigneCommandeDAO;
 import com.intiformation.DAO.LigneCommandeDAOImpl;
+import com.intiformation.modeles.Categorie;
 import com.intiformation.modeles.LigneCommande;
 
 
@@ -69,9 +71,18 @@ public class GestionLigneCommandeBean implements Serializable {
 	
 	
 	
-	public void updateQuantite(ActionEvent event) {
+	public void updateQuantitePrix(ActionEvent event) {
+
+		UIParameter quantiteProduit = (UIParameter) event.getComponent().findComponent("QuantiteProduit");
+		UIParameter idProduit = (UIParameter) event.getComponent().findComponent("IdProduit");
+		UIParameter prixProduit = (UIParameter) event.getComponent().findComponent("PrixProduit");
+		int quantiteAdd = (int) quantiteProduit.getValue();
+		int idProduitAdd = (int) idProduit.getValue();
+		double prixProduitAdd = (double) prixProduit.getValue();
 		
-		
+		LigneCommande ligneCommande = new LigneCommande(quantiteAdd, idProduitAdd, prixProduitAdd);
+
+		boolean ligneCommandeAdd = ligneCommandeDAO.add(ligneCommande);
 		
 	}
 

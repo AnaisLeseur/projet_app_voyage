@@ -15,16 +15,17 @@
 
 		<b:navBar brand="Travel Company" brandHref="accueil-client.xhtml" inverse="true" fixed="top"
 			position="absolute">
-			<b:navbarLinks>
-				<b:navLink value="Accueil" href="accueil-client.xhtml"></b:navLink>
-				<b:navLink value="Rechercher un voyage" href="rechercher-voyage-par-categorie.xhtml"></b:navLink>
-				<b:navLink value="Contact" href="mailto:AppVoyage@voyage.com"></b:navLink>
-				<b:navLink value="Connectez-vous" href="authentication.xhtml"></b:navLink>
-				<b:navLink value="Panier" href="panier.xhtml" ></b:navLink>
-				<b:navLink value="Se déconnecter" action="#{AuthentificationAdminBean.deconnecterUser()}" href="accueil-client.xhtml"></b:navLink>
-
-			</b:navbarLinks>
-
+			<h:form styleClass="navbar-form navbar-left">
+				<b:navbarLinks >
+					<b:navLink value="Accueil" href="accueil-client.xhtml"></b:navLink>
+					<b:navLink value="Rechercher un voyage" href="rechercher-voyage-par-categorie.xhtml"></b:navLink>
+					<b:navLink value="Contact" href="mailto:AppVoyage@voyage.com"></b:navLink>
+					<b:navLink value="Connectez-vous" href="authentication.xhtml"></b:navLink>
+					<b:navLink value="Panier" href="panier.xhtml" ></b:navLink>
+					<b:navLink ><b:commandLink value="Se déconnecter" actionListener="#{AuthentificationAdminBean.deconnecterUser()}" action="retourAccueil"></b:commandLink>
+				</b:navLink>
+				</b:navbarLinks>
+			</h:form>
 
 			<h:form styleClass="navbar-form navbar-right">
 				<div class="form-group">
@@ -40,10 +41,9 @@
 					iconAlign="right">
 
 				</b:commandButton>
-
 			</h:form>
-			
 
+			
 		</b:navBar>
 		
 		
