@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Lier à des catégories</title>
+</h:head>
+<body>
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+	<h:form>
+		<h:panelGrid>
+			<h:inputHidden value="#{GestionProduitBean.produit.idProduit}" />
+			<h:outputLabel value="Catégories : " />
+			<h:dataTable styleClass="table"
+				value="#{GestionCategorieBean.findAllCategoriesBDD()}" var="categ"
+				rows="8">
+				<h:column>
+					<p:selectBooleanCheckbox id="v_option1" />
+
+					<p:outputLabel for="v_option1" value="#{categ.nom_categorie}" />
+				</h:column>
+			</h:dataTable>
+			
+			<f:facet name="footer">
+				<h:commandButton value="Enregistrer le nouveau voyage"
+					action="accueilAdmin"
+					actionListener="#{GestionProduitBean.creerLiaisonProduitCategorie}">
+					<f:param id="ProduitID" value="#{GestionProduitBean.produit.idProduit}" />
+				</h:commandButton>
+			</f:facet>
+		</h:panelGrid>
+	</h:form>
+	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+</body>
+</html>

@@ -11,16 +11,20 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import com.intiformation.DAO.IProduitCategorie;
 import com.intiformation.DAO.IProduitDAO;
+import com.intiformation.DAO.ProduitCategorieDAOImpl;
 import com.intiformation.DAO.ProduitDAOImpl;
+import com.intiformation.modeles.Categorie;
 import com.intiformation.modeles.Produit;
+import com.intiformation.modeles.ProduitCategorie;
 
+import jdk.nashorn.internal.ir.LiteralNode;
 import net.bootsfaces.utils.FacesMessages;
 
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 import javax.faces.event.*;
 import javax.servlet.http.HttpSession;
@@ -40,23 +44,22 @@ public class GestionProduitBean implements Serializable {
 	private boolean selectionProduit;
 	private List<Produit> listePanier;
 	HttpSession session;
-	
+	private ProduitCategorie produitCateg;
+
 	private int nbPersonne;
-
-
 	FacesContext contextJSF = FacesContext.getCurrentInstance();
 
-	
-	
 	// file upload de l'API servlet
-    private Part uploadedFile;
+	private Part uploadedFile;
 
 	IProduitDAO produitDAO;
+	IProduitCategorie produitCategDAO;
 
 	// _____ Ctor ______//
 
 	public GestionProduitBean() {
 		produitDAO = new ProduitDAOImpl();
+		produitCategDAO = new ProduitCategorieDAOImpl();
 	}// end ctor vide
 
 	// _____ Méthodes ______//
@@ -75,12 +78,9 @@ public class GestionProduitBean implements Serializable {
 
 		return listeProduits;
 
-		/*
-		 * =============================================================================
-		 * ===
-		 */
-
 	}// end findAllProduitsBDD
+	
+	
 
 	public List<Produit> findProduitByMotCle(String motCle) {
 
@@ -128,68 +128,60 @@ public class GestionProduitBean implements Serializable {
 
 		int idProduit = (int) uip.getValue();
 		boolean isDispo = (boolean) uip2.getValue();
-		
-		//selection du produit
+
+		// selection du produit
 		Produit produitASelectionner = produitDAO.getById(idProduit);
 
-		
-		//update du selection en true
+		// update du selection en true
 		isDispo = true;
 
-		
 		produitASelectionner.setSelectionProduit(isDispo);
 
-		
 		produitDAO.update(produitASelectionner);
 
 		listePanier = produitDAO.getProduitSelectionnes(isDispo);
-		
+
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 		if (session == null) {
-			
-			
-			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(true);
-			
-			session.setAttribute("listePanier", listePanier);
-		}else {
-			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
-			
-			session.setAttribute("listePanier", listePanier);
-			
-		}//end else
 
-		
+			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(true);
+
+			session.setAttribute("listePanier", listePanier);
+		} else {
+			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
+
+			session.setAttribute("listePanier", listePanier);
+
+		} // end else
 
 	}// end selectionnerProduit
-	
+
 	/*
-	 * ================================================================================
+	 * =============================================================================
+	 * ===
 	 */
 
 	public List<Produit> ListeProduitsSelectionnes() {
 
-		
-	//	listePanier.forEach(e->System.out.println(e.getNomProduit()));
-		
-	//	session.setAttribute("listePanier", listePanier);
-		return listePanier;
-	
-	}//end ListeProduitsSelectionnes()
-	
-	
-	public double sommePanier() {
-		
-		 double sommePanier = listePanier.stream().mapToDouble(produit->produit.getPrixProduit()*getNbPersonne()).sum();
-		
-		return sommePanier;
-		
-	}// end 
-	
-	
+		// listePanier.forEach(e->System.out.println(e.getNomProduit()));
 
-	
+		// session.setAttribute("listePanier", listePanier);
+		return listePanier;
+
+	}// end ListeProduitsSelectionnes()
+
+	public double sommePanier() {
+
+		double sommePanier = listePanier.stream().mapToDouble(produit -> produit.getPrixProduit() * getNbPersonne())
+				.sum();
+
+		return sommePanier;
+
+	}// end
+
 	/*
-	 * ================================================================================
+	 * =============================================================================
+	 * ===
 	 */
 
 	/**
@@ -202,8 +194,9 @@ public class GestionProduitBean implements Serializable {
 	 */
 	public List<Produit> supprimerProduitduPanier(ActionEvent event) {
 
-		// 1. récup du param passé dans le composant au clic sur le lien 'retirer du panier'
-		
+		// 1. récup du param passé dans le composant au clic sur le lien 'retirer du
+		// panier'
+
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("selectSuppIdPanier");
 
 		// 2. récup de la valeur du param
@@ -211,10 +204,9 @@ public class GestionProduitBean implements Serializable {
 
 		// 3. récup du panier à retirer du panier
 		Produit produitARetirerDuPanier = produitDAO.getById(idProduitSuppDuPanier);
-		
-		//update du selection en true
-		produitARetirerDuPanier.setSelectionProduit(false);
 
+		// update du selection en true
+		produitARetirerDuPanier.setSelectionProduit(false);
 
 		// 3.1 récup du context de JSF
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
@@ -222,30 +214,22 @@ public class GestionProduitBean implements Serializable {
 		// 3.2 suppression du livre
 		if (produitDAO.update(produitARetirerDuPanier)) {
 
-			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Le produit a été supprimé du panier",
-					""));
+			contextJSF.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_FATAL, "Le produit a été supprimé du panier", ""));
 
 		} else {
 			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
 					" la suppression du produit à échouée", " - le produit n'a pas été supprimé du panier"));
 
 		} // end else
-		
-		
+
 		listePanier = produitDAO.getProduitSelectionnes(true);
 		return listePanier;
 	}// end supprimerProduit
-	
-
-
-
-		
-
-	
-	
 
 	/*
-	 * ================================================================================
+	 * =============================================================================
+	 * ===
 	 */
 
 	/**
@@ -281,132 +265,147 @@ public class GestionProduitBean implements Serializable {
 
 		} // end else
 	}// end supprimerProduit
-	
-	
-	
-	
+
 	/**
-     * permet d'initialiser un produit 
-     * methode appelée lors de l'ajout du produit
-     *
-     * @param event
-     */
-    public void initVoyage(ActionEvent event) {
-        setProduit(new Produit());
-    }// end initVoyage
-    
-    /**
-     * recup d'un produit 
-     *
-     * @param event
-     */
-    public void recupProduit(ActionEvent event) {
+	 * permet d'initialiser un produit methode appelée lors de l'ajout du produit
+	 *
+	 * @param event
+	 */
+	public void initVoyage(ActionEvent event) {
+		setProduit(new Produit());
+	}// end initVoyage
 
-        UIParameter cp = (UIParameter) event.getComponent().findComponent("modifId");
-        int id = (int) cp.getValue();
+	/**
+	 * recup d'un produit
+	 *
+	 * @param event
+	 */
+	public void recupProduit(ActionEvent event) {
 
-        Produit produit = produitDAO.getById(id);
+		UIParameter cp = (UIParameter) event.getComponent().findComponent("modifId");
+		int id = (int) cp.getValue();
 
-        setProduit(produit);
-       
-    }// end recupProduit
+		Produit produit = produitDAO.getById(id);
 
+		setProduit(produit);
 
-    public void saveVoyage(ActionEvent event) {
-    	
-    	FacesContext contextJSF = FacesContext.getCurrentInstance();
+	}// end recupProduit
 
-        //-------------------------------------------
-        // cas : ajout 
-        //-------------------------------------------
-        if (produit.getIdProduit() == 0) {
+	public void saveVoyage(ActionEvent event) {
 
-            try {
-                // traitement du fileUpload : recup du nom de l'image
-                String fileName = uploadedFile.getSubmittedFileName();
-                
-                // affectation du nom a la prop urlImage du voyage
-                produit.setUrlImageProduit(fileName);
-                
-                // ajout du voyage dans la bdd + message
-                if (produitDAO.add(produit)) {
-                	
-	        			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout du produit",
-	        					"- Le produit a été ajouté avec succès"));
+		FacesContext contextJSF = FacesContext.getCurrentInstance();
 
-                } else {
-	        			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
-	        					" l'ajout du produit a échoué", " - le produit n'a pas été ajouté"));
-                	}// end else pour msg ajout
+		// -------------------------------------------
+		// cas : ajout
+		// -------------------------------------------
+		if (produit.getIdProduit() == 0) {
 
-                //----------------------------------------------
-                // ajout de la photo dans le dossier images
-                //-----------------------------------------------
-                
-                /*++++++++++++++++++++++++++++++++ version 1 ++++++++++++++++++*/
-                
-                // recup du contenu de l'image
-                InputStream imageContent = uploadedFile.getInputStream();
+			try {
+				// traitement du fileUpload : recup du nom de l'image
+				String fileName = uploadedFile.getSubmittedFileName();
 
-                // recup de la valeur du param d'initialisation context-param de web.xml
-                FacesContext fContext = FacesContext.getCurrentInstance();
-                String pathTmp = fContext.getExternalContext().getInitParameter("file-upload");
-                
-                String filePath = fContext.getExternalContext().getRealPath(pathTmp);
+				// affectation du nom a la prop urlImage du voyage
+				produit.setUrlImageProduit(fileName);
 
-                // creation du fichier image (conteneur de l'image) 
-                File targetFile = new File(filePath, fileName);
+				// ajout du voyage dans la bdd + message
+				if (produitDAO.add(produit)) {
+					
+					
+					
+					contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout du produit",
+							"- Le produit a été ajouté avec succès"));
 
-                // instanciation du flux de sortie vers le fichier image
-                OutputStream outStream = new FileOutputStream(targetFile);
-                byte[] buf = new byte[1024];
-                int len;
+				} else {
+					contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
+							" l'ajout du produit a échoué", " - le produit n'a pas été ajouté"));
+				} // end else pour msg ajout
 
-                while ((len = imageContent.read(buf)) > 0) {
-                    outStream.write(buf, 0, len);
-                }// end while
-                
-                outStream.close();
+				// ----------------------------------------------
+				// ajout de la photo dans le dossier images
+				// -----------------------------------------------
 
-            } catch (IOException ex) {
-                Logger.getLogger(GestionProduitBean.class.getName()).log(Level.SEVERE, null, ex);
-            }// end catch 
-        }// end if ajout
+				/* ++++++++++++++++++++++++++++++++ version 1 ++++++++++++++++++ */
 
-        //-------------------------------------------
-        // cas : modif 
-        //-------------------------------------------
-        if (produit.getIdProduit() != 0) {
+				// recup du contenu de l'image
+				InputStream imageContent = uploadedFile.getInputStream();
 
-            if (uploadedFile != null) {
+				// recup de la valeur du param d'initialisation context-param de web.xml
+				FacesContext fContext = FacesContext.getCurrentInstance();
+				String pathTmp = fContext.getExternalContext().getInitParameter("file-upload");
 
-                String fileNameToUpdate = uploadedFile.getSubmittedFileName();
+				String filePath = fContext.getExternalContext().getRealPath(pathTmp);
 
-                if (!"".equals(fileNameToUpdate) && fileNameToUpdate != null) {
+				// creation du fichier image (conteneur de l'image)
+				File targetFile = new File(filePath, fileName);
 
-                    // affectation du nouveau nom à la prop urlImage du voyage 
-                    produit.setUrlImageProduit(fileNameToUpdate);
-                }// end if equals
-            }// end if uploadedFile != null
+				// instanciation du flux de sortie vers le fichier image
+				OutputStream outStream = new FileOutputStream(targetFile);
+				byte[] buf = new byte[1024];
+				int len;
 
-            
-            if (produitDAO.update(produit)) {
+				while ((len = imageContent.read(buf)) > 0) {
+					outStream.write(buf, 0, len);
+				} // end while
 
-    			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification du produit",
-    					"- Le produit a été modifié avec succès"));
+				outStream.close();
 
-            } else {
-    			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
-    					" la modification du produit a échouée", " - le produit n'a pas été modifié"));
-            }// end else pour msg ajout
-            
-            
-        }// end if modif 
+			} catch (IOException ex) {
+				Logger.getLogger(GestionProduitBean.class.getName()).log(Level.SEVERE, null, ex);
+			} // end catch
 
-    }//end saveBook()
+		} // end if ajout
+		
+		
+		// -------------------------------------------
+		// cas : modif
+		// -------------------------------------------
+		if (produit.getIdProduit() != 0) {
+
+			// ----------------------------------------------
+			// creation liaison catégorie - produit
+			// -----------------------------------------------
+
+			int IdNewProduit = produit.getIdProduit();
+			System.out.println("Id du produit crée :" + IdNewProduit);
+
+			if (uploadedFile != null) {
+
+				String fileNameToUpdate = uploadedFile.getSubmittedFileName();
+
+				if (!"".equals(fileNameToUpdate) && fileNameToUpdate != null) {
+
+					// affectation du nouveau nom à la prop urlImage du voyage
+					produit.setUrlImageProduit(fileNameToUpdate);
+				} // end if equals
+			} // end if uploadedFile != null
+
+			if (produitDAO.update(produit)) {
+
+				contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification du produit",
+						"- Le produit a été modifié avec succès"));
+
+			} else {
+				contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
+						" la modification du produit a échouée", " - le produit n'a pas été modifié"));
+			} // end else pour msg ajout
+			
 	
-	
-	
+		} // end if modif
+
+	}// end saveBook()
+
+	public void creerLiaisonProduitCategorie(ActionEvent event) {
+		
+
+		UIParameter uip = (UIParameter) event.getComponent().findComponent("ProduitID");
+		int produitID = (int) uip.getValue();
+		
+		System.out.println(produitID);
+		
+		
+		
+
+	}// end creerLiaisonProduitCategorie
 
 	// _____ Getter /setter ______//
 	public List<Produit> getListeProduits() {
@@ -455,6 +454,14 @@ public class GestionProduitBean implements Serializable {
 
 	public void setNbPersonne(int nbPersonne) {
 		this.nbPersonne = nbPersonne;
+	}
+
+	public ProduitCategorie getProduitCateg() {
+		return produitCateg;
+	}
+
+	public void setProduitCateg(ProduitCategorie produitCateg) {
+		this.produitCateg = produitCateg;
 	}
 
 }// end classe
