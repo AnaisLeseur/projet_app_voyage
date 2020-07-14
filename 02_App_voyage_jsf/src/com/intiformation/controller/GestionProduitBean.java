@@ -15,7 +15,11 @@ import com.intiformation.DAO.IProduitCategorie;
 import com.intiformation.DAO.IProduitDAO;
 import com.intiformation.DAO.ProduitCategorieDAOImpl;
 import com.intiformation.DAO.ProduitDAOImpl;
+<<<<<<< HEAD
 import com.intiformation.modeles.Categorie;
+=======
+import com.intiformation.modeles.LigneCommande;
+>>>>>>> d4bd9b46b06c7155f6a9b63d4410730c9cc7a138
 import com.intiformation.modeles.Produit;
 import com.intiformation.modeles.ProduitCategorie;
 
@@ -44,7 +48,14 @@ public class GestionProduitBean implements Serializable {
 	private boolean selectionProduit;
 	private List<Produit> listePanier;
 	HttpSession session;
+<<<<<<< HEAD
 	private ProduitCategorie produitCateg;
+=======
+	private List<LigneCommande> listeLigneCommande;
+	
+	private int nbPersonne = 1;
+
+>>>>>>> d4bd9b46b06c7155f6a9b63d4410730c9cc7a138
 
 	private int nbPersonne;
 	FacesContext contextJSF = FacesContext.getCurrentInstance();
@@ -140,17 +151,40 @@ public class GestionProduitBean implements Serializable {
 		produitDAO.update(produitASelectionner);
 
 		listePanier = produitDAO.getProduitSelectionnes(isDispo);
+<<<<<<< HEAD
 
+=======
+		
+// liste ligne commande		
+		for (Produit produit : listePanier) {
+			LigneCommande ligneCommande = new LigneCommande(produit.getIdProduit(), 1, 1.00);
+			System.out.println("LigneCommande ligneCommande: " + ligneCommande.getProduit_id());
+			listeLigneCommande = new ArrayList<>();
+			listeLigneCommande.add(ligneCommande);
+		}
+		
+>>>>>>> d4bd9b46b06c7155f6a9b63d4410730c9cc7a138
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 		if (session == null) {
 
 			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(true);
 
 			session.setAttribute("listePanier", listePanier);
+<<<<<<< HEAD
 		} else {
+=======
+			session.setAttribute("listeLigneCommande", listeLigneCommande);
+		}else {
+>>>>>>> d4bd9b46b06c7155f6a9b63d4410730c9cc7a138
 			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
 
 			session.setAttribute("listePanier", listePanier);
+<<<<<<< HEAD
+=======
+			session.setAttribute("listeLigneCommande", listeLigneCommande);
+			
+		}//end else
+>>>>>>> d4bd9b46b06c7155f6a9b63d4410730c9cc7a138
 
 		} // end else
 
@@ -167,9 +201,26 @@ public class GestionProduitBean implements Serializable {
 
 		// session.setAttribute("listePanier", listePanier);
 		return listePanier;
+<<<<<<< HEAD
 
 	}// end ListeProduitsSelectionnes()
 
+=======
+	
+	}//end ListeProduitsSelectionnes()
+	
+	
+	
+	public List<LigneCommande> ListeLigneCommande() {
+
+		return listeLigneCommande;
+	
+	}//end ListeLigneCommande()
+	
+	
+	
+	
+>>>>>>> d4bd9b46b06c7155f6a9b63d4410730c9cc7a138
 	public double sommePanier() {
 
 		double sommePanier = listePanier.stream().mapToDouble(produit -> produit.getPrixProduit() * getNbPersonne())

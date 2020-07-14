@@ -41,11 +41,12 @@ public class LigneCommande {
 	}//end ctor chargé sans panier_id
 
 	
-	//ctor chargé sans les id
-	public LigneCommande(int quantite_ligne, double prix_ligne) {
+	//ctor chargé avec produit_id
+	public LigneCommande(int produit_id, int quantite_ligne, double prix_ligne) {
+		this.produit_id = produit_id;
 		this.quantite_ligne = quantite_ligne;
 		this.prix_ligne = prix_ligne;
-	}//end ctor chargé sans id
+	}//end ctor chargé avec produit_id
 	
 	
 	// ---meths ---

@@ -121,7 +121,7 @@ public class AuthentificationAdminBean implements Serializable {
 	 * 
 	 * @return page d'accueil-client du site
 	 */
-	public String deconnecterUser() {
+	public void deconnecterUser() {
 		
 		// 1. récup du contexte de JSF 
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
@@ -132,18 +132,15 @@ public class AuthentificationAdminBean implements Serializable {
 		// récup des produit sélectionné 
 		listePanier = produitDAO.getProduitSelectionnes(true);
 
-		int y = listePanier.size();
-		
-		for (int i = 0; i < y; i++) {
-
-
+	
+	
+		for (Produit produit : listePanier) {
 			produit.setSelectionProduit(false);	
-			produitDAO.update(produit);
+			produitDAO.update(produit);	
 		}
-	
-
 		
-	
+		
+		
 		
 		// 3. deconnexion
 		session.invalidate();
@@ -154,7 +151,7 @@ public class AuthentificationAdminBean implements Serializable {
 		contextJSF.addMessage(null, message);
 		
 		// 5. redirection vers la page du formulaire
-		return "accueil-client.xhtml?faces-redirect=true";
+	//	return "accueil-client.xhtml?faces-redirect=true";
 				
 		
 	}// end deconnecterAdministrateur()
