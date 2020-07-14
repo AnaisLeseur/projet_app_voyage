@@ -107,6 +107,17 @@
 			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
 			
 		</navigation-case>
+		
+		<!-- 1.2 cas de navigation : de 'accueil-admin.xhtml' vers 'set-categorie.xhtml' -->
+		<navigation-case>
+			<!-- 1.2.1 Clé d'outcom -->
+			<from-outcome>setCategorie</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/set-categorie.xhtml</to-view-id>
+			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
+			
+		</navigation-case>
+		
 
 	</navigation-rule>
 

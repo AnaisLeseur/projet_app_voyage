@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,6 +18,7 @@ import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.Part;
+import org.primefaces.event.*;
 
 import com.intiformation.DAO.CategorieDAOImpl;
 import com.intiformation.DAO.ICategorieDAO;
@@ -29,11 +31,13 @@ public class GestionCategorieBean implements Serializable {
 	// _____ Props ______//
 
 	private List<Categorie> listeCategories;
+	private Map<Integer, Boolean> listeCategorieSelectionnes = new HashMap<Integer, Boolean>();
 	private Categorie categorie;
 
 	ICategorieDAO categorieDAO;
 
 	private Part uploadedFile;
+	
 
 	FacesContext contextJSF = FacesContext.getCurrentInstance();
 
@@ -42,6 +46,8 @@ public class GestionCategorieBean implements Serializable {
 	public GestionCategorieBean() {
 
 		categorieDAO = new CategorieDAOImpl();
+		
+		
 
 	}// end ctor
 
@@ -58,6 +64,8 @@ public class GestionCategorieBean implements Serializable {
 		return listeCategories;
 
 	}// end findAllCategoriesBDD
+	
+	
 
 	/**
 	 * Méthode pour supprimer un produit dans la db Invoquée au clic sur lien
@@ -206,6 +214,22 @@ public class GestionCategorieBean implements Serializable {
 		} // end if modif
 
 	}// end saveCategorie
+	
+	
+	
+	public void onItemUnselect(UnselectEvent event) {
+        FacesContext context = FacesContext.getCurrentInstance();
+         
+        FacesMessage msg = new FacesMessage();
+        msg.setSummary("Item unselected: " + event.getObject().toString());
+        msg.setSeverity(FacesMessage.SEVERITY_INFO);
+         
+        context.addMessage(null, msg);
+    }//end  onItemUnselect
+	
+
+      
+       
 
 	// _____ Getter / Setter ______//
 
@@ -231,6 +255,16 @@ public class GestionCategorieBean implements Serializable {
 
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
+	}
+
+
+
+	public Map<Integer, Boolean> getListeCategorieSelectionnes() {
+		return listeCategorieSelectionnes;
+	}
+
+	public void setListeCategorieSelectionnes(Map<Integer, Boolean> listeCategorieSelectionnes) {
+		this.listeCategorieSelectionnes = listeCategorieSelectionnes;
 	}
 
 }// end class

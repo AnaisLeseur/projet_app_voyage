@@ -48,9 +48,9 @@ select * from produits where selectionne_produit =0;
 
 
 
-insert into categories(id_categorie, nom_categorie, description_categorie)values (1, 'france', 'voyage en france metropolitaine');
-insert into categories(id_categorie, nom_categorie, description_categorie)values (2, 'etranger', 'voyage hors de france metropolitaine');
-insert into categories(id_categorie, nom_categorie, description_categorie)values (3, 'ville', 'voyage dans les grandes metropoles');
+insert into categories( nom_categorie, description_categorie)values ( 'france', 'voyage en france metropolitaine');
+insert into categories( nom_categorie, description_categorie)values ( 'etranger', 'voyage hors de france metropolitaine');
+insert into categories( nom_categorie, description_categorie)values ( 'ville', 'voyage dans les grandes metropoles');
 
 
 insert into produits_categories(categorie_id, produit_id) values(1, 4);

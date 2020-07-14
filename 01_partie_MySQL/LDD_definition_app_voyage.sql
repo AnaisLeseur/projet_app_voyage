@@ -41,7 +41,7 @@ create table commandes ( id_commande int(20) primary key auto_increment,
     
 
 
-create table categories ( id_categorie int(20) primary key,
+create table categories ( id_categorie int(20) primary key auto_increment,
 										nom_categorie varchar(20),
                                         image_categorie mediumblob,
                                         description_categorie varchar(200)

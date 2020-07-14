@@ -75,7 +75,9 @@ public class Categorie {
 	public void setUrlImageCategorie(String urlImageCategorie) {
 		this.urlImageCategorie = urlImageCategorie;
 	}
+	
 
+	
 	
 	
 

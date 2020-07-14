@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"	
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui">
-	
+	xmlns:b="http://bootsfaces.net/ui"
+	 xmlns:p="http://primefaces.org/ui">
+
 <h:head>
 
 	<title>edit-voyage</title>
@@ -14,7 +15,7 @@
 
 <h:body>
 
-<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
 	<h:form enctype="multipart/form-data">
 
@@ -27,35 +28,43 @@
 
 			<h:outputLabel value="Description du voyage : " />
 			<h:inputText value="#{GestionProduitBean.produit.descriptionProduit}" />
-			
+
 			<h:outputLabel value="Prix du voyage : " />
 			<h:inputText value="#{GestionProduitBean.produit.prixProduit}" />
-			
+
 			<h:outputLabel value="Quantité : " />
 			<h:inputText value="#{GestionProduitBean.produit.quantitéProduit}" />
-			
+
 			<h:outputLabel value="Selection : " />
 			<h:inputText value="#{GestionProduitBean.produit.selectionProduit}" />
-			
+
 			<h:outputLabel value="Selection : " />
 			<h:inputText value="#{GestionProduitBean.produit.urlImageProduit}" />
 
 			<h:outputLabel value="Image du voyage : " />
 			<h:panelGroup>
 				<h:graphicImage
-					value="images/#{GestionProduitBean.produit.urlImageProduit}" width="50"
-					height="90" rendered="#{GestionProduitBean.produit.idProduit gt 0}" />
+					value="images/#{GestionProduitBean.produit.urlImageProduit}"
+					width="50" height="90"
+					rendered="#{GestionProduitBean.produit.idProduit gt 0}" />
 				<h:inputFile id="file" value="#{GestionProduitBean.uploadedFile}" />
 			</h:panelGroup>
-
+	
 			<f:facet name="footer">
-				<h:commandButton value="Enregistrer le nouveau voyage" action="accueilAdmin"
-					actionListener="#{GestionProduitBean.saveVoyage}" />
+				<h:commandButton value="Enregistrer le nouveau voyage"
+					action="accueilAdmin"
+					actionListener="#{GestionProduitBean.saveVoyage}">
+					<f:param id="ProduitID" value="#{GestionProduitBean.produit.idProduit}" />
+				</h:commandButton>
 			</f:facet>
+
 
 		</h:panelGrid>
 
 	</h:form>
+
+
+
 
 </h:body>
 </html>
