@@ -1,6 +1,6 @@
 package com.intiformation.modeles;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * modele de données pour une commande
