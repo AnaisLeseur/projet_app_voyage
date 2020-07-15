@@ -18,16 +18,19 @@
 				value="#{GestionCategorieBean.findAllCategoriesBDD()}" var="categ"
 				rows="8">
 				<h:column>
-					<p:selectBooleanCheckbox id="v_option1" />
+					<p:selectBooleanCheckbox id="v_option1" 
+					value="#{GestionProduitCategorieBean.listeCategorieSelectionnes[categ.id_categorie]}" />
 
 					<p:outputLabel for="v_option1" value="#{categ.nom_categorie}" />
 				</h:column>
 			</h:dataTable>
 			
+	
+			
 			<f:facet name="footer">
 				<h:commandButton value="Enregistrer le nouveau voyage"
 					action="accueilAdmin"
-					actionListener="#{GestionProduitBean.creerLiaisonProduitCategorie}">
+					actionListener="#{GestionProduitCategorieBean.creerLiaisonProduitCategorie}">
 					<f:param id="ProduitID" value="#{GestionProduitBean.produit.idProduit}" />
 				</h:commandButton>
 			</f:facet>

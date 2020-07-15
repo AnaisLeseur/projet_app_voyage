@@ -31,13 +31,11 @@ public class GestionCategorieBean implements Serializable {
 	// _____ Props ______//
 
 	private List<Categorie> listeCategories;
-	private Map<Integer, Boolean> listeCategorieSelectionnes = new HashMap<Integer, Boolean>();
 	private Categorie categorie;
 
 	ICategorieDAO categorieDAO;
 
 	private Part uploadedFile;
-	
 
 	FacesContext contextJSF = FacesContext.getCurrentInstance();
 
@@ -46,8 +44,6 @@ public class GestionCategorieBean implements Serializable {
 	public GestionCategorieBean() {
 
 		categorieDAO = new CategorieDAOImpl();
-		
-		
 
 	}// end ctor
 
@@ -64,8 +60,6 @@ public class GestionCategorieBean implements Serializable {
 		return listeCategories;
 
 	}// end findAllCategoriesBDD
-	
-	
 
 	/**
 	 * Méthode pour supprimer un produit dans la db Invoquée au clic sur lien
@@ -84,7 +78,7 @@ public class GestionCategorieBean implements Serializable {
 		int idCategorie = (int) uip.getValue();
 
 		// 3. suppression de la catégorie dans la bdd via id
-		
+
 		// 3.1 récup du context de JSF
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 
@@ -99,8 +93,7 @@ public class GestionCategorieBean implements Serializable {
 					" la suppression de la catégorie à échouée", " - la catégorie n'a pas été supprimée"));
 
 		} // end else
-		
-		
+
 	}// end supprimerCategorie
 
 	/**
@@ -126,7 +119,7 @@ public class GestionCategorieBean implements Serializable {
 
 	public void saveCategorie(ActionEvent event) {
 
-	 	FacesContext contextJSF = FacesContext.getCurrentInstance();
+		FacesContext contextJSF = FacesContext.getCurrentInstance();
 		// -------------------------------------------
 		// cas : ajout
 		// -------------------------------------------
@@ -138,7 +131,6 @@ public class GestionCategorieBean implements Serializable {
 
 				categorie.setUrlImageCategorie(fileName);
 
-				
 				if (categorieDAO.add(categorie)) {
 					contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout de la catégorie",
 							"- la catégorie a bien été ajoutée avec succès"));
@@ -195,41 +187,37 @@ public class GestionCategorieBean implements Serializable {
 					categorie.setUrlImageCategorie(fileNameToUpdate);
 				} // end if equals
 			} // end ifUploadedFile
-			
+
 			if (categorieDAO.update(categorie)) {
-				
+
 				System.out.println("Modif réussie");
 				/*
-	   			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification de la catégorie",
-    					"- La catégorie a été modifiée avec succès"));
-	   			*/
+				 * contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+				 * "Modification de la catégorie",
+				 * "- La catégorie a été modifiée avec succès"));
+				 */
 
-            } else {
-            	/*
-    			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
-    					" la modification de la catégorie a échoué", " - la catégorie n'a pas été modifiée"));
-    			*/
-            }// end else pour msg ajout			
-			
+			} else {
+				/*
+				 * contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
+				 * " la modification de la catégorie a échoué",
+				 * " - la catégorie n'a pas été modifiée"));
+				 */
+			} // end else pour msg ajout
+
 		} // end if modif
 
 	}// end saveCategorie
-	
-	
-	
-	public void onItemUnselect(UnselectEvent event) {
-        FacesContext context = FacesContext.getCurrentInstance();
-         
-        FacesMessage msg = new FacesMessage();
-        msg.setSummary("Item unselected: " + event.getObject().toString());
-        msg.setSeverity(FacesMessage.SEVERITY_INFO);
-         
-        context.addMessage(null, msg);
-    }//end  onItemUnselect
-	
 
-      
-       
+	public void onItemUnselect(UnselectEvent event) {
+		FacesContext context = FacesContext.getCurrentInstance();
+
+		FacesMessage msg = new FacesMessage();
+		msg.setSummary("Item unselected: " + event.getObject().toString());
+		msg.setSeverity(FacesMessage.SEVERITY_INFO);
+
+		context.addMessage(null, msg);
+	}// end onItemUnselect
 
 	// _____ Getter / Setter ______//
 
@@ -255,16 +243,6 @@ public class GestionCategorieBean implements Serializable {
 
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
-	}
-
-
-
-	public Map<Integer, Boolean> getListeCategorieSelectionnes() {
-		return listeCategorieSelectionnes;
-	}
-
-	public void setListeCategorieSelectionnes(Map<Integer, Boolean> listeCategorieSelectionnes) {
-		this.listeCategorieSelectionnes = listeCategorieSelectionnes;
 	}
 
 }// end class

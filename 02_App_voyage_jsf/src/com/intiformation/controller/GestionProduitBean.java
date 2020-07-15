@@ -434,18 +434,6 @@ public class GestionProduitBean implements Serializable {
 
 	}// end saveBook()
 
-	public void creerLiaisonProduitCategorie(ActionEvent event) {
-		
-
-		UIParameter uip = (UIParameter) event.getComponent().findComponent("ProduitID");
-		int produitID = (int) uip.getValue();
-		
-		System.out.println(produitID);
-		
-		
-		
-
-	}// end creerLiaisonProduitCategorie
 
 	// _____ Getter /setter ______//
 	public List<Produit> getListeProduits() {
