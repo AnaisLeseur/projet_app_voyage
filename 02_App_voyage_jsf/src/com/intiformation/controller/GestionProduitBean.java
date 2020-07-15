@@ -46,10 +46,11 @@ public class GestionProduitBean implements Serializable {
 	private boolean selectionProduit;
 	private List<Produit> listePanier;
 	HttpSession session;
+	
 
 	private ProduitCategorie produitCateg;
 
-	private List<LigneCommande> listeLigneCommande;
+	private List<LigneCommande> listeLigneCommande = new ArrayList<>();
 	
 	private int nbPersonne = 1;
 
@@ -60,12 +61,18 @@ public class GestionProduitBean implements Serializable {
 
 	IProduitDAO produitDAO;
 	IProduitCategorie produitCategDAO;
+	
+	GestionLigneCommandeBean gestionLigneCommandeBean;
+	GestionProduitBean gestionProduitBean;
+	
+	
 
 	// _____ Ctor ______//
 
 	public GestionProduitBean() {
 		produitDAO = new ProduitDAOImpl();
 		produitCategDAO = new ProduitCategorieDAOImpl();
+		gestionLigneCommandeBean = new GestionLigneCommandeBean();
 	}// end ctor vide
 
 	// _____ Méthodes ______//
@@ -149,12 +156,21 @@ public class GestionProduitBean implements Serializable {
 
 		
 // liste ligne commande		
-		for (Produit produit : listePanier) {
-			LigneCommande ligneCommande = new LigneCommande(produit.getIdProduit(), 1, 1.00);
-			System.out.println("LigneCommande ligneCommande: " + ligneCommande.getProduit_id());
-			listeLigneCommande = new ArrayList<>();
+		
+			LigneCommande ligneCommande = new LigneCommande(produitASelectionner.getIdProduit(), 1, produitASelectionner.getPrixProduit());
 			listeLigneCommande.add(ligneCommande);
-		}
+			
+			
+			for (LigneCommande ligneCommandeTest : listeLigneCommande) {
+				System.out.println("LigneCommande ligneCommandeTest : listeLigneCommande: " + ligneCommandeTest.getProduit_id());
+			}
+			
+			
+		
+		
+		
+	
+		
 		
 
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
@@ -238,9 +254,15 @@ public class GestionProduitBean implements Serializable {
 		// panier'
 
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("selectSuppIdPanier");
+		UIParameter uip2 = (UIParameter) event.getComponent().findComponent("selectSuppIdLignePanier");
+		
 
 		// 2. récup de la valeur du param
 		int idProduitSuppDuPanier = (int) uip.getValue();
+		int selectSuppIdLignePanier = (int) uip2.getValue();
+		
+		System.out.println("int selectSuppIdLignePanier =" + selectSuppIdLignePanier);
+		
 
 		// 3. récup du panier à retirer du panier
 		Produit produitARetirerDuPanier = produitDAO.getById(idProduitSuppDuPanier);
@@ -262,10 +284,27 @@ public class GestionProduitBean implements Serializable {
 					" la suppression du produit à échouée", " - le produit n'a pas été supprimé du panier"));
 
 		} // end else
+		
 
 		listePanier = produitDAO.getProduitSelectionnes(true);
+		
+		for (LigneCommande ligneCommande : listeLigneCommande) {
+			System.out.println("LigneCommande ligneCommande :" + ligneCommande);
+			
+		}
+		
+		listeLigneCommande.remove(selectSuppIdLignePanier);
+		for (LigneCommande ligneCommande : listeLigneCommande) {
+			System.out.println("listeLigneCommande.remove(uipindex):" + ligneCommande);
+			
+		}
+		
 		return listePanier;
 	}// end supprimerProduit
+	
+	
+	
+
 
 	/*
 	 * =============================================================================

@@ -10,7 +10,7 @@
 	<title>page d'accueil administrateur</title>
 
 </h:head>
-<h:body>
+<body>
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 	<b:tabLinks>
 		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
@@ -19,6 +19,10 @@
 			icon="tag" iconAlign="right" href="accueil-admin-categorie.xhtml" />
 
 	</b:tabLinks>
+
+
+
+
 
 
 	<b:panel>
@@ -166,22 +170,6 @@
 						</h:commandLink>
 					</h:form>
 				</h:column>
-				
-				<h:column>
-
-					<f:facet name="header">
-						<h:outputText value="Lier à une catégorie" />
-					</f:facet>
-					<h:form>
-						<h:commandLink id="lien" action="setCategorie" actionListener="#{GestionProduitBean.recupProduit}">
-
-							<f:param id="modifId" name="id" value="#{produit.idProduit}" />
-
-							<h:outputText value="Lier" />
-
-						</h:commandLink>
-					</h:form>
-				</h:column>
 
 				<h:column>
 					<h:message for="supp" styleClass="error" />
@@ -197,5 +185,5 @@
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 
 
-</h:body>
+</body>
 </html>

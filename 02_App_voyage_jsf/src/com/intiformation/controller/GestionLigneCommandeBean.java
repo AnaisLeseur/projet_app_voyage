@@ -11,6 +11,8 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import org.primefaces.expression.SearchExpressionConstants;
+
 import com.intiformation.DAO.ILigneCommandeDAO;
 import com.intiformation.DAO.LigneCommandeDAOImpl;
 import com.intiformation.modeles.Categorie;
@@ -26,12 +28,14 @@ public class GestionLigneCommandeBean implements Serializable {
 	private List<LigneCommande> listeLigneCommande;
 	private List<LigneCommande> listeLigneCommandeDoubleId;
 	private LigneCommande ligneCommande;
+	HttpSession session;
 	
 	
 	private Integer pIdCommande;
 	private Integer pIdProduit;
 	
 	private int nbPersonne;
+	private 	double prixTotal;
 	
 
 	private ILigneCommandeDAO ligneCommandeDAO;
@@ -46,11 +50,15 @@ public class GestionLigneCommandeBean implements Serializable {
 	// _____ Méthodes __//
 	
 	
+	
+	
+	
+	
 	/**
 	 * meth permet d'initialiser une ligne de commande
 	 * appelée lors de l'ajout dans le panier 
 	 */
-	public int initLigneCommande (ActionEvent event) {
+	public List<LigneCommande> initLigneCommande (ActionEvent event) {
 		
 		UIParameter idProduit = (UIParameter) event.getComponent().findComponent("IdProduit");
 		UIParameter prixProduit = (UIParameter) event.getComponent().findComponent("PrixProduit");
@@ -59,7 +67,7 @@ public class GestionLigneCommandeBean implements Serializable {
 		
 		LigneCommande ligneDeCommande = new LigneCommande(idProduitAdd, 1, prixProduitAdd);
 		
-		listeLigneCommande.add(ligneCommande);
+		listeLigneCommande.add(ligneDeCommande);
 		
 		
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
@@ -67,9 +75,27 @@ public class GestionLigneCommandeBean implements Serializable {
 		session.setAttribute("listeLigneCommande", listeLigneCommande);
 		
 		
-		return 1;
+		return listeLigneCommande;
 		
 	}// end initLigneCommande
+	
+	
+	public List<LigneCommande> ReturnListeLigneCommande(){
+		return listeLigneCommande;
+		
+	}
+	
+	
+	public LigneCommande ReturnLigneCommande(){
+		
+		
+		
+		return ligneCommande;
+		
+	}
+	
+	
+	
 	
 	
 	/**
@@ -108,13 +134,29 @@ public class GestionLigneCommandeBean implements Serializable {
 		int idProduitAdd = (int) idProduit.getValue();
 		double prixProduitAdd = (double) prixProduit.getValue();
 		
-		double prixTotal = quantiteAdd * prixProduitAdd;
+		prixTotal = quantiteAdd * prixProduitAdd;
 		System.out.println("double prixTotal : " + prixTotal );
-		LigneCommande ligneCommande = new LigneCommande(idProduitAdd, quantiteAdd, prixTotal);
 
+	}
+	
+	public double ReturnPrixTotal() {
+	
+		return prixTotal;
+	}
+	
+	
+	public double PrixTotal() {
 		
+		
+		
+		return nbPersonne;
 		
 	}
+	
+	
+	
+	
+	
 
 
 	public int getNbPersonne() {
