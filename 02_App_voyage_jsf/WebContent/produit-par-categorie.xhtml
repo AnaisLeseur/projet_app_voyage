@@ -3,81 +3,28 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
 	xmlns:b="http://bootsfaces.net/ui">
 
-<h:head>
-
-	<title>page d'accueil administrateur</title>
-
-</h:head>
-<ui:decorate template="/templates/header.xhtml"></ui:decorate>
-<h:body>
-	
+<h:head></h:head>
+<body>
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 	<b:tabLinks>
 		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
-			icon="tag" iconAlign="right" active="true" />
+			icon="tag" iconAlign="right" href="accueil-admin.xhtml" />
 		<b:navLink value="Catégories" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" href="accueil-admin-categorie.xhtml" />
 
 	</b:tabLinks>
 
-	<b:panel>
 
-		<h:form>
-			<f:facet name="heading">
-				<i class="fa fa-battery-three-quarters" style="padding-right: 20px" />
-			</f:facet>
-
-			<h:commandLink id="edit" action="editVoyage"
-				actionListener="#{GestionProduitBean.initVoyage}">
-				<h:outputText value="Ajouter un produit" />
-			</h:commandLink>
-			<b:badge style="margin-left:10px; background-color:#5cb85c"
-				value="New" />
-
-		</h:form>
-	</b:panel>
-
-	<h:messages globalOnly="true" layout="table" showDetail="true"
-		styleClass="error" fatalClass="error" infoClass="message" />
-
-	<!--
-		<b:panelGrid columns="2">
-			<b:inputText value="#{inputTextBean.text}"
-				label="nom de la destination" render-label="true" />
-			<b:inputText value="#{inputTextBean.text}" label="Description"
-				render-label="true" />
-			<b:inputText value="#{inputTextBean.text}" mask="decimal"
-				label="Prix (en €)" render-label="true" />
-			<b:inputText value="#{inputTextBean.text}" mask="integer"
-				label="Quantité" render-label="true" />
-
-			<b:selectBooleanCheckbox value="#{settingsBean.checkbox1}"
-				caption="Selectionné" label="Veuillez choisir" />
-			<div>
-				<label for="image"> Photo :</label>
-				<h:inputFile id="image"></h:inputFile>
-			</div>
-			
-			
-			<b:button value="Ajouter cette destination"></b:button>
-
-
-
-		</b:panelGrid>
-		
--->
-
-
-
-
-	<h2>Liste des produits :</h2>
+	<h2>Liste des produits de la catégorie:</h2>
 	<b:row>
 
 		<b:column col-md="10">
 
 			<h:dataTable styleClass="table"
-				value="#{GestionProduitBean.findAllProduitsBDD()}" var="produit"
+				value="#{GestionProduitBean.AfficherListeProduit()}" var="produit"
 				rows="8">
 				<h:column>
 					<f:facet name="header">
@@ -164,15 +111,15 @@
 						</h:commandLink>
 					</h:form>
 				</h:column>
-				
+
 				<h:column>
 
 					<f:facet name="header">
 						<h:outputText value="Relier à des catégories" />
 					</f:facet>
 					<h:form>
-						<h:commandLink id="supp"
-							action="setCategorie" actionListener="#{GestionProduitBean.recupProduit}">
+						<h:commandLink id="supp" action="setCategorie"
+							actionListener="#{GestionProduitBean.recupProduit}">
 
 							<f:param id="modifId" name="id" value="#{produit.idProduit}" />
 
@@ -181,7 +128,7 @@
 						</h:commandLink>
 					</h:form>
 				</h:column>
-				
+
 
 				<h:column>
 					<h:message for="supp" styleClass="error" />
@@ -197,6 +144,6 @@
 
 
 
-</h:body>
-	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+
+</body>
 </html>

@@ -46,6 +46,7 @@ public class GestionProduitBean implements Serializable {
 	private boolean selectionProduit;
 	private List<Produit> listePanier;
 	HttpSession session;
+	private List<Produit> listeProduitCateg; 
 	
 
 	private ProduitCategorie produitCateg;
@@ -473,7 +474,25 @@ public class GestionProduitBean implements Serializable {
 
 	}// end saveBook()
 
-
+	public void findProduitParCategorie(ActionEvent event){
+		
+		
+		UIParameter cp = (UIParameter) event.getComponent().findComponent("CategorieID");
+		int idCategorie = (int) cp.getValue();
+		
+		System.out.println("Id Categorie = "  + idCategorie);
+		
+		listeProduitCateg = produitDAO.getByCategorie(idCategorie);
+		
+	}//end findProduitParCategorie
+	
+	public List<Produit> AfficherListeProduit() {
+		
+		return listeProduitCateg;
+		
+	}//end AfficherListeProduit
+	
+		
 	// _____ Getter /setter ______//
 	public List<Produit> getListeProduits() {
 		return listeProduits;

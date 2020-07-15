@@ -28,12 +28,23 @@
 	
 			
 			<f:facet name="footer">
-				<h:commandButton value="Enregistrer le nouveau voyage"
+				<h:commandButton value="Lier ce voyage au catégories selectionnées"
 					action="accueilAdmin"
 					actionListener="#{GestionProduitCategorieBean.creerLiaisonProduitCategorie}">
 					<f:param id="ProduitID" value="#{GestionProduitBean.produit.idProduit}" />
 				</h:commandButton>
 			</f:facet>
+			
+			<f:facet name="footer">
+				<h:commandButton value="Retour à la liste de produits"
+					action="accueilAdmin">
+				</h:commandButton>
+			</f:facet>
+			
+			<h:messages globalOnly="true" showDetail="true" fatalStyle="color:red; font-style:italic;" 
+	infoStyle="color:green; font-style:italic;"/>
+	
+	
 		</h:panelGrid>
 	</h:form>
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
