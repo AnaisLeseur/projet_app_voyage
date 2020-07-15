@@ -17,6 +17,7 @@ import com.intiformation.DAO.ILigneCommandeDAO;
 import com.intiformation.DAO.LigneCommandeDAOImpl;
 import com.intiformation.modeles.Categorie;
 import com.intiformation.modeles.LigneCommande;
+import com.intiformation.modeles.Produit;
 
 
 @ManagedBean(name = "GestionLigneCommandeBean")
@@ -27,8 +28,12 @@ public class GestionLigneCommandeBean implements Serializable {
 	// _____ Props ______//
 	private List<LigneCommande> listeLigneCommande;
 	private List<LigneCommande> listeLigneCommandeDoubleId;
+	private List<Produit> listePanier;
 	private LigneCommande ligneCommande;
+	
 	HttpSession session;
+	
+	double prixParVoyage;
 	
 	
 	private Integer pIdCommande;
@@ -129,27 +134,60 @@ public class GestionLigneCommandeBean implements Serializable {
 
 		UIParameter quantiteProduit = (UIParameter) event.getComponent().findComponent("QuantiteProduit");
 		UIParameter idProduit = (UIParameter) event.getComponent().findComponent("IdProduit");
-		UIParameter prixProduit = (UIParameter) event.getComponent().findComponent("PrixProduit");
+//		UIParameter prixProduit = (UIParameter) event.getComponent().findComponent("PrixProduit");
+		UIParameter uip2 = (UIParameter) event.getComponent().findComponent("selectModifIdLignePanier");
+		
 		int quantiteAdd = (int) quantiteProduit.getValue();
 		int idProduitAdd = (int) idProduit.getValue();
-		double prixProduitAdd = (double) prixProduit.getValue();
+//		double prixProduitAdd = (double) prixProduit.getValue();
+		int selectModifIdLignePanier = (int) uip2.getValue();
 		
-		prixTotal = quantiteAdd * prixProduitAdd;
+		System.out.println("int selectModifIdLignePanier =" + selectModifIdLignePanier);
+		
+		
+		
+		FacesContext contextJSF = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
+		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
+		listePanier = (List<Produit>) session.getAttribute("listePanier");
+		
+		prixParVoyage = listePanier.get(selectModifIdLignePanier).getPrixProduit();
+		System.out.println("double prix = listePanier.get(selectModifIdLignePanier).getPrixProduit() =" + prixParVoyage);
+		
+		prixTotal = quantiteAdd * prixParVoyage;
 		System.out.println("double prixTotal : " + prixTotal );
-
+		
+		ligneCommande = new LigneCommande(idProduitAdd, quantiteAdd, prixTotal);
+		
+		listeLigneCommande.set(selectModifIdLignePanier, ligneCommande);
+		for (LigneCommande ligneCommande : listeLigneCommande) {
+			System.out.println("listeLigneCommande.set(selectModifIdLignePanier, ligneCommande):" 
+					+ ligneCommande.getProduit_id() + " ;ligneCommande.getPrix_ligne() " + ligneCommande.getPrix_ligne() );
+			
+		}
+		
+		
+		
+		session.setAttribute("listeLigneCommande", listeLigneCommande);
+		
 	}
 	
 	public double ReturnPrixTotal() {
+		return prixParVoyage;
 	
-		return prixTotal;
 	}
 	
 	
 	public double PrixTotal() {
 		
+		FacesContext contextJSF = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
+		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
+
+			double sommePanier = listeLigneCommande.stream().mapToDouble(ligne -> ligne.getPrix_ligne()).sum();
 		
+		return sommePanier;
 		
-		return nbPersonne;
 		
 	}
 	

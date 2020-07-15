@@ -17,66 +17,69 @@
 	<h2>Votre panier :</h2>
 
 	<b:row>
-		<b:column col-md="8">
+		<b:column col-md="12" >
 		<h3 style="font-style: italic; text-decoration: underline;"><h:outputText value="Votre panier est vide!" rendered="#{empty GestionProduitBean.ListeProduitsSelectionnes()}" /></h3>
 		<br/>
+		<b:column col-md="5"  >	
 			<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeProduitsSelectionnes()}" var="produit" 
-						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
+						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" >
+				
+			
+					<h:column > 
+						<f:facet name="header">
+							<h:outputText value="#" />
+						</f:facet>
+					
+						<h:outputText value="#" />	
 						
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="#" />
-					</f:facet>
-					<h:outputText value="#{itemBean.items.rowIndex + 1}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Destination" />
-					</f:facet>
-					<h:outputText  value="#{produit.nomProduit}" />
-				</h:column>
+						
 
+					</h:column>
+					<h:column >
+						<f:facet name="header">
+							<h:outputText value="Destination" />
+						</f:facet>
+						<h:outputText value="#{produit.nomProduit}" />
+					</h:column>
+					
+					<h:column >
+						<f:facet name="header">
+							<h:outputText value="Destination" />
+						</f:facet>
+						<h:outputText value="#{produit.descriptionProduit}" />
+					</h:column>
+	
+					
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Prix par personne" />
+						</f:facet>
+						<h:outputText value="#{produit.prixProduit} €" />
+					</h:column>
 				
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Prix par personne" />
-					</f:facet>
-					<h:outputText value="#{produit.prixProduit}" />
-				</h:column>
-
-				
-				
-
-			
-
-
 			</h:dataTable>
+		</b:column>
 			
-			
-			
-			
-			
-			
+	
+			<b:column col-md="7" >	
 			<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
 						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
 			
-			<h:column>
-				<h:inputHidden value="#{ligne.produit_id}" />
-			</h:column>	
+				<h:column>
+					<h:inputHidden value="#{ligne.produit_id}" />
+				</h:column>	
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Nombre de personnes" />
 					</f:facet>
-					
-				
-				
+
 					<h:form>	
-							<b:touchSpin for="@next" min="1" max="200" step="1" value="#{ligne.quantite_ligne}" />
+							<b:touchSpin for="@next" min="1" max="200" step="1" value="#{ligne.quantite_ligne}" col-md="4"/>
 							<f:param id="QuantiteProduit" name="id" value="#{ligne.quantite_ligne}" />
 							<f:param id="IdProduit" name="id" value="#{ligne.produit_id}" />
-							<f:param id="PrixProduit" name="id" value="#{ligne.prix_ligne}" />
+							<f:param id="selectModifIdLignePanier" name="id" value="#{GestionProduitBean.ListeLigneCommande().indexOf(ligne)}" />
 						<h:commandLink id="nbPersonne" action="supprimerPanier" actionListener="#{GestionLigneCommandeBean.updateQuantitePrix}">
-								<h:outputText value="OK" >
+								<h:outputText value="OK">
 								</h:outputText>
 						</h:commandLink>
 					</h:form>	
@@ -86,12 +89,12 @@
 					<f:facet name="header">
 						<h:outputText value="Prix du voyage" />
 					</f:facet>
-					<h:outputText value="#{GestionLigneCommandeBean.ReturnPrixTotal()}" />
+					<h:outputText value="#{ligne.prix_ligne} €" />
 				</h:column>
 				
 				
 				
-								<h:column>
+				<h:column>
 					<h:form>
 						<f:facet name="header">
 							<h:outputText value="Supprimer le voyage" />
@@ -108,19 +111,19 @@
 					</h:form>
 				</h:column>
 				
-					
-
+		
+			
  				    <f:facet name="footer">
-				        Total: #{GestionProduitBean.sommePanier()}
+				        Total: #{GestionLigneCommandeBean.PrixTotal()}
 				    </f:facet>
+			
+
 			
 			
 			</h:dataTable>
+			</b:column>	
 			
-			
-			
-			
-			
+				
 			<b:button size="lg" value="Procéder au paiement" rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" />
 		</b:column>
 	</b:row>

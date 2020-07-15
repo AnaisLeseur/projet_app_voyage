@@ -44,7 +44,7 @@ public class GestionProduitBean implements Serializable {
 	private Produit produit;
 	private String motCle;
 	private boolean selectionProduit;
-	private List<Produit> listePanier;
+	private List<Produit> listePanier = new ArrayList<>();
 	HttpSession session;
 	
 
@@ -152,13 +152,32 @@ public class GestionProduitBean implements Serializable {
 
 		produitDAO.update(produitASelectionner);
 
-		listePanier = produitDAO.getProduitSelectionnes(isDispo);
-
+//		listePanier = produitDAO.getProduitSelectionnes(isDispo);
 		
 // liste ligne commande		
+
+// A REFAIRE : 
+// IF  produitASelectionner already exist in listePanier => fait rien sinon listeLigneCommande.add(ligneCommande);
+	
 		
+		boolean test = listePanier.contains(produitASelectionner);
+		
+		if (test) {
+			System.out.println("if (listePanier.contains(produitASelectionner)): Vrai => NE l'ajoute pas ");
+
+
+		} else {
+			System.out.println("if (listePanier.contains(produitASelectionner)): FAUX => ajoute ");
+			listePanier = produitDAO.getProduitSelectionnes(isDispo);
 			LigneCommande ligneCommande = new LigneCommande(produitASelectionner.getIdProduit(), 1, produitASelectionner.getPrixProduit());
 			listeLigneCommande.add(ligneCommande);
+			
+		}
+		
+		
+		
+//			LigneCommande ligneCommande = new LigneCommande(produitASelectionner.getIdProduit(), 1, produitASelectionner.getPrixProduit());
+//			listeLigneCommande.add(ligneCommande);
 			
 			
 			for (LigneCommande ligneCommandeTest : listeLigneCommande) {
@@ -293,6 +312,7 @@ public class GestionProduitBean implements Serializable {
 			
 		}
 		
+	
 		listeLigneCommande.remove(selectSuppIdLignePanier);
 		for (LigneCommande ligneCommande : listeLigneCommande) {
 			System.out.println("listeLigneCommande.remove(uipindex):" + ligneCommande);
