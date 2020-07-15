@@ -8,11 +8,12 @@
 <h:head>
 
 	<title>page d'accueil administrateur</title>
-
+	<h:outputStylesheet library="styles" name="bootstrap.css"></h:outputStylesheet>
+	<h:outputStylesheet library="styles" name="custom.css"></h:outputStylesheet>
 </h:head>
-<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+
 <h:body>
-	
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 	<b:tabLinks>
 		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" active="true" />
@@ -41,40 +42,11 @@
 	<h:messages globalOnly="true" layout="table" showDetail="true"
 		styleClass="error" fatalClass="error" infoClass="message" />
 
-	<!--
-		<b:panelGrid columns="2">
-			<b:inputText value="#{inputTextBean.text}"
-				label="nom de la destination" render-label="true" />
-			<b:inputText value="#{inputTextBean.text}" label="Description"
-				render-label="true" />
-			<b:inputText value="#{inputTextBean.text}" mask="decimal"
-				label="Prix (en €)" render-label="true" />
-			<b:inputText value="#{inputTextBean.text}" mask="integer"
-				label="Quantité" render-label="true" />
-
-			<b:selectBooleanCheckbox value="#{settingsBean.checkbox1}"
-				caption="Selectionné" label="Veuillez choisir" />
-			<div>
-				<label for="image"> Photo :</label>
-				<h:inputFile id="image"></h:inputFile>
-			</div>
-			
-			
-			<b:button value="Ajouter cette destination"></b:button>
-
-
-
-		</b:panelGrid>
-		
--->
-
-
-
-
-	<h2>Liste des produits :</h2>
+	<h1 style="text-align: center;"> Bienvenue, administrateur !</h1>
+	<h2 style="margin-left : 150px">Liste des produits :</h2>
 	<b:row>
 
-		<b:column col-md="10">
+		<b:column col-md="9" style="margin-left : 150px">
 
 			<h:dataTable styleClass="table"
 				value="#{GestionProduitBean.findAllProduitsBDD()}" var="produit"
@@ -164,15 +136,15 @@
 						</h:commandLink>
 					</h:form>
 				</h:column>
-				
+
 				<h:column>
 
 					<f:facet name="header">
 						<h:outputText value="Relier à des catégories" />
 					</f:facet>
 					<h:form>
-						<h:commandLink id="supp"
-							action="setCategorie" actionListener="#{GestionProduitBean.recupProduit}">
+						<h:commandLink id="supp" action="setCategorie"
+							actionListener="#{GestionProduitBean.recupProduit}">
 
 							<f:param id="modifId" name="id" value="#{produit.idProduit}" />
 
@@ -181,7 +153,7 @@
 						</h:commandLink>
 					</h:form>
 				</h:column>
-				
+
 
 				<h:column>
 					<h:message for="supp" styleClass="error" />
@@ -194,9 +166,9 @@
 		</b:column>
 	</b:row>
 
-
+	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 
 
 </h:body>
-	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+
 </html>

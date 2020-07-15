@@ -8,7 +8,7 @@
 <h:head>
 	<title>Lier à des catégories</title>
 </h:head>
-<body>
+<h:body>
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 	<h:form>
 		<h:panelGrid>
@@ -20,6 +20,7 @@
 				<h:column>
 					<p:selectBooleanCheckbox id="v_option1" 
 					value="#{GestionProduitCategorieBean.listeCategorieSelectionnes[categ.id_categorie]}" />
+					<h:message for="v_option1"/>
 
 					<p:outputLabel for="v_option1" value="#{categ.nom_categorie}" />
 				</h:column>
@@ -48,5 +49,5 @@
 		</h:panelGrid>
 	</h:form>
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
-</body>
+</h:body>
 </html>
