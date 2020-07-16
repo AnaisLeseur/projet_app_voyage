@@ -8,7 +8,14 @@
 <h:head>
 
 	<title>Votre panier</title>
+	<h:outputStylesheet library="style" name="perso.css" />
 	
+	<style>
+	body {
+	background-color: white;
+	background-image: none;
+}
+	</style>
 </h:head>
 <h:body>
 
@@ -21,8 +28,8 @@
 		<h3 style="font-style: italic; text-decoration: underline;"><h:outputText value="Votre panier est vide!" rendered="#{empty GestionProduitBean.ListeProduitsSelectionnes()}" /></h3>
 		<br/>
 		<b:column col-md="5"  >	
-			<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeProduitsSelectionnes()}" var="produit" 
-						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" >
+			<h:dataTable id="tablepanier" styleClass="table" value="#{GestionProduitBean.ListeProduitsSelectionnes()}" var="produit" 
+						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" rowClasses="rowclass" >
 				
 			
 					<h:column > 
@@ -39,16 +46,9 @@
 						<f:facet name="header">
 							<h:outputText value="Destination" />
 						</f:facet>
-						<h:outputText value="#{produit.nomProduit}" />
+						<h:outputText value="#{produit.nomProduit}"  />
 					</h:column>
-					
-					<h:column >
-						<f:facet name="header">
-							<h:outputText value="Destination" />
-						</f:facet>
-						<h:outputText value="#{produit.descriptionProduit}" />
-					</h:column>
-	
+				
 					
 					<h:column>
 						<f:facet name="header">
@@ -62,7 +62,7 @@
 			
 	
 			<b:column col-md="7" >	
-			<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
+			<h:dataTable id="tablecommande" styleClass="table" value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
 						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
 			
 				<h:column>
