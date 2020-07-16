@@ -14,8 +14,16 @@
 
 
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+	
+	<b:tabLinks>
+		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin.xhtml" />
+		<b:navLink value="Catégories" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin-categorie.xhtml" />
 
-	<h:form enctype="multipart/form-data">
+	</b:tabLinks>
+
+	<h:form  enctype="multipart/form-data">
 
 		<h:inputHidden value="#{GestionCategorieBean.categorie.id_categorie}" /> 
 
