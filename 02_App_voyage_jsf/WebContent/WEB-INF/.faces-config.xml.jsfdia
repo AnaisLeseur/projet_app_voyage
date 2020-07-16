@@ -17,6 +17,14 @@
     TARGET="rules:#accueil-client.xhtml" TITLE="ajoutPanier" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="GoToPanier::#panier.xhtml" NAME="output3"
     PATH="/panier.xhtml" TARGET="rules:#panier.xhtml" TITLE="GoToPanier" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="ProduitCateg::#client-voyage-par-categorie.xhtml" NAME="output4"
+    PATH="/client-voyage-par-categorie.xhtml"
+    TARGET="rules:#client-voyage-par-categorie.xhtml"
+    TITLE="ProduitCateg" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="ProduitDetail::#details-produit.xhtml"
+    NAME="output5" PATH="/details-produit.xhtml"
+    TARGET="rules:#details-produit.xhtml" TITLE="ProduitDetail" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#panier.xhtml" PATH="/panier.xhtml"
@@ -103,4 +111,15 @@
     PATH="/panier.xhtml" TARGET="rules:#panier.xhtml" TITLE="GoToPanier" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#client-voyage-par-categorie.xhtml"
+  PATH="/client-voyage-par-categorie.xhtml" SHAPE="320,305,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#client-voyage-par-categorie.xhtml:0"
+   NAME="item" PATH="/client-voyage-par-categorie.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="ProduitDetail::#details-produit.xhtml"
+    NAME="output" PATH="/details-produit.xhtml"
+    TARGET="rules:#details-produit.xhtml" TITLE="ProduitDetail" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#details-produit.xhtml"
+  PATH="/details-produit.xhtml" SHAPE="544,289,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

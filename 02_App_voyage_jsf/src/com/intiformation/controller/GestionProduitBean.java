@@ -32,11 +32,16 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.faces.event.*;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+
 import org.apache.catalina.mapper.MappingData;
 import org.primefaces.component.datatable.DataTable;
+
+import org.apache.catalina.manager.util.SessionUtils;
+
 
 import javax.faces.component.*;
 import javax.faces.context.FacesContext;
@@ -52,9 +57,11 @@ public class GestionProduitBean implements Serializable {
 	private String motCle;
 	private boolean selectionProduit;
 	private List<Produit> listePanier = new ArrayList<>();
+	private List<Produit>  listeMonde =new ArrayList<>();
 	HttpSession session;
 	private List<Produit> listeProduitCateg; 
 	
+	private String nomCategorie;
 
 	private ProduitCategorie produitCateg;
 
@@ -508,13 +515,31 @@ public class GestionProduitBean implements Serializable {
 		UIParameter cp = (UIParameter) event.getComponent().findComponent("CategorieID");
 		int idCategorie = (int) cp.getValue();
 		
+		UIParameter cpNom = (UIParameter) event.getComponent().findComponent("CategorieNom");
+		nomCategorie = (String) cpNom.getValue();
+		
 		System.out.println("Id Categorie = "  + idCategorie);
+		System.out.println("Id Categorie = "  + nomCategorie);
+		
+		FacesContext contextJSF = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		
+		session.setAttribute("nomCategorie", nomCategorie);
 		
 		listeProduitCateg = produitDAO.getByCategorie(idCategorie);
 		
 	}//end findProduitParCategorie
+
+	public List<Produit> AfficherlisteProduitMonde(){
+		 
+		int i = 2;
+		
+		listeMonde = produitDAO.getByCategorie(i);
+		
+		return listeMonde; 
+	}
 	
-	public List<Produit> AfficherListeProduit() {
+	public List<Produit> AfficherListeProduitParCateg() {
 		
 		return listeProduitCateg;
 		
@@ -523,6 +548,16 @@ public class GestionProduitBean implements Serializable {
 
 		
 	// _____ Getter /setter ______//
+	
+	
+	public String getNomCategorie() {
+		return nomCategorie;
+	}
+
+	public void setNomCategorie(String nomCategorie) {
+		this.nomCategorie = nomCategorie;
+	}
+	
 	public List<Produit> getListeProduits() {
 		return listeProduits;
 	}

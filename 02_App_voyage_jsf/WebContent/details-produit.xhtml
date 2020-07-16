@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Détail du voyage</title>
+
+	<h:outputStylesheet library="style" name="perso.css" />
+	<style type="text/css">
+.value {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.ui-carousel {
+	margin-bottom: 20px;
+}
+
+body {
+	background-color: white;
+	background-image: none;
+}
+</style>
+</h:head>
+
+<h:body>
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+
+
+	<h1>Plus de détails sur le voyage:
+		#{GestionProduitBean.produit.nomProduit}</h1>
+	<div id="detail" class="grid-container">
+
+		<h4>
+			Description <br /> #{GestionProduitBean.produit.descriptionProduit}
+		</h4>
+		<br /> <br />
+		<h4>
+			Prix: <br /> #{GestionProduitBean.produit.prixProduit} € par
+			personne
+		</h4>
+		<br /> <br /><br /> <br /><br /> <br /><br /> <br />
+		<h:form>
+		<h:commandLink id="edit" action="ajoutPanier"
+				actionListener="#{GestionProduitBean.selectionnerProduit}" style="font-size: 20px">
+
+				<f:param id="selectID" name="id"
+					value="#{GestionProduitBean.produit.idProduit}" />
+				<f:param id="selectIsDispo" name="selection"
+					value="#{GestionProduitBean.produit.selectionProduit}" />
+
+				<h:outputText value="Choisir ce voyage!" />
+
+			</h:commandLink>
+		</h:form>
+	</div>
+	<div class="container-fluid">
+		<h:graphicImage id="imageDetail"
+			value="/resources/images/#{GestionProduitBean.produit.urlImageProduit}"
+			library="images" />
+	</div>
+
+
+	<b:button href="client-voyage-par-categorie.xhtml"
+		value="Retour à la liste de voyages" style="margin-left: 300px" />
+
+</h:body>
+<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+</html>
