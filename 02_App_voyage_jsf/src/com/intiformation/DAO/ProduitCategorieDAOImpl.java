@@ -199,4 +199,36 @@ public class ProduitCategorieDAOImpl implements IProduitCategorie {
 		return false;
 	}// end deleteByDoubleId
 
+	
+
+	/**
+	 * AJOUTER UNE LIAISON PRODUIT-CATEGORIE VERSION 2
+	 */
+	@Override
+	public boolean addVersion2(int IDcategorie,int IdProduit) {
+
+		try {
+			ps = this.connexion
+					.prepareStatement("insert into produits_categories(categorie_id, produit_id) " + "values(?, ?)");
+
+			ps.setInt(1, IDcategorie);
+			ps.setInt(2, IdProduit);
+
+			int verifAjout = ps.executeUpdate();
+
+			return verifAjout == 1;
+
+		} catch (SQLException e) {
+			System.out.println("... Erreur lors de la méthode addversion2() de ProduitCategorieDAOImpl ...");
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} // end catch
+		} // end finally
+		return false;
+	}// end add
+
 }// end classe

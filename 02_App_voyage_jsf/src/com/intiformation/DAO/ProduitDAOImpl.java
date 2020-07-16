@@ -268,22 +268,21 @@ public class ProduitDAOImpl implements IProduitDAO {
 	 */
 	@Override
 	public List<Produit> getByCategorie(Integer idCategorie) {
-
-		
-		String requeteSelect =" select * from produit_categ where categorie_id = ?"; 
-		
-		try {	
+	
+		try {
+			ps = this.connexion.prepareStatement("select * from produit_categ1 where categorie_id = ? ");
+			
 			ps.setInt(1, idCategorie);
 			
-			rs = ps.executeQuery(requeteSelect); 
+			rs = ps.executeQuery(); 
 			
 			Produit produitCateg = null; 
 			List<Produit> listePorduitCateg = new ArrayList<>();
 			
 			while(rs.next()) {
 				produitCateg = new Produit(rs.getInt(1), rs.getString(2), 
-						rs.getString(3), rs.getDouble(4), 
-						rs.getInt(5), rs.getBoolean(6), rs.getString(7));
+						rs.getString(3), rs.getDouble(4), rs.getInt(5), 
+						rs.getBoolean(6), rs.getString(7), rs.getInt(8));
 				
 				listePorduitCateg.add(produitCateg);
 			}//end while
@@ -295,8 +294,9 @@ public class ProduitDAOImpl implements IProduitDAO {
 			e.printStackTrace();
 		}finally {
 			try {
-				ps.close();
 				rs.close();
+				ps.close();
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

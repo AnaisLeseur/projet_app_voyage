@@ -10,7 +10,7 @@
 	<title>Votre panier</title>
 	
 </h:head>
-<body>
+<h:body>
 
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
@@ -68,7 +68,7 @@
 				<h:column>
 					<h:inputHidden value="#{ligne.produit_id}" />
 				</h:column>	
-				<h:column>
+				<h:column >
 					<f:facet name="header">
 						<h:outputText value="Nombre de personnes" />
 					</f:facet>
@@ -91,9 +91,7 @@
 					</f:facet>
 					<h:outputText value="#{ligne.prix_ligne} €" />
 				</h:column>
-				
-				
-				
+
 				<h:column>
 					<h:form>
 						<f:facet name="header">
@@ -130,5 +128,5 @@
 
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 
-</body>
+</h:body>
 </html>

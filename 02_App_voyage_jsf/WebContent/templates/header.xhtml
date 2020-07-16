@@ -10,7 +10,7 @@
 
 
 </h:head>
-<body>
+<h:body>
 	<ui:composition>
 
 		<b:navBar brand="Travel Company" brandHref="accueil-client.xhtml" inverse="true" fixed="top"
@@ -46,9 +46,12 @@
 			
 		</b:navBar>
 		
+		<h:messages globalOnly="true" layout="table" showDetail="true"
+		styleClass="error" fatalClass="error" infoClass="message" />
+		
 		
 		
 
 	</ui:composition>
-</body>
+</h:body>
 </html>

@@ -3,6 +3,7 @@ package com.intiformation.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIParameter;
@@ -34,6 +35,7 @@ public class GestionLigneCommandeBean implements Serializable {
 	HttpSession session;
 	
 	double prixParVoyage;
+	int quantiteVoyage;
 	
 	
 	private Integer pIdCommande;
@@ -134,12 +136,12 @@ public class GestionLigneCommandeBean implements Serializable {
 
 		UIParameter quantiteProduit = (UIParameter) event.getComponent().findComponent("QuantiteProduit");
 		UIParameter idProduit = (UIParameter) event.getComponent().findComponent("IdProduit");
-//		UIParameter prixProduit = (UIParameter) event.getComponent().findComponent("PrixProduit");
+//		UIParameter stockProduit = (UIParameter) event.getComponent().findComponent("StockProduit");
 		UIParameter uip2 = (UIParameter) event.getComponent().findComponent("selectModifIdLignePanier");
 		
 		int quantiteAdd = (int) quantiteProduit.getValue();
 		int idProduitAdd = (int) idProduit.getValue();
-//		double prixProduitAdd = (double) prixProduit.getValue();
+//		int stockProduitAdd = (int) stockProduit.getValue();
 		int selectModifIdLignePanier = (int) uip2.getValue();
 		
 		System.out.println("int selectModifIdLignePanier =" + selectModifIdLignePanier);
@@ -151,9 +153,16 @@ public class GestionLigneCommandeBean implements Serializable {
 		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
 		listePanier = (List<Produit>) session.getAttribute("listePanier");
 		
+//		quantiteVoyage = listePanier.get(selectModifIdLignePanier).getQuantitéProduit();
 		prixParVoyage = listePanier.get(selectModifIdLignePanier).getPrixProduit();
-		System.out.println("double prix = listePanier.get(selectModifIdLignePanier).getPrixProduit() =" + prixParVoyage);
 		
+		
+		
+		System.out.println("double prix = listePanier.get(selectModifIdLignePanier).getPrixProduit() =" + prixParVoyage);
+//		System.out.println("double prix = listePanier.get(selectModifIdLignePanier).getQuantitéProduit(); =" + quantiteVoyage);
+		
+//		if (quantiteAdd < stockProduitAdd) {
+			
 		prixTotal = quantiteAdd * prixParVoyage;
 		System.out.println("double prixTotal : " + prixTotal );
 		
@@ -164,13 +173,25 @@ public class GestionLigneCommandeBean implements Serializable {
 			System.out.println("listeLigneCommande.set(selectModifIdLignePanier, ligneCommande):" 
 					+ ligneCommande.getProduit_id() + " ;ligneCommande.getPrix_ligne() " + ligneCommande.getPrix_ligne() );
 			
-		}
+			session.setAttribute("listeLigneCommande", listeLigneCommande);
+			
+		}//end for
+		
+/*		}else {
+			contextJSF = FacesContext.getCurrentInstance();
+			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
+					" la quantité demandée est trop importante", " - saisir une quantité inférieure"));
+			
+			
+			
+		}// end else
+*/		
 		
 		
-		
-		session.setAttribute("listeLigneCommande", listeLigneCommande);
-		
-	}
+	}// end meth
+	
+	
+	
 	
 	public double ReturnPrixTotal() {
 		return prixParVoyage;

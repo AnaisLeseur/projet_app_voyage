@@ -13,4 +13,5 @@ public interface IProduitCategorie extends IGenerique<ProduitCategorie>{
 	
 	public boolean deleteByDoubleId(Integer pIdCategorie, Integer pIdProduit);
 
+	public boolean addVersion2(int IDcategorie,int IdProduit) ;
 }//end interface

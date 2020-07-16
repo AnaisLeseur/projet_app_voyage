@@ -12,7 +12,7 @@
 	<title>page de recherche d'un voyage par catégorie</title>
 
 </h:head> 
-<body> 
+<h:body> 
 <ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
 <h:form>
@@ -26,12 +26,13 @@
         <p:selectCheckboxMenu id="menu" value="#{GestionCategorieBean.selectedCities}" label="Cities"
                               filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
             <f:selectItems value="#{GestionCategorieBean.cities}" />
+             <h:message for="menu"/> 
         </p:selectCheckboxMenu>
  
         <h:outputLabel for="multiple" value="Multiple:" />
         <p:selectCheckboxMenu id="multiple" value="#{GestionCategorieBean.selectedCities2}" label="Cities" multiple="true"
                               filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-                              
+             <h:message for="multiple"/>                 
             <p:ajax event="toggleSelect" process="@this" listener="#{GestionCategorieBean.onItemUnselect}" />
 
             <f:selectItems value="#{GestionCategorieBean.cities}" />
@@ -102,5 +103,5 @@
 <ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 
 
-</body> 
+</h:body> 
 </html>

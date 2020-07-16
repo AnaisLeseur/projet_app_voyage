@@ -8,7 +8,7 @@
 <h:head>
 	<title>Lier à des catégories</title>
 </h:head>
-<body>
+<h:body>
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 	<h:form>
 		<h:panelGrid>
@@ -18,21 +18,36 @@
 				value="#{GestionCategorieBean.findAllCategoriesBDD()}" var="categ"
 				rows="8">
 				<h:column>
-					<p:selectBooleanCheckbox id="v_option1" />
+					<p:selectBooleanCheckbox id="v_option1" 
+					value="#{GestionProduitCategorieBean.listeCategorieSelectionnes[categ.id_categorie]}" />
+					<h:message for="v_option1"/>
 
 					<p:outputLabel for="v_option1" value="#{categ.nom_categorie}" />
 				</h:column>
 			</h:dataTable>
 			
+	
+			
 			<f:facet name="footer">
-				<h:commandButton value="Enregistrer le nouveau voyage"
+				<h:commandButton value="Lier ce voyage au catégories selectionnées"
 					action="accueilAdmin"
-					actionListener="#{GestionProduitBean.creerLiaisonProduitCategorie}">
+					actionListener="#{GestionProduitCategorieBean.creerLiaisonProduitCategorie}">
 					<f:param id="ProduitID" value="#{GestionProduitBean.produit.idProduit}" />
 				</h:commandButton>
 			</f:facet>
+			
+			<f:facet name="footer">
+				<h:commandButton value="Retour à la liste de produits"
+					action="accueilAdmin">
+				</h:commandButton>
+			</f:facet>
+			
+			<h:messages globalOnly="true" showDetail="true" fatalStyle="color:red; font-style:italic;" 
+	infoStyle="color:green; font-style:italic;"/>
+	
+	
 		</h:panelGrid>
 	</h:form>
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
-</body>
+</h:body>
 </html>
