@@ -17,6 +17,8 @@ select * from produits_categories;
 
 select * from users;
 
+select * from produit_categ;
+
 
 
 /* ------ INSERT INTO  -----------*/ 
@@ -45,7 +47,7 @@ select * from produits where nom_produit like '%paris%' or description_produit l
 
 select * from produits where selectionne_produit =0; 
 
-
+select * from produits_categories where categorie_id=1 and produit_id=4;
 
 
 insert into categories( nom_categorie, description_categorie)values ( 'france', 'voyage en france metropolitaine');
@@ -57,7 +59,12 @@ insert into produits_categories(categorie_id, produit_id) values(1, 4);
 insert into produits_categories(categorie_id, produit_id) values(2, 5);
 insert into produits_categories(categorie_id, produit_id) values(3, 4);
 insert into produits_categories(categorie_id, produit_id) values(2, 6);
+insert into produits_categories(categorie_id, produit_id) values(3, 5);
 
+delete from produits_categories where categorie_id = 3 and produit_id = 5; 
+
+
+update produits_categories set categorie_id = 3, produit_id =4 where categorie_id=1 and produit_id = 5;
 
 /* ------ TEST récup données produit avec les catégoties associées  -----------*/ 
 
@@ -71,15 +78,15 @@ insert into produits_categories(categorie_id, produit_id) values(2, 6);
 
    -----------*/ 
 
-	create view produit_categ as
-	select *
+	create view produit_categ1 as
+	select id_produit,nom_produit, description_produit, prix_produit, quantite_produit, selectionne_produit, image_produit, categorie_id 
 	from produits p 
 	left join produits_categories pc
 	on p.id_produit = pc.produit_id;
     
-    drop view produit_categ;
+    drop view produit_categ1;
     
-    select * from produit_categ;
+    select * from produit_categ1;
     
     select * 
     from produit_categ 
