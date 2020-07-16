@@ -410,9 +410,9 @@ public class GestionProduitBean implements Serializable {
 				// ajout du voyage dans la bdd + message
 				if (produitDAO.add(produit)) {
 					
-				FacesContext contextJSF = FacesContext.getCurrentInstance();	
+				FacesContext contextJSFajout = FacesContext.getCurrentInstance();	
 					
-					contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout du produit",
+					contextJSFajout.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout du produit",
 							"- Le produit a été ajouté avec succès"));
 
 				} else {
@@ -480,8 +480,8 @@ public class GestionProduitBean implements Serializable {
 			} // end if uploadedFile != null
 
 			if (produitDAO.update(produit)) {
-				FacesContext contextJSF = FacesContext.getCurrentInstance();	
-				contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification du produit",
+				FacesContext contextJSFmodif = FacesContext.getCurrentInstance();	
+				contextJSFmodif.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification du produit",
 						"- Le produit a été modifié avec succès"));
 
 			} else {
