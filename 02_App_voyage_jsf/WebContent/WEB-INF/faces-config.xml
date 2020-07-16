@@ -186,6 +186,22 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
+	
+	<!-- 1. règles de navigation pour la page 'proceder-paiement.xhtml' -->
+	<navigation-rule>
+		<from-view-id>/proceder-paiement.xhtml</from-view-id>
+		<navigation-case>
+			<!-- 1.2.1 Clé d'outcome -->
+			<from-outcome>GoToPanier</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/panier.xhtml</to-view-id>
+			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+
 
 
 </faces-config>

@@ -199,6 +199,39 @@ public class AuthentificationAdminBean implements Serializable {
 		}// end else
 	}// end connecterClient
 	
+	
+	/**
+	 * meth qui permet de vérifier que client est connecté à son espace AVANT de payer
+	 * la meth sera invoquée au click sur 'procéder au paiment' dans panier.xhtml
+	 * 
+	 * @return la page d'authentification client
+	 * OU 
+	 * @return la page avec la commande 
+	 */
+	public String Paiement() {
+		
+		// 1. déclaration du context de JSF (l'objet FacesContext)
+		FacesContext contextJSF = FacesContext.getCurrentInstance();
+		// -> création de la session
+		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
+		
+		
+		// 2.vérif si le client est connecté
+		if (session.getAttribute("user_login") == null) {
+
+			return "authentication.xhtml?faces-redirect=true";
+			
+		} else {
+
+			return "proceder-paiement.xhtml?faces-redirect=true";
+			
+
+		}// end else
+			
+		
+	}// end Paiement
+	
+	
 
 
 
