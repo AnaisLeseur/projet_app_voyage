@@ -1,316 +1,154 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:p="http://primefaces.org/ui"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 
 	<title>page d'accueil client</title>
-	
-	<h:outputStylesheet library="styles" name="bootstrap.css" />
+
+	<h:outputStylesheet library="style" name="perso.css" />
 	<style type="text/css">
-     .value {
-        font-weight: bold;
-        font-size: 20px;
-        
-    }
-     
-    .ui-carousel {
-        margin-bottom: 20px;
-    }
+.value {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.ui-carousel {
+	margin-bottom: 20px;
+}
 </style>
 
-</h:head> 
-<h:body> 
+</h:head>
+<h:body>
 
-<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
-<h1 style="text-align: center; margin-bottom: 50px; margin-top: 50px; font-family: sans-serif; font-weight: bold; "> Trouvez le voyage de vos rêves !</h1>
+	<h1
+		style="text-align: center; margin-bottom: 30px; margin-top: 30px; font-family: sans-serif; font-weight: bold; font-size: 50px;">
+		Trouvez le voyage de vos rêves !</h1>
 	<b:row>
 
-		<b:column col-md="9" style="margin-left : 150px">
-		
-			<h:dataTable styleClass="table" value="#{GestionProduitBean.findAllProduitsBDD()}" var="produit"
-				rows="8">
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Couverture" />
-					</f:facet>
-					<h:graphicImage library="images" name="#{produit.urlImageProduit}" width="250" height="160" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Id" />
-					</f:facet>
-					<h:outputText value="#{produit.idProduit}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Nom / Destination" />
-					</f:facet>
-					<h:outputText value="#{produit.nomProduit}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Visuel" />
-					</f:facet>
-					<h:outputText value="#{produit.urlImageProduit}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Description" />
-					</f:facet>
-					<h:outputText value="#{produit.descriptionProduit}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Prix" />
-					</f:facet>
-					<h:outputText value="#{produit.prixProduit}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Quantité" />
-					</f:facet>
-					<h:outputText value="#{produit.quantitéProduit}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Selectionné" />
-					</f:facet>
-					<h:outputText value="#{produit.selectionProduit}" />
-				</h:column>
-				
-				
-				<h:column>
-				<h:form>
-					<f:facet name="header">
-						<h:outputText value="Ajouter au panier" />
-					</f:facet>
-					
-					<h:commandLink id="edit" action="ajoutPanier"
-					actionListener="#{GestionProduitBean.selectionnerProduit}">
+		<b:column col-md="10" style="margin-left : 120px">
 
-						<f:param id="selectID" name="id" value="#{produit.idProduit}" />
-						<f:param id="selectIsDispo" name="selection" value="#{produit.selectionProduit}" />
-	
-						<h:outputText value="Choisir ce voyage!" />
+			<h:form id="form">
+				<p:carousel value="#{GestionCategorieBean.findAllCategoriesBDD()}"
+					headerText="Vous ne savez pas où allez ? Nos catégories vous aideront peut-être:"
+					var="categ" itemStyle="text-align:center" responsive="true">
+					<p:panelGrid columns="2"
+						style="width:100%;margin:20px 0px; height:300px"
+						columnClasses="label,value" layout="grid"
+						styleClass="ui-panelgrid-blank">
+						<f:facet name="header">
+							<h:graphicImage styleClass="image" library="images"
+								name="#{categ.urlImageCategorie}" width="250" height="160"
+								style="opacity: 1" />
+						</f:facet>
+						<h:outputText />
+						
+						<h:outputText value="#{categ.nom_categorie}" />
+						<h:outputText value="#{categ.description_categorie}"
+							style="color: black;" />
+
+						<h:outputText />
+
+						<h:commandLink id="ParCateg" action="ProduitCateg"
+							actionListener="#{GestionProduitBean.findProduitParCategorie}">
+
+							<f:param id="CategorieID" name="id" value="#{categ.id_categorie}" />
+							<f:param id="CategorieNom" name="nom"
+								value="#{categ.nom_categorie}" />
+
+							<h:outputText value="Voir les voyages de cette catégorie" />
+
+						</h:commandLink>
+
+					</p:panelGrid>
+
+				</p:carousel>
+			</h:form>
 
 
-					</h:commandLink>
-				</h:form>
-				</h:column>
-				
-			</h:dataTable>
+			<h:form>
+				<p:carousel
+					value="#{GestionProduitBean.AfficherlisteProduitMonde()}"
+					headerText="A la découverte du monde !" var="produit"
+					itemStyle="text-align:center" responsive="true">
+					<p:panelGrid columns="2"
+						style="width:100%;margin:20px 0px; height:300px"
+						columnClasses="label,value" layout="grid"
+						styleClass="ui-panelgrid-blank">
+						<f:facet name="header">
+							<h:graphicImage library="images"
+								name="#{produit.urlImageProduit}" width="250" height="160" />
+						</f:facet>
+
+						<h:outputText />
+						<h:outputText value="#{produit.nomProduit}" />
+						<h:outputText value="#{produit.prixProduit}" style="color: black;" />
+						
+						<h:outputText />
+
+						<h:commandLink id="ParCateg" action="ProduitDetail"
+							actionListener="#{GestionProduitBean.recupProduit}">
+
+							<f:param id="modifId" name="id" value="#{produit.idProduit}" />
+
+							<h:outputText value="Voir les détails !" />
+
+						</h:commandLink>
+
+					</p:panelGrid>
+
+				</p:carousel>
+			</h:form>
+
+
+
+
+
+			<h:form id="form2">
+				<p:dataGrid var="produit"
+					value="#{GestionProduitBean.findAllProduitsBDD()}" columns="3"
+					layout="grid" rows="12" paginator="true" id="cars"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="6,12,16">
+
+					<f:facet name="header">
+            Tous nos voyages...
+        </f:facet>
+
+					<p:panel header="#{produit.nomProduit}" style="text-align:center">
+						<h:panelGrid columns="1" style="width:100%">
+							<h:graphicImage library="images"
+								name="#{produit.urlImageProduit}" width="250" height="160" />
+
+							<h:outputText value="#{produit.descriptionProduit}" />
+
+						</h:panelGrid>
+					</p:panel>
+
+				</p:dataGrid>
+
+
+			</h:form>
+
+
 
 
 		</b:column>
 	</b:row>
-	
-	
-	 
- <br />
-  <br />
-   <br />
-	
-	
-	<h:form id="form">
-    <p:carousel value="#{GestionProduitBean.findAllProduitsBDD()}" headerText="Nos coups de coeur" var="produit" itemStyle="text-align:center" responsive="true">
-        <p:panelGrid columns="3" style="width:100%;margin:20px 0px; height:270px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
-            <f:facet name="header">
-                <h:graphicImage library="images" name="#{produit.urlImageProduit}" />
-            </f:facet>
-            <h:outputText/>
-            <h:outputText  value="#{produit.nomProduit}"/>
-      		<h:outputText value="#{produit.descriptionProduit}" />
- 
-            
- 
-    
-        </p:panelGrid>
- 
-    </p:carousel>
- </h:form>
- 
- 
- 
- <br />
-  <br />
-   <br />
-   
-   
-   <h:form id="form2">
-    <p:dataGrid var="produit" value="#{GestionProduitBean.findAllProduitsBDD()}" columns="3" layout="grid"
-        rows="12" paginator="true" id="cars"
-        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-        rowsPerPageTemplate="6,12,16">
-         
-        <f:facet name="header">
-            Tous nos voyages...
-        </f:facet>
- 
-        <p:panel header="#{produit.nomProduit}" style="text-align:center">
-            <h:panelGrid columns="1" style="width:100%">
-                <h:graphicImage library="images" name="#{produit.urlImageProduit}" />
- 
-                <h:outputText value="#{produit.descriptionProduit}" />
- 
-            </h:panelGrid>
-        </p:panel>
- 
-    </p:dataGrid>
- 
- 
-</h:form>
-	
-	
-	 
- <br />
-  <br />
-   <br />
-
-	
-<h3>Responsive (Basic)</h3>
-
-
-<p:panelGrid columns="3" layout="grid" styleClass="showcase-text-align-center" >
-
-		
-		
-		<p:panelGrid columns="2">
-		    <f:facet name="header">
-		        <p:graphicImage name="/images/image1.jpg" />
-		    </f:facet>
-		     
-		    <h:outputText value="Name:" />
-		    <h:outputText value="Kobe Bryant" />
-		     
-		    <h:outputText value="Team:" />
-		    <h:outputText value="Los Angeles Lakers" />
-		     
-		    <h:outputText value="Position:" />
-		    <h:outputText value="Shooting Guard" />
-		     
-		    <h:outputText value="Number:" />
-		    <h:outputText value="24" />
-		    
-		</p:panelGrid>
-		
-		
-	<p:panelGrid columns="2">
-	  <div class="card">
-	  <f:facet name="header">
-    <h:graphicImage library="images" name="image1.jpg"/>
-    </f:facet>
-    <div class="card-body">
-    <h:dataTable styleClass="table" value="#{GestionProduitBean.findAllProduitsBDD()}" var="produit">
-      <h5 class="card-title">
-      	<h:outputText value="#{produit.idProduit}" />
-      </h5>
-      <p class="card-text">This is a longer card with supporting text below 
-      as a natural lead-in to additional content. This content is a little bit longer.</p>
-   	 <br />
-		<p>
-		<h:outputText value="24" />
-		</p>
-		</h:dataTable>
-    </div>
-    </div>
-    	</p:panelGrid>
-	 
-	<p:panelGrid columns="3">
-	  <div class="card">
-	  <f:facet name="header">
-    <h:graphicImage library="images" name="image1.jpg"/>
-    </f:facet>
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-    </div>
-    	</p:panelGrid>
-    	
-    	
- </p:panelGrid>
- 
-
-
-	<h:dataTable styleClass="table" value="#{GestionProduitBean.findAllProduitsBDD()}" var="produit">
-		 
-		<h:column>
-		 	<p:panelGrid columns="3" layout="grid" styleClass="showcase-text-align-center">
-				
-					
-				<f:facet name="header" >
-			   		<h:graphicImage library="images" name="#{produit.urlImageProduit}"/>
-			    </f:facet>
-			    
-				<h:outputText value="#{produit.nomProduit}" />
-      			<h:outputText value="#{produit.descriptionProduit}" />
-     			<h:outputText value="#{produit.prixProduit}" />
-			
-		</p:panelGrid>
-		</h:column>
-	
-	</h:dataTable>
-	
-	
-    	
- 	
-<h:dataTable styleClass="table" value="#{GestionProduitBean.findAllProduitsBDD()}" var="produit">
-	<h:column>			
-    <b:row>
-      <h:column class="col-md-offset-1 col-md-5 col-xs-12">
-        <div class="card horizontal">
-          <div class="card-image">
-           <h:graphicImage library="images" name="#{produit.urlImageProduit}"/>
-          </div>
-          <div class="card-stacked">
-            <div class="card-content">
-              <h3><h:outputText value="#{produit.nomProduit}" /></h3>
-              <h:outputText value="#{produit.descriptionProduit}" /> 
-              <br />
-              <button class="btn btn-styled">START COPY</button>
-             </div>
-           </div>
-         </div>
-         
-      </h:column>
-      
-	</b:row>
-	</h:column>
-</h:dataTable>
 
 
 
-    	
- <p:panelGrid columns="2">  	
-   <h:dataTable styleClass="table" value="#{GestionProduitBean.findAllProduitsBDD()}" var="produit">
-		<p:panelGrid columns="3">
-			<p:panelGrid columns="1">
-				<f:facet name="header" >
-				   		<h:graphicImage library="images" name="#{produit.urlImageProduit}"/>
-				    </f:facet>
-				<h:outputText value="#{produit.nomProduit}" />
-      			<h:outputText value="#{produit.descriptionProduit}" />
-     			<h:outputText value="#{produit.prixProduit}" />
-			</p:panelGrid>
-			
-		</p:panelGrid>	
-	</h:dataTable>
-</p:panelGrid>    	
-  
 
 
 
-		
-	
-	
+
+
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 
-</h:body> 
+</h:body>
 </html>

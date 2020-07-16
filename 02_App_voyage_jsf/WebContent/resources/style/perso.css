@@ -1,6 +1,95 @@
 @charset "UTF-8";
 
-.rechercher{
-	 float: right;
+.rechercher {
+	float: right;
 
 }
+
+h1 {
+	text-align: center;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+#detail {
+	float: left;
+	margin-left: 300px;
+}
+
+#imageDetail {
+
+	margin-left: 0px;
+	margin-right: 20px;
+	width: 30%;
+	border: solid black 10px;
+}
+
+body {
+
+	background-image: url(https://images.pexels.com/photos/747964/pexels-photo-747964.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+	background-repeat: repeat;
+	background-size: contain;
+
+
+}
+
+form {
+
+	opacity: 0.9;
+}
+
+img {
+	opacity: inherit;
+}
+
+
+footer {
+	background-color: white;
+	padding-top: 0;
+	margin-top: 0cm;
+}
+
+
+.grid-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr;
+	gap: 1px 1px;
+	grid-template-areas: ". ."". ."". .";
+}
+
+.linkHeader {
+	font-size: 20px;
+}
+
+#tablepanier {
+
+	font-size: 18px;
+	padding-bottom: 15px;
+	
+
+}
+
+.rowclass{
+
+	padding-top: 10px;
+	margin-top: 20%;
+	height: 67px
+}
+
+#tablecommande {
+
+	font-size: 18px;
+	padding-bottom: 15px;
+	
+
+}
+
+
+
+
+
+
+
+
+

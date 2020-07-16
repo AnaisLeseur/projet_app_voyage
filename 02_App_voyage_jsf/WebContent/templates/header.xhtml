@@ -13,21 +13,21 @@
 <h:body>
 	<ui:composition>
 
-		<b:navBar brand="Travel Company" brandHref="accueil-client.xhtml" inverse="true" fixed="top"
-			position="absolute">
-			<h:form styleClass="navbar-form navbar-left">
-				<b:navbarLinks >
-					<b:navLink value="Accueil" href="accueil-client.xhtml"></b:navLink>
-					<b:navLink value="Rechercher un voyage" href="rechercher-voyage-par-categorie.xhtml"></b:navLink>
-					<b:navLink value="Contact" href="mailto:AppVoyage@voyage.com"></b:navLink>
-					<b:navLink value="Connectez-vous" href="authentication.xhtml"></b:navLink>
-					<b:navLink value="Panier" href="panier.xhtml" ></b:navLink>
+		<b:navBar brand="Travel Company" brandHref="accueil-client.xhtml" brand-style="padding-top: 50px" inverse="true" fixed="top"
+			position="absolute" style="padding-top: 20px ; font-size:20px">
+			<h:form styleClass="navbar-form navbar-left" >
+				<b:navbarLinks styleClass="linkHeader" >
+					<b:navLink><b:navLink value="Accueil" href="accueil-client.xhtml"></b:navLink></b:navLink>	
+					<b:navLink><b:navLink value="Contact" href="mailto:AppVoyage@voyage.com"></b:navLink></b:navLink>
+					<b:navLink><b:navLink value="Connectez-vous" href="authentication.xhtml"></b:navLink></b:navLink>
+					<b:navLink><b:navLink value="Panier" href="panier.xhtml" ></b:navLink></b:navLink>
 					<b:navLink ><b:commandLink value="Se déconnecter" actionListener="#{AuthentificationAdminBean.deconnecterUser()}" action="retourAccueil"></b:commandLink>
 				</b:navLink>
 				</b:navbarLinks>
 			</h:form>
-
-			<h:form styleClass="navbar-form navbar-right">
+			
+			<h:form styleClass="navbar-form navbar-right" style="padding-top: 40px">
+				
 				<div class="form-group">
 					<b:inputText id="motcle" value="#{GestionProduitBean.motCle}" placeholder="rechercher..."
 						fieldSize="sm">
