@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -62,7 +62,7 @@
 		</b:column>
 			
 	
-			<b:column col-md="7" >	
+			<b:column col-md="5" >	
 			<h:dataTable id="tablecommande" styleClass="table" value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
 						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
 			
