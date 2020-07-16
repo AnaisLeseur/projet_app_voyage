@@ -10,17 +10,24 @@
 	<title>page de la liste des produits par mot clé</title>
 	
 </h:head> 
-<body> 
+<h:body> 
 <ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
-<h2>Liste des produits dans bdd via le mot-clé:</h2>
+
 	<b:row>
 
 
-		<b:column col-md="8">
-		
+		<b:column col-md="9" style="margin-left : 150px">
+		<h2>Voici les résultats de votre recherche :</h2>
 			<h:dataTable styleClass="table" value="#{GestionProduitBean.findProduitByMotCle(GestionProduitBean.motCle)}" var="produit"
 				rows="8">
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Couverture" />
+					</f:facet>
+					<h:graphicImage library="images" name="#{produit.urlImageProduit}" width="250" height="160" />
+				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Id" />
@@ -33,12 +40,7 @@
 					</f:facet>
 					<h:outputText value="#{produit.nomProduit}" />
 				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Visuel" />
-					</f:facet>
-					<h:outputText value="#{produit.urlImageProduit}" />
-				</h:column>
+				
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Description" />
@@ -63,6 +65,24 @@
 					</f:facet>
 					<h:outputText value="#{produit.selectionProduit}" />
 				</h:column>
+				<h:column>
+				<h:form>
+					<f:facet name="header">
+						<h:outputText value="Ajouter au panier" />
+					</f:facet>
+					
+					<h:commandLink id="edit" action="ajoutPanier"
+					actionListener="#{GestionProduitBean.selectionnerProduit}">
+
+						<f:param id="selectID" name="id" value="#{produit.idProduit}" />
+						<f:param id="selectIsDispo" name="selection" value="#{produit.selectionProduit}" />
+	
+						<h:outputText value="Choisir ce voyage!" />
+
+
+					</h:commandLink>
+				</h:form>
+				</h:column>
 				
 			</h:dataTable>
 
@@ -73,5 +93,5 @@
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 
 
-</body> 
+</h:body> 
 </html>

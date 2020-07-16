@@ -46,6 +46,7 @@ public class GestionProduitBean implements Serializable {
 	private boolean selectionProduit;
 	private List<Produit> listePanier = new ArrayList<>();
 	HttpSession session;
+	private List<Produit> listeProduitCateg; 
 	
 
 	private ProduitCategorie produitCateg;
@@ -392,7 +393,7 @@ public class GestionProduitBean implements Serializable {
 
 	public void saveVoyage(ActionEvent event) {
 
-		FacesContext contextJSF = FacesContext.getCurrentInstance();
+		
 
 		// -------------------------------------------
 		// cas : ajout
@@ -409,7 +410,7 @@ public class GestionProduitBean implements Serializable {
 				// ajout du voyage dans la bdd + message
 				if (produitDAO.add(produit)) {
 					
-					
+				FacesContext contextJSF = FacesContext.getCurrentInstance();	
 					
 					contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout du produit",
 							"- Le produit a été ajouté avec succès"));
@@ -479,7 +480,7 @@ public class GestionProduitBean implements Serializable {
 			} // end if uploadedFile != null
 
 			if (produitDAO.update(produit)) {
-
+				FacesContext contextJSF = FacesContext.getCurrentInstance();	
 				contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification du produit",
 						"- Le produit a été modifié avec succès"));
 
@@ -493,19 +494,25 @@ public class GestionProduitBean implements Serializable {
 
 	}// end saveBook()
 
-	public void creerLiaisonProduitCategorie(ActionEvent event) {
-		
-
-		UIParameter uip = (UIParameter) event.getComponent().findComponent("ProduitID");
-		int produitID = (int) uip.getValue();
-		
-		System.out.println(produitID);
+	public void findProduitParCategorie(ActionEvent event){
 		
 		
+		UIParameter cp = (UIParameter) event.getComponent().findComponent("CategorieID");
+		int idCategorie = (int) cp.getValue();
 		
-
-	}// end creerLiaisonProduitCategorie
-
+		System.out.println("Id Categorie = "  + idCategorie);
+		
+		listeProduitCateg = produitDAO.getByCategorie(idCategorie);
+		
+	}//end findProduitParCategorie
+	
+	public List<Produit> AfficherListeProduit() {
+		
+		return listeProduitCateg;
+		
+	}//end AfficherListeProduit
+	
+		
 	// _____ Getter /setter ______//
 	public List<Produit> getListeProduits() {
 		return listeProduits;

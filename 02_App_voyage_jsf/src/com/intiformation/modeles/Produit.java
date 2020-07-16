@@ -19,7 +19,10 @@ public class Produit {
 	private int quantitéProduit;
 	private boolean selectionProduit;
 	private String urlImageProduit;
+	
+	private int categorieID; 
 
+	
 	// _____ Ctor ______//
 
 	/**
@@ -50,6 +53,22 @@ public class Produit {
 		this.selectionProduit = selectionProduit;
 		this.urlImageProduit = urlImageProduit;
 	}// end ctor chargé sans id
+	
+	public Produit(int idProduit, String nomProduit, String descriptionProduit, double prixProduit, int quantitéProduit,
+			boolean selectionProduit, String urlImageProduit, int categorieID) {
+		super();
+		this.idProduit = idProduit;
+		this.nomProduit = nomProduit;
+		this.descriptionProduit = descriptionProduit;
+		this.prixProduit = prixProduit;
+		this.quantitéProduit = quantitéProduit;
+		this.selectionProduit = selectionProduit;
+		this.urlImageProduit = urlImageProduit;
+		this.setCategorieID(categorieID);
+	}
+
+	
+	
 
 	// _____ Getter / Setter ______//
 
@@ -107,6 +126,14 @@ public class Produit {
 
 	public void setUrlImageProduit(String urlImageProduit) {
 		this.urlImageProduit = urlImageProduit;
+	}
+
+	public int getCategorieID() {
+		return categorieID;
+	}
+
+	public void setCategorieID(int categorieID) {
+		this.categorieID = categorieID;
 	}
 
 }// end classe
