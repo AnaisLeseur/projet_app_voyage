@@ -22,6 +22,10 @@
 			icon="tag" iconAlign="right" href="accueil-admin-categorie.xhtml" />
 
 	</b:tabLinks>
+	
+	<h2 style="margin-left: 120px">La catégorie :</h2>
+	
+	<b:column col-md="9" style="margin-left : 100px; margin-top : 20px">
 
 	<h:form  enctype="multipart/form-data">
 
@@ -31,14 +35,13 @@
 
 			
 			
-			<h:outputLabel value="Nom de la catégorie : " />
+			<h:outputLabel value="Nom de la catégorie : " style="padding-left : 10px;"/>
 			<h:inputText value="#{GestionCategorieBean.categorie.nom_categorie}" />
 
-			<h:outputLabel value="Description de la catégorie : " />
-			<h:inputText
-				value="#{GestionCategorieBean.categorie.description_categorie}" />
+			<h:outputLabel value="Description de la catégorie : " style="padding-left : 10px;"/>
+			<h:inputTextarea value="#{GestionCategorieBean.categorie.description_categorie}" />
 
-			<h:outputLabel value="Image de la catégorie : " />
+			<h:outputLabel value="Image de la catégorie : " style="padding-left : 10px;"/>
 
 			<h:panelGroup>
 				<h:graphicImage
@@ -57,6 +60,15 @@
 		</h:panelGrid>
 
 	</h:form>
+	
+<br />
+<br />
+<br />
+<br />
+	
+	</b:column>
+	
+
 
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 </h:body>
