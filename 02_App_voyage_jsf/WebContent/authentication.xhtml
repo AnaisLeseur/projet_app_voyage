@@ -26,11 +26,11 @@ body {
 	<ui:decorate template="/templates/header.xhtml">
 
 	</ui:decorate>
-	
+	<h:messages globalOnly="true" layout="table" showDetail="true" styleClass="error" fatalClass="error" infoClass="message"/>
 	
 	<h:body style="background-color: white;">
 	
-	<h:messages globalOnly="true" layout="table" showDetail="true" styleClass="error" fatalClass="error" infoClass="message"/>
+	
 	
 		<b:container>
 	
@@ -59,7 +59,16 @@ body {
 
 				<b:commandButton look="default btn-block" value="Se connecter"
 					icon="log-in" size="lg" action="#{AuthentificationAdminBean.connecterClient()}" />
+	
 			</h:form>
+			<h:form styleClass="form-signin">
+				<h:commandLink action="editClient"
+				actionListener="#{GestionClientBean.initialiserClient}">
+				<h:outputText value="Nouveau client ? C'est ici pour s'incrire" 
+				style="text-aling : center"/>
+				</h:commandLink>	
+			</h:form>	
+		
 		</b:container>
 
 		<ui:decorate template="/templates/footer.xhtml">

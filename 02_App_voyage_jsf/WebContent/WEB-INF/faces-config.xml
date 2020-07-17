@@ -47,7 +47,7 @@
 			<to-view-id>/panier.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-		
+
 		<navigation-case>
 			<!-- 1.2.1 clé d'outcome -->
 			<from-outcome>ProduitCateg</from-outcome>
@@ -55,7 +55,7 @@
 			<to-view-id>/client-voyage-par-categorie.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-		
+
 		<navigation-case>
 			<!-- 1.2.1 Clé d'outcome -->
 			<from-outcome>ProduitDetail</from-outcome>
@@ -114,7 +114,7 @@
 			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
 			<redirect />
 		</navigation-case>
-		
+
 		<!-- 1.2 cas de navigation : de 'accueil-admin.xhtml' vers 'edit-voyage.xhtml' -->
 		<navigation-case>
 			<!-- 1.2.1 Clé d'outcom -->
@@ -122,9 +122,9 @@
 			<!-- 1.2.2 destination -->
 			<to-view-id>/accueil-admin-categorie.xhtml</to-view-id>
 			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
-			
+
 		</navigation-case>
-		
+
 		<!-- 1.2 cas de navigation : de 'accueil-admin.xhtml' vers 'set-categorie.xhtml' -->
 		<navigation-case>
 			<!-- 1.2.1 Clé d'outcom -->
@@ -132,9 +132,9 @@
 			<!-- 1.2.2 destination -->
 			<to-view-id>/set-categorie.xhtml</to-view-id>
 			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
-			
+
 		</navigation-case>
-		
+
 
 	</navigation-rule>
 
@@ -175,7 +175,7 @@
 			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
 			<redirect />
 		</navigation-case>
-		
+
 	</navigation-rule>
 
 	<!-- 1. règles de navigation pour la page 'edit-categorie.xhtml' -->
@@ -190,7 +190,7 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<!-- 1. règles de navigation pour la page 'set-categorie.xhtml' -->
 	<navigation-rule>
 		<from-view-id>/set-categorie.xhtml</from-view-id>
@@ -203,8 +203,8 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-	
-	
+
+
 
 	<!-- 1. règles de navigation pour la page 'proceder-paiement.xhtml' -->
 	<navigation-rule>
@@ -214,7 +214,7 @@
 			<from-outcome>GoToPanier</from-outcome>
 			<!-- 1.2.2 destination -->
 			<to-view-id>/panier.xhtml</to-view-id>
-			</navigation-case>
+		</navigation-case>
 	</navigation-rule>
 
 	<!-- 1. règles de navigation pour la page 'client-voyage-par-categorie.xhtml' -->
@@ -225,6 +225,34 @@
 			<from-outcome>ProduitDetail</from-outcome>
 			<!-- 1.2.2 destination -->
 			<to-view-id>/details-produit.xhtml</to-view-id>
+
+			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- 1. règles de navigation pour la page 'authentication.xhtml' -->
+	<navigation-rule>
+		<from-view-id>/authentication.xhtml</from-view-id>
+		<navigation-case>
+			<!-- 1.2.1 Clé d'outcome -->
+			<from-outcome>editClient</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/inscription.xhtml</to-view-id>
+
+			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- 1. règles de navigation pour la page 'inscription.xhtml' -->
+	<navigation-rule>
+		<from-view-id>/inscription.xhtml</from-view-id>
+		<navigation-case>
+			<!-- 1.2.1 Clé d'outcome -->
+			<from-outcome>enregistrement</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/authentication.xhtml</to-view-id>
 
 			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
 			<redirect />
