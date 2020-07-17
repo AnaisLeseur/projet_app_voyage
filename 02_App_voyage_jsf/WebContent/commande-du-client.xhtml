@@ -14,8 +14,21 @@
 <ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
 
-<h2>Liste des commande du client :</h2>
 
+
+<b:tabLinks>
+		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin.xhtml" />
+		<b:navLink value="Catégories" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin-categorie.xhtml" />
+		<b:navLink value="Clients" outcome="/bootstrap/labelsbadge" icon="tag"
+			iconAlign="right" href="accueil-admin-client.xhtml" />
+		<b:navLink value="Commandes" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin-commande.xhtml" />
+
+	</b:tabLinks>
+	
+<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 20px ">Liste des commande du client :</h2>
 
 <b:row>
 

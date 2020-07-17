@@ -9,11 +9,29 @@
 	<title>Lier à des catégories</title>
 </h:head>
 <h:body>
+
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
-	<h:form>
+
+	<b:tabLinks>
+		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin.xhtml" />
+		<b:navLink value="Catégories" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin-categorie.xhtml" />
+		<b:navLink value="Clients" outcome="/bootstrap/labelsbadge" icon="tag"
+			iconAlign="right" href="accueil-admin-client.xhtml" />
+		<b:navLink value="Commandes" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin-commande.xhtml" />
+
+	</b:tabLinks>
+	
+	<h2  style="margin-left: 120px; margin-top: 40px; margin-bottom: 20px ">Lier le voyage à certaines catégories :</h2>
+
+
+
+	<h:form style="margin-left: 120px;">
 		<h:panelGrid>
 			<h:inputHidden value="#{GestionProduitBean.produit.idProduit}" />
-			<h:outputLabel value="Catégories : " />
+			
 			<h:dataTable styleClass="table"
 				value="#{GestionCategorieBean.findAllCategoriesBDD()}" var="categ"
 				rows="8">
@@ -22,14 +40,14 @@
 					value="#{GestionProduitCategorieBean.listeCategorieSelectionnes[categ.id_categorie]}" />
 					<h:message for="v_option1"/>
 
-					<p:outputLabel for="v_option1" value="#{categ.nom_categorie}" />
+					<p:outputLabel style="margin-left: 20px;" for="v_option1" value="#{categ.nom_categorie}" />
 				</h:column>
 			</h:dataTable>
 			
 	
 			
 			<f:facet name="footer">
-				<h:commandButton value="Lier ce voyage au catégories selectionnées"
+				<h:commandButton value="Lier ce voyage aux catégories selectionnées"
 					action="accueilAdmin"
 					actionListener="#{GestionProduitCategorieBean.creerLiaisonProduitCategorie}">
 					<f:param id="ProduitID" value="#{GestionProduitBean.produit.idProduit}" />

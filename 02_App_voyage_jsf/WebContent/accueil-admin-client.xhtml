@@ -23,16 +23,18 @@
 			icon="tag" iconAlign="right" href="accueil-admin-commande.xhtml" />
 
 	</b:tabLinks>
+
+<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 20px ">Liste des clients :</h2>	
 	
-	<h2>Liste des clients :</h2>
 	<b:row>
 
 		<b:column col-md="9" style="margin-left : 150px">
+		
 
 			<h:dataTable styleClass="table"
 				value="#{GestionClientBean.findAllClientsBdd()}" var="client"
 				rows="8">
-				
+					
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Id" />

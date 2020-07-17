@@ -14,14 +14,18 @@
 			icon="tag" iconAlign="right" href="accueil-admin.xhtml" />
 		<b:navLink value="Catégories" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" href="accueil-admin-categorie.xhtml" />
+		<b:navLink value="Clients" outcome="/bootstrap/labelsbadge" icon="tag"
+			iconAlign="right" href="accueil-admin-client.xhtml" />
+		<b:navLink value="Commandes" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin-commande.xhtml" />
 
 	</b:tabLinks>
 
 
-	<h2>Liste des produits de la catégorie:</h2>
+	<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 20px ">Liste des produits de la catégorie:</h2>
 	<b:row>
 
-		<b:column col-md="10">
+		<b:column col-md="11" style="margin-left : 100px; margin-top : 20px">
 
 			<h:dataTable styleClass="table"
 				value="#{GestionProduitBean.AfficherListeProduitParCateg()}" var="produit"
@@ -47,12 +51,6 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Visuel" />
-					</f:facet>
-					<h:outputText value="#{produit.urlImageProduit}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
 						<h:outputText value="Description" />
 					</f:facet>
 					<h:outputText value="#{produit.descriptionProduit}" />
@@ -61,19 +59,13 @@
 					<f:facet name="header">
 						<h:outputText value="Prix" />
 					</f:facet>
-					<h:outputText value="#{produit.prixProduit}" />
+					<h:outputText value="#{produit.prixProduit} €" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Quantité" />
 					</f:facet>
 					<h:outputText value="#{produit.quantitéProduit}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Selectionné" />
-					</f:facet>
-					<h:outputText value="#{produit.selectionProduit}" />
 				</h:column>
 
 
@@ -107,23 +99,6 @@
 							<f:param id="suppID" name="id" value="#{produit.idProduit}" />
 
 							<h:outputText value="Supprimer le voyage" />
-
-						</h:commandLink>
-					</h:form>
-				</h:column>
-
-				<h:column>
-
-					<f:facet name="header">
-						<h:outputText value="Relier à des catégories" />
-					</f:facet>
-					<h:form>
-						<h:commandLink id="supp" action="setCategorie"
-							actionListener="#{GestionProduitBean.recupProduit}">
-
-							<f:param id="modifId" name="id" value="#{produit.idProduit}" />
-
-							<h:outputText value="Lier" />
 
 						</h:commandLink>
 					</h:form>
