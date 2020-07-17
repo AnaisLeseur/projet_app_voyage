@@ -17,6 +17,10 @@
 			icon="tag" iconAlign="right" href="accueil-admin.xhtml" />
 		<b:navLink value="Catégories" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" active="true" />
+		<b:navLink value="Clients" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin-client.xhtml" />
+		<b:navLink value="Commandes" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin-commande.xhtml" />
 
 	</b:tabLinks>
 
@@ -40,7 +44,7 @@
 	<h2>Liste des catégories :</h2>
 	<b:row>
 
-		<b:column col-md="10">
+		<b:column col-md="9" style="margin-left : 150px">
 
 			<h:dataTable styleClass="table"
 				value="#{GestionCategorieBean.findAllCategoriesBDD()}" var="categ"
@@ -70,7 +74,7 @@
 					</f:facet>
 					<h:outputText value="#{categ.description_categorie}" />
 				</h:column>
-				
+
 
 				<h:column>
 
@@ -105,7 +109,7 @@
 						</h:commandLink>
 					</h:form>
 				</h:column>
-				
+
 				<h:column>
 
 					<f:facet name="header">
@@ -116,7 +120,8 @@
 							actionListener="#{GestionProduitBean.findProduitParCategorie}">
 
 							<f:param id="CategorieID" name="id" value="#{categ.id_categorie}" />
-
+							<f:param id="CategorieNom" name="id2"
+								value="#{categ.nom_categorie}" />
 							<h:outputText value="Voir les voyages de cette catégorie" />
 
 						</h:commandLink>

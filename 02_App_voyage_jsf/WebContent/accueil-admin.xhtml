@@ -8,8 +8,7 @@
 <h:head>
 
 	<title>page d'accueil administrateur</title>
-	<h:outputStylesheet library="styles" name="bootstrap.css"></h:outputStylesheet>
-	<h:outputStylesheet library="styles" name="custom.css"></h:outputStylesheet>
+
 </h:head>
 
 <h:body>
@@ -19,6 +18,10 @@
 			icon="tag" iconAlign="right" active="true" />
 		<b:navLink value="Catégories" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" href="accueil-admin-categorie.xhtml" />
+		<b:navLink value="Clients" outcome="/bootstrap/labelsbadge" icon="tag"
+			iconAlign="right" href="accueil-admin-client.xhtml" />
+		<b:navLink value="Commandes" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin-commande.xhtml" />
 
 	</b:tabLinks>
 
@@ -42,8 +45,8 @@
 	<h:messages globalOnly="true" layout="table" showDetail="true"
 		styleClass="error" fatalClass="error" infoClass="message" />
 
-	<h1 style="text-align: center;"> Bienvenue, administrateur !</h1>
-	<h2 style="margin-left : 150px">Liste des produits :</h2>
+	<h1 style="text-align: center;">Bienvenue, administrateur !</h1>
+	<h2 style="margin-left: 150px">Liste des produits :</h2>
 	<b:row>
 
 		<b:column col-md="9" style="margin-left : 150px">
@@ -70,7 +73,7 @@
 					</f:facet>
 					<h:outputText value="#{produit.nomProduit}" />
 				</h:column>
-				
+
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Description" />
@@ -89,7 +92,7 @@
 					</f:facet>
 					<h:outputText value="#{produit.quantitéProduit}" />
 				</h:column>
-				
+
 
 
 				<h:column>

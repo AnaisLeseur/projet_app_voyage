@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<title>Administrateur - clients</title>
+</h:head>
+
+<h:body>
+
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+	<b:tabLinks>
+		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin.xhtml" />
+		<b:navLink value="Catégories" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin-categorie.xhtml"/>
+		<b:navLink value="Clients" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right"   active="true" />
+		<b:navLink value="Commandes" outcome="/bootstrap/labelsbadge"
+			icon="tag" iconAlign="right" href="accueil-admin-commande.xhtml" />
+
+	</b:tabLinks>
+	
+	<h2>Liste des clients :</h2>
+	<b:row>
+
+		<b:column col-md="9" style="margin-left : 150px">
+
+			<h:dataTable styleClass="table"
+				value="#{GestionClientBean.findAllClientsBdd()}" var="client"
+				rows="8">
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Id" />
+					</f:facet>
+					<h:outputText value="#{client.id_client}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Nom" />
+					</f:facet>
+					<h:outputText value="#{client.nom_client}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Prénom" />
+					</f:facet>
+					<h:outputText value="#{client.prenom_client}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Adresse" />
+					</f:facet>
+					<h:outputText value="#{client.adresse_client}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="EMail" />
+					</f:facet>
+					<h:outputText value="#{client.email_client}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Numéro de téléphone" />
+					</f:facet>
+					<h:outputText value="#{client.tel_client}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Identitfiant" />
+					</f:facet>
+					<h:outputText value="#{client.identifiant_client}" />
+				</h:column>
+				
+				
+				
+
+
+				
+
+				<h:column>
+
+					<f:facet name="header">
+						<h:outputText value="Suppression" />
+					</f:facet>
+					<h:form>
+						<h:commandLink id="supp"
+							actionListener="#{GestionClientBean.supprimerClient}">
+
+							<f:param id="deleteId" name="id" value="#{client.id_client}" />
+
+							<h:outputText value="Supprimer ce client" />
+						</h:commandLink>
+					</h:form>
+				</h:column>
+
+				<h:column>
+		<!-- Rajouter un lien qui affiche toutes les commandes associées à ce client ! -->
+					<f:facet name="header">
+						<h:outputText value="Commandes associées" />
+					</f:facet>
+					<h:form>
+						<h:commandLink id="voyageParCateg" action="ProduitCategorie"
+							actionListener="#{GestionProduitBean.findProduitParCategorie}">
+
+							<f:param id="clientID" name="id" value="#{client.id_client}" />
+							
+							<h:outputText value="Voir les commandes " />
+
+						</h:commandLink>
+					</h:form>
+				</h:column>
+
+				<h:column>
+					<h:message for="supp" styleClass="error" />
+					<h:message for="modif" styleClass="error" />
+				</h:column>
+
+			</h:dataTable>
+
+
+		</b:column>
+	</b:row>
+
+	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+
+
+
+</h:body> 
+</html>
