@@ -65,6 +65,14 @@
 			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
 			<redirect />
 		</navigation-case>
+		<navigation-case>
+			<!-- 1.2.1 Clé d'outcome -->
+			<from-outcome>monCompte</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/compte-client.xhtml</to-view-id>
+			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
+			<redirect />
+		</navigation-case>
 
 	</navigation-rule>
 
@@ -292,6 +300,33 @@
 	</navigation-rule>
 
 
+	<!-- 1. règles de navigation pour la page 'compte-client.xhtml' -->
+	<navigation-rule>
+		<from-view-id>/compte-client.xhtml</from-view-id>
+		<navigation-case>
+			<!-- 1.2.1 Clé d'outcome -->
+			<from-outcome>modifClient</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/modif-infos-client.xhtml</to-view-id>
+
+			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- 1. règles de navigation pour la page 'compte-client.xhtml' -->
+	<navigation-rule>
+		<from-view-id>/modif-infos-client</from-view-id>
+		<navigation-case>
+			<!-- 1.2.1 Clé d'outcome -->
+			<from-outcome>modifClient</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/compte-client.xhtml</to-view-id>
+
+			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 
 
 </faces-config>

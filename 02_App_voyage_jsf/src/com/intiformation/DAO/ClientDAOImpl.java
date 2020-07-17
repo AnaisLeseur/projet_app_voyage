@@ -262,6 +262,49 @@ public class ClientDAOImpl implements IClientDAO {
 		return false;
 	}
 
+	@Override
+    public Client getByIdAndMdp(String pIdentifiant, String pMdp) {
+            try {
+
+            ps = this.connexion.prepareStatement("select * from clients WHERE identifiant_client= ? AND mot_de_passe_client=?");
+
+            ps.setString(1, pIdentifiant);
+            ps.setString(2, pMdp);
+
+            rs = ps.executeQuery();
+
+            Client client = null;
+
+            while (rs.next()) {
+                client = new Client(    rs.getInt(1), 
+                        rs.getString(2), 
+                        rs.getString(3), 
+                        rs.getString(4), 
+                        rs.getString(5), 
+                        rs.getString(6), 
+                        rs.getString(7),
+                        rs.getString(8), 
+                        rs.getBoolean(9));
+
+            }// end while
+
+            return client;
+
+
+        } catch (SQLException e) {
+            System.out.println("ClientDAOImpl : erreur getByIdAndMdp()");
+            e.printStackTrace();
+        }finally {
+            try {
+                rs.close();
+                ps.close();
+            }catch (Exception e) {
+                // TODO: handle exception
+            }// end catch
+        }// end finally
+
+        return null;
+    }// end getByIdAndMdp
 
 
 	@Override

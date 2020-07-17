@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<title>Mon compte</title>
+</h:head>
+<h:body>
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+	<b:column col-md="9" style="margin-left : 150px">
+		<h4>Vos informations :</h4>
+		<br />
+
+		<h4>Nom : #{client.nom_client}</h4>
+
+		<h4>Prenom : #{client.prenom_client}</h4>
+
+		<h4>Adresse : #{client.adresse_client}</h4>
+
+		<h4>Mail : #{client.email_client}</h4>
+
+		<h4>Téléphone : #{client.tel_client}</h4>
+
+		<h4>Identifiant : #{client.identifiant_client}</h4>
+
+		<h4>Mot de passe : #{client.mot_de_passe_client}</h4>
+
+		<h:inputHidden value="#{AuthentificationAdminBean.client.id_client}" />
+
+
+
+		<b:panel title="Actions :" look="succes">
+			<h:form>
+				<h:commandLink value="Modifier mes informations" action="modifClient" 
+				actionListener="#{GestionClientBean.selectionnerClient}" > 
+				<f:param id="updateId" name="id" value="#{AuthentificationAdminBean.client.id_client}" />
+				</h:commandLink>
+				
+				
+				<h:outputText value="          " style="padding-left : 50 px" />
+				<h:commandLink value="Afficher la listes de mes commandes" />
+
+			</h:form>
+
+		</b:panel>
+	</b:column>
+
+
+
+
+</h:body>
+	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+</html>

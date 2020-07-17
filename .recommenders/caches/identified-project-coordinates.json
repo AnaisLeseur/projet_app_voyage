@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 [[{"location":"/Users/vincent/Documents/Anais/formation-JAVA/cours/10_projet_app_eCommerce/02_App_voyage_jsf","type":"PROJECT","hints":{"PROJECT_NAME":"02_App_voyage_jsf"}},"ABSENT"],[{"location":"/Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home","type":"JRE","hints":{}},"jre:jre:1.8.0"]]
+=======
+[[{"location":"/Users/hannahlevardon/Library/Mobile Documents/com~apple~CloudDocs/Documents/Adaming/07_JSF/App-Voyage/projet_app_voyage/02_App_voyage_jsf/WebContent/WEB-INF/lib/javax.faces-2.2.8.jar","type":"JAR","hints":{}},"org.glassfish:javax.faces:2.2.8"],[{"location":"/Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home","type":"JRE","hints":{}},"jre:jre:1.8.0"]]
+>>>>>>> d9d2acf423816cea6a4ed62994c1435a49eac285
