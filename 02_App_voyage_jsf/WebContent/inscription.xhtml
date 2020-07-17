@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<title>Inscription</title>
+
+</h:head>
+<h:body>
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+	<b:column col-md="8" style="margin-left : 250px ; margin-right : auto ; margin-bottom: 50px">
+		<h1
+			style="text-align: center; margin-bottom: 30px; margin-top: 30px; font-family: sans-serif; font-weight: bold; font-size: 50px;">
+			Formulaire d'inscription</h1>
+		<h:form>	
+		<b:panelGrid columns="2">
+
+
+			<b:inputText placeholder="nom" label="Nom"
+				value="#{GestionClientBean.client.nom_client}" 
+				required="true" requiredMessage="Nom obligatoire" />
+
+			<b:inputText placeholder="prenom" label="Prenom"
+				value="#{GestionClientBean.client.nom_client}" 
+				required="true" requiredMessage="Nom obligatoire"/>
+
+			<b:inputText placeholder="adresse" label="Adresse"
+				value="#{GestionClientBean.client.adresse_client}"
+				required="true" requiredMessage="Nom obligatoire" />
+
+			<b:inputText placeholder="mail" label="Email" mask="email"
+				value="#{GestionClientBean.client.email_client}" 
+				required="true" requiredMessage="Nom obligatoire"/>
+
+			<b:inputText placeholder="telephone" label="Telephone"
+				value="#{GestionClientBean.client.tel_client}" 
+				required="true" requiredMessage="Nom obligatoire"/>
+
+			<b:inputText placeholder="identifiant" label="Identifiant"
+				value="#{GestionClientBean.client.identifiant_client}" 
+				required="true" requiredMessage="Nom obligatoire"/>
+
+			<b:inputSecret placeholder=" mot de passe" label="mot de passe"
+				value="#{GestionClientBean.client.mot_de_passe_client}" 
+				required="true" requiredMessage="Nom obligatoire"/>
+
+			<h:inputHidden value="#{GestionClientBean.client.id_client}" />
+			
+				<h:commandButton value="Enregistrer-vous"
+					action="enregistrement"
+					actionListener="#{GestionClientBean.ajouterClient}">
+										
+				</h:commandButton>
+			
+
+		</b:panelGrid>
+		</h:form>
+	</b:column>
+	<br /> <br /> <br />
+
+
+	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+</h:body>
+</html>

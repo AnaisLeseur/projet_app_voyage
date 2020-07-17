@@ -65,10 +65,10 @@ create table categories ( id_categorie int(20) primary key auto_increment,
             
             
 create table produits_categories (	categorie_id int(20),
-														produit_id int(20),
-                                                primary key( categorie_id, produit_id),
-                                                foreign key (categorie_id) references categories (id_categorie) on delete cascade,
-                                                foreign key (produit_id) references produits (id_produit) on delete cascade
+									produit_id int(20),
+									primary key( categorie_id, produit_id),
+									foreign key (categorie_id) references categories (id_categorie) on delete cascade,
+									foreign key (produit_id) references produits (id_produit) on delete cascade
 													);         
          
          	Drop table produits_categories;
