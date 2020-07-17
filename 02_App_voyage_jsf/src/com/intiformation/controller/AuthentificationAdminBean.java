@@ -179,6 +179,12 @@ public class AuthentificationAdminBean implements Serializable {
 			// -> sauvegarde du login de l'utilisateur dans la session
 			session.setAttribute("user_login", clientIdentifiant);
 			
+			// sauvegarde du client dans la session
+			client = clientDAO.getByIdAndMdp(clientIdentifiant, clientMotDePasse);
+			session.setAttribute("client", client);
+			
+			
+			
 			// -> navigation vers la page "accueil-admin.xhtml"
 			return "accueil-client.xhtml?faces-redirect=true";
 			

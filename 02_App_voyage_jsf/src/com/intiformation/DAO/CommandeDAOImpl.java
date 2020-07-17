@@ -48,7 +48,7 @@ public class CommandeDAOImpl implements ICommandeDAO{
 		return false;
 	}// end add
 	
-	
+
 	
 	/**
 	 * pour modifier une commande
@@ -183,6 +183,38 @@ public class CommandeDAOImpl implements ICommandeDAO{
 		
 		return null;
 	}// end getById
+
+
+
+	@Override
+	public Commande findIdMax() {
+		try {
+			ps = this.connexion.prepareStatement("SELECT max(id_commande) FROM commandes;");
+			
+			rs = ps.executeQuery(); 
+			
+			Commande commande = null; 
+			
+			rs.next();
+			
+			commande = new Commande(rs.getInt(1), rs.getDate(2), rs.getInt(3));
+			
+			return commande;
+			
+		} catch (SQLException e) {
+			
+			System.out.println("... Erreur lors de la méthode findIdMax() de CommandeDAOImpl ...");
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}//end catch
+		}//end finally
+		return null;
+	}// end findIdMax
 	
 	
 

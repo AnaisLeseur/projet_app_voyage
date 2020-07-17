@@ -6,17 +6,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import com.intiformation.DAO.CategorieDAOImpl;
+import com.intiformation.DAO.CommandeDAOImpl;
+import com.intiformation.DAO.ICategorieDAO;
+import com.intiformation.DAO.ICommandeDAO;
 import com.intiformation.DAO.IProduitCategorie;
 import com.intiformation.DAO.IProduitDAO;
 import com.intiformation.DAO.ProduitCategorieDAOImpl;
 import com.intiformation.DAO.ProduitDAOImpl;
-
-
+import com.intiformation.modeles.Client;
+import com.intiformation.modeles.Commande;
 import com.intiformation.modeles.LigneCommande;
 import com.intiformation.modeles.Produit;
 import com.intiformation.modeles.ProduitCategorie;
@@ -68,6 +73,7 @@ public class GestionProduitBean implements Serializable {
 	private List<LigneCommande> listeLigneCommande = new ArrayList<>();
 	
 	private int nbPersonne = 1;
+	private int idClient;
 
 	FacesContext contextJSF = FacesContext.getCurrentInstance();
 
@@ -76,6 +82,7 @@ public class GestionProduitBean implements Serializable {
 
 	IProduitDAO produitDAO;
 	IProduitCategorie produitCategDAO;
+	ICommandeDAO commandeDAO;
 	
 	GestionLigneCommandeBean gestionLigneCommandeBean;
 	GestionProduitBean gestionProduitBean;
@@ -88,6 +95,7 @@ public class GestionProduitBean implements Serializable {
 		produitDAO = new ProduitDAOImpl();
 		produitCategDAO = new ProduitCategorieDAOImpl();
 		gestionLigneCommandeBean = new GestionLigneCommandeBean();
+		commandeDAO = new CommandeDAOImpl();
 	}// end ctor vide
 
 	// _____ Méthodes ______//
@@ -544,6 +552,49 @@ public class GestionProduitBean implements Serializable {
 		return listeProduitCateg;
 		
 	}//end AfficherListeProduit
+	
+	
+	
+	
+	
+	public String ApresPaiement() {
+		
+		
+		listePanier = (List<Produit>) session.getAttribute("listePanier");
+		
+		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
+		
+		Date dateDuJour = (Date) new java.util.Date();
+		Client client = (Client) session.getAttribute("client");
+		idClient = client.getId_client();
+		
+		Commande commande = new Commande(dateDuJour, idClient);
+
+		commandeDAO.add(commande);
+		
+		Commande commandeRecup = new Commande();
+		
+		commandeRecup = commandeDAO.findIdMax();
+		
+		System.out.println("commandeRecup: " + commandeRecup.getClient_id() + "," 
+		+ commandeRecup.getId_commande() + "," + commandeRecup.getDate_commande());
+
+		
+		
+		return "validation-commande.xhtml?faces-redirect=true";
+		
+	}// end ApresPaiement
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 		
