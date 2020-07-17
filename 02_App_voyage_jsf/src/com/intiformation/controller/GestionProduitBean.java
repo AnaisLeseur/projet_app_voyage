@@ -7,6 +7,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -16,8 +20,10 @@ import com.intiformation.DAO.CategorieDAOImpl;
 import com.intiformation.DAO.CommandeDAOImpl;
 import com.intiformation.DAO.ICategorieDAO;
 import com.intiformation.DAO.ICommandeDAO;
+import com.intiformation.DAO.ILigneCommandeDAO;
 import com.intiformation.DAO.IProduitCategorie;
 import com.intiformation.DAO.IProduitDAO;
+import com.intiformation.DAO.LigneCommandeDAOImpl;
 import com.intiformation.DAO.ProduitCategorieDAOImpl;
 import com.intiformation.DAO.ProduitDAOImpl;
 import com.intiformation.modeles.Client;
@@ -83,9 +89,13 @@ public class GestionProduitBean implements Serializable {
 	IProduitDAO produitDAO;
 	IProduitCategorie produitCategDAO;
 	ICommandeDAO commandeDAO;
+	ILigneCommandeDAO lignecommandeDAO;
 	
 	GestionLigneCommandeBean gestionLigneCommandeBean;
 	GestionProduitBean gestionProduitBean;
+	
+	
+	Commande commandeRecup;
 	
 	
 
@@ -96,6 +106,7 @@ public class GestionProduitBean implements Serializable {
 		produitCategDAO = new ProduitCategorieDAOImpl();
 		gestionLigneCommandeBean = new GestionLigneCommandeBean();
 		commandeDAO = new CommandeDAOImpl();
+		lignecommandeDAO = new LigneCommandeDAOImpl();
 	}// end ctor vide
 
 	// _____ Méthodes ______//
@@ -559,28 +570,48 @@ public class GestionProduitBean implements Serializable {
 	
 	public String ApresPaiement() {
 		
+		FacesContext contextJSF = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
 		
 		listePanier = (List<Produit>) session.getAttribute("listePanier");
 		
 		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
 		
-		Date dateDuJour = (Date) new java.util.Date();
+		LocalDate date = LocalDate.now();
+		Date dateDuJour = Date.valueOf(date);
+	
+		System.out.println("Date dateDuJour : " + dateDuJour);
+		
+
 		Client client = (Client) session.getAttribute("client");
 		idClient = client.getId_client();
 		
 		Commande commande = new Commande(dateDuJour, idClient);
 
 		commandeDAO.add(commande);
-		
-		Commande commandeRecup = new Commande();
-		
+
+		commandeRecup = new Commande();
 		commandeRecup = commandeDAO.findIdMax();
+		
+		int commandeIdRecup = commandeRecup.getId_commande();
+		
 		
 		System.out.println("commandeRecup: " + commandeRecup.getClient_id() + "," 
 		+ commandeRecup.getId_commande() + "," + commandeRecup.getDate_commande());
+		
+		
+		for (LigneCommande ligneCommande : listeLigneCommande) {
+			
+			int produitRecup = ligneCommande.getProduit_id();
+			int quantiteRecup = ligneCommande.getQuantite_ligne();
+			double PrixRecup = ligneCommande.getPrix_ligne();
+			
+			LigneCommande ligneCreation = new LigneCommande(commandeIdRecup, produitRecup, quantiteRecup, PrixRecup);
 
-		
-		
+			lignecommandeDAO.add(ligneCreation);
+			
+		}
+
 		return "validation-commande.xhtml?faces-redirect=true";
 		
 	}// end ApresPaiement

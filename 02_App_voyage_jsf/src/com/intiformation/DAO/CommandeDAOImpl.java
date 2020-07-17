@@ -193,12 +193,27 @@ public class CommandeDAOImpl implements ICommandeDAO{
 			
 			rs = ps.executeQuery(); 
 			
+			int idCommande = 0;
+			
+			rs.next();
+			
+			idCommande = rs.getInt(1);
+			System.out.println("idCommande: " + idCommande);
+			
+			
+			
+			ps = this.connexion.prepareStatement("select * from commandes where id_commande = ?");
+			
+			ps.setInt(1, idCommande);
+			
+			rs = ps.executeQuery(); 
+			
 			Commande commande = null; 
 			
 			rs.next();
 			
 			commande = new Commande(rs.getInt(1), rs.getDate(2), rs.getInt(3));
-			
+
 			return commande;
 			
 		} catch (SQLException e) {
