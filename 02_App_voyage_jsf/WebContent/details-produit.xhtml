@@ -35,14 +35,14 @@ body {
 	<div id="detail" class="grid-container">
 
 		<h4>
-			Description <br /> #{GestionProduitBean.produit.descriptionProduit}
+			Description: <br /> #{GestionProduitBean.produit.descriptionProduit}
 		</h4>
 		<br /> <br />
 		<h4>
 			Prix: <br /> #{GestionProduitBean.produit.prixProduit} € par
 			personne
 		</h4>
-		<br /> <br /><br /> <br /><br /> <br /><br /> <br />
+		<br /><br /> <br /><br /> 
 		<h:form>
 		<h:commandLink id="edit" action="ajoutPanier"
 				actionListener="#{GestionProduitBean.selectionnerProduit}" style="font-size: 20px">
@@ -63,7 +63,7 @@ body {
 			library="images" />
 	</div>
 
-
+<br />
 	<b:button href="client-voyage-par-categorie.xhtml"
 		value="Retour à la liste de voyages" style="margin-left: 300px" />
 

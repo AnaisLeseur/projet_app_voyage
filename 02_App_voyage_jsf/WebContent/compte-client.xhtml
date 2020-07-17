@@ -34,14 +34,14 @@
 
 		<b:panel title="Actions :" look="succes">
 			<h:form>
-				<h:commandLink value="Modifier mes informations" action="modifClient" 
+				<h:commandButton value="Modifier mes informations" action="modifClient" 
 				actionListener="#{GestionClientBean.selectionnerClient}" > 
 				<f:param id="updateId" name="id" value="#{AuthentificationAdminBean.client.id_client}" />
-				</h:commandLink>
+				</h:commandButton>
 				
 				
-				<h:outputText value="          " style="padding-left : 50 px" />
-				<h:commandLink value="Afficher la listes de mes commandes" />
+				<h:outputText value="          " style="margin-left : 50 px" />
+				<h:commandButton value="Afficher la listes de mes commandes" />
 
 			</h:form>
 

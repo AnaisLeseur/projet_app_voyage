@@ -33,7 +33,7 @@
 		style="text-align: center; margin-bottom: 50px; margin-top: 50px; font-family: sans-serif; font-weight: bold;">
 		Nos voyages pour la catégorie: #{GestionProduitBean.nomCategorie}</h1>
 
-
+	<b:column col-md="10" style="margin-left : 120px">
 	<h:form id="form2">
 		<p:dataGrid var="produit"
 			value="#{GestionProduitBean.AfficherListeProduitParCateg()}"
@@ -50,14 +50,14 @@
 					<h:graphicImage library="images" name="#{produit.urlImageProduit}"
 						width="250" height="160" />
 						
-					Prix : #{produit.prixProduit} €
+					Prix : #{produit.prixProduit} €/pers
 
-					<h:commandLink id="ParCateg" action="ProduitDetail"
+					<h:commandLink id="ParCateg" action="ProduitDetail" style="font-size: large; margin-bottom: 20px; padding-top: 30px"
 						actionListener="#{GestionProduitBean.recupProduit}">
 
 						<f:param id="modifId" name="id" value="#{produit.idProduit}" />
 
-						<h:outputText value="Plus de détails sur ce voyage" />
+						<h:outputText   value="Plus de détails sur ce voyage" />
 
 					</h:commandLink>
 
@@ -70,7 +70,9 @@
 
 
 	</h:form>
-
+	<br />
+	<br />
+</b:column>
 
 
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>

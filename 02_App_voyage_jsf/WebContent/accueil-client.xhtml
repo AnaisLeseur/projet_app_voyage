@@ -34,7 +34,7 @@
 		<b:column col-md="10" style="margin-left : 120px">
 
 			<h:form id="form">
-				<p:carousel value="#{GestionCategorieBean.findAllCategoriesBDD()}"
+				<p:carousel value="#{GestionCategorieBean.findAllCategoriesBDD()}" 
 					headerText="Vous ne savez pas où allez ? Nos catégories vous aideront peut-être:"
 					var="categ" itemStyle="text-align:center" responsive="true">
 					<p:panelGrid columns="2"
@@ -48,7 +48,7 @@
 						</f:facet>
 						<h:outputText />
 						
-						<h:outputText value="#{categ.nom_categorie}" />
+						<h:outputText style="font-size: x-large; margin-bottom: 20px"  value="#{categ.nom_categorie}" />
 						<h:outputText value="#{categ.description_categorie}"
 							style="color: black;" />
 
@@ -61,7 +61,7 @@
 							<f:param id="CategorieNom" name="nom"
 								value="#{categ.nom_categorie}" />
 
-							<h:outputText value="Voir les voyages de cette catégorie" />
+							<h:outputText style="font-size: large; margin-bottom: 20px; margin-top: 30px" value="Voir les voyages de cette catégorie"  />
 
 						</h:commandLink>
 
@@ -86,8 +86,8 @@
 						</f:facet>
 
 						<h:outputText />
-						<h:outputText value="#{produit.nomProduit}" />
-						<h:outputText value="#{produit.prixProduit}" style="color: black;" />
+						<h:outputText  style="font-size: large; margin-bottom: 20px; margin-top: 30px"  value="#{produit.nomProduit}" />
+						<h:outputText value="#{produit.prixProduit}€/pers" style="color: black;" />
 						
 						<h:outputText />
 
@@ -96,7 +96,7 @@
 
 							<f:param id="modifId" name="id" value="#{produit.idProduit}" />
 
-							<h:outputText value="Voir les détails !" />
+							<h:outputText  style="font-size: large; margin-bottom: 20px; margin-top: 30px"  value="Voir les détails !" />
 
 						</h:commandLink>
 
@@ -112,20 +112,30 @@
 			<h:form id="form2">
 				<p:dataGrid var="produit"
 					value="#{GestionProduitBean.findAllProduitsBDD()}" columns="3"
-					layout="grid" rows="12" paginator="true" id="cars"
+					layout="grid" rows="12" paginator="true" 
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					rowsPerPageTemplate="6,12,16">
 
-					<f:facet name="header">
-            Tous nos voyages...
-        </f:facet>
+					<f:facet name="header" >
+           				<h2 style="font-size: x-large; font-weight: bold;" > Tous nos voyages...</h2>
+      				 </f:facet>
 
-					<p:panel header="#{produit.nomProduit}" style="text-align:center">
+					<p:panel header="#{produit.nomProduit}" style="font-size: large; text-align:center">
 						<h:panelGrid columns="1" style="width:100%">
 							<h:graphicImage library="images"
-								name="#{produit.urlImageProduit}" width="250" height="160" />
+								name="#{produit.urlImageProduit}" width="250px" height="160px" />
 
-							<h:outputText value="#{produit.descriptionProduit}" />
+							<h:outputText style="font-size: medium;" value="#{produit.descriptionProduit}" />
+							
+							
+						<h:commandLink id="ParCateg" action="ProduitDetail"
+							actionListener="#{GestionProduitBean.recupProduit}">
+
+							<f:param id="modifId" name="id" value="#{produit.idProduit}" />
+
+							<h:outputText  style="font-size: large; color: black;" value="Voir les détails !" />
+
+						</h:commandLink>
 
 						</h:panelGrid>
 					</p:panel>
@@ -134,8 +144,6 @@
 
 
 			</h:form>
-
-
 
 
 		</b:column>
