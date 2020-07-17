@@ -122,4 +122,33 @@
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#details-produit.xhtml"
   PATH="/details-produit.xhtml" SHAPE="544,289,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#authentication.xhtml"
+  PATH="/authentication.xhtml" SHAPE="240,1329,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#authentication.xhtml:0" NAME="item"
+   PATH="/authentication.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="editClient::#inscription.xhtml"
+    NAME="output" PATH="/inscription.xhtml"
+    TARGET="rules:#inscription.xhtml" TITLE="editClient" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#inscription.xhtml" PATH="/inscription.xhtml"
+  SHAPE="32,1313,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#inscription.xhtml:0" NAME="item"
+   PATH="/inscription.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="enregistrement::#authentication.xhtml"
+    NAME="output" PATH="/authentication.xhtml"
+    TARGET="rules:#authentication.xhtml" TITLE="enregistrement" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#accueil-admin-client.xhtml"
+  PATH="/accueil-admin-client.xhtml" SHAPE="32,1649,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#accueil-admin-client.xhtml:0" NAME="item"
+   PATH="/accueil-admin-client.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="CommandeClient::#commande-du-client.xhtml"
+    NAME="output" PATH="/commande-du-client.xhtml"
+    TARGET="rules:#commande-du-client.xhtml" TITLE="CommandeClient" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#commande-du-client.xhtml"
+  PATH="/commande-du-client.xhtml" SHAPE="240,1889,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

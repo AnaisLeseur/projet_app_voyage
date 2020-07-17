@@ -8,6 +8,7 @@
 	<!-- configuration de la navigation -->
 
 	<!-- 1. règles de navigation pour la page 'accueil-client.xhtml' -->
+	<!-- ============================================================ -->
 	<navigation-rule>
 
 		<!-- 1.1 page de départ -->
@@ -69,7 +70,7 @@
 
 
 	<!-- 2. règles de navigation pour 'panier.xhtml' -->
-	<!-- ==================================================== -->
+	<!-- =========================================== -->
 	<navigation-rule>
 
 		<!-- 1.1 page départ -->
@@ -100,6 +101,7 @@
 
 
 	<!-- 1. règles de navigation pour la page 'accueil-admin.xhtml' -->
+	<!-- ========================================================== -->
 	<navigation-rule>
 
 		<!-- 1.1 page de départ -->
@@ -135,11 +137,11 @@
 
 		</navigation-case>
 
-
 	</navigation-rule>
 
 
 	<!-- 1. règles de navigation pour la page 'edit-voyage.xhtml' -->
+	<!-- ======================================================== -->
 	<navigation-rule>
 
 		<!-- 1.1 page de départ -->
@@ -156,7 +158,10 @@
 		</navigation-case>
 
 	</navigation-rule>
+	
+	
 	<!-- 1. règles de navigation pour la page 'accueil-admin-categorie.xhtml' -->
+	<!-- ==================================================================== -->
 	<navigation-rule>
 		<from-view-id>/accueil-admin-categorie.xhtml</from-view-id>
 		<navigation-case>
@@ -167,6 +172,7 @@
 			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
 			<redirect />
 		</navigation-case>
+		
 		<navigation-case>
 			<!-- 1.2.1 Clé d'outcome -->
 			<from-outcome>ProduitCategorie</from-outcome>
@@ -177,8 +183,10 @@
 		</navigation-case>
 
 	</navigation-rule>
+	
 
 	<!-- 1. règles de navigation pour la page 'edit-categorie.xhtml' -->
+	<!-- =========================================================== -->
 	<navigation-rule>
 		<from-view-id>/edit-categorie.xhtml</from-view-id>
 		<navigation-case>
@@ -192,6 +200,7 @@
 	</navigation-rule>
 
 	<!-- 1. règles de navigation pour la page 'set-categorie.xhtml' -->
+	<!-- ========================================================== -->
 	<navigation-rule>
 		<from-view-id>/set-categorie.xhtml</from-view-id>
 		<navigation-case>
@@ -207,6 +216,7 @@
 
 
 	<!-- 1. règles de navigation pour la page 'proceder-paiement.xhtml' -->
+	<!-- ============================================================== -->
 	<navigation-rule>
 		<from-view-id>/proceder-paiement.xhtml</from-view-id>
 		<navigation-case>
@@ -216,8 +226,10 @@
 			<to-view-id>/panier.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
 
 	<!-- 1. règles de navigation pour la page 'client-voyage-par-categorie.xhtml' -->
+	<!-- ======================================================================== -->
 	<navigation-rule>
 		<from-view-id>/client-voyage-par-categorie.xhtml</from-view-id>
 		<navigation-case>
@@ -230,8 +242,10 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
 
 	<!-- 1. règles de navigation pour la page 'authentication.xhtml' -->
+	<!-- =========================================================== -->
 	<navigation-rule>
 		<from-view-id>/authentication.xhtml</from-view-id>
 		<navigation-case>
@@ -245,7 +259,9 @@
 		</navigation-case>
 	</navigation-rule>
 
+
 	<!-- 1. règles de navigation pour la page 'inscription.xhtml' -->
+	<!-- ======================================================== -->
 	<navigation-rule>
 		<from-view-id>/inscription.xhtml</from-view-id>
 		<navigation-case>
@@ -253,6 +269,22 @@
 			<from-outcome>enregistrement</from-outcome>
 			<!-- 1.2.2 destination -->
 			<to-view-id>/authentication.xhtml</to-view-id>
+
+			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<!-- 1. règles de navigation pour la page 'accueil-admin-client.xhtml' -->
+	<!-- ======================================================== -->
+	<navigation-rule>
+		<from-view-id>/accueil-admin-client.xhtml</from-view-id>
+		<navigation-case>
+			<!-- 1.2.1 Clé d'outcome -->
+			<from-outcome>CommandeClient</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/commande-du-client.xhtml</to-view-id>
 
 			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
 			<redirect />

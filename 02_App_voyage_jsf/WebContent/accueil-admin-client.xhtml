@@ -104,7 +104,7 @@
 						<h:outputText value="Commandes associées" />
 					</f:facet>
 					<h:form>
-						<h:commandLink id="commandeDuClient" 
+						<h:commandLink id="commandeDuClient" action="CommandeClient"
 							actionListener="#{GestionCommandeBean.findAllCommandeDuClient}">
 
 							<f:param id="clientID" name="id" value="#{client.id_client}" />

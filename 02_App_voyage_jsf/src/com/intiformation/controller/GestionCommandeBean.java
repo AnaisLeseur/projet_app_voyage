@@ -77,5 +77,14 @@ public class GestionCommandeBean {
 		
 	}// end findAllCommandeDuClient
 	
+public List<LigneCommande> AfficheCommandeDuClient() {
+	
+		
+		return listeLigneCommandeDuClient;
+		
+	}// end findAllCommandeDuClient
+	
+	
+	
 
 }// end GestionCommandeBean
