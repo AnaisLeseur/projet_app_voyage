@@ -32,37 +32,31 @@ body {
 	<h:messages globalOnly="true" layout="table" showDetail="true" styleClass="error" fatalClass="error" infoClass="message"/>
 
 	<h:body style="background-color: white;">
+	
 		<b:container>
+		
 			<h:form styleClass="form-signin" prependId="false">
 				<h2 class="form-signin-heading" align="center">Veuillez vous connecter</h2>
-				<b:row>
-				 <b:column medium-screen="7">
+				
 					<b:inputText id="idlogin" placeholder="Identifiant" required="true"
 								requiredMessage="Identifiant obligatoire" 
 								value="#{AuthentificationAdminBean.adminIdentifiant}">
 						<f:facet name="prepend">
 							<b:icon name="user" />
 						</f:facet>
+						<h:message for="idlogin" layout="table" showDetail="true" styleClass="error" fatalClass="error"/>
 					</b:inputText>
-					</b:column>
-					<b:column medium-screen="5">
-						<h:message for="idlogin" layout="table" showDetail="true" styleClass="error" fatalClass="error" infoClass="message"/>
-					</b:column>
-				</b:row>
-				<b:row>
-					<b:column medium-screen="7">
+					
+					
 					<b:inputText id="password" placeholder="Mot de passe" required="true"
 						type="password" requiredMessage="Mot de passe obligatoire"
 							value="#{AuthentificationAdminBean.adminMotDePasse}">
 						<f:facet name="prepend">
 							<b:iconAwesome name="key" />
 						</f:facet>
-					</b:inputText>
-					</b:column>
-					<b:column medium-screen="5">
 						<h:message for="password" layout="table" showDetail="true" styleClass="error" fatalClass="error" infoClass="message"/>
-					</b:column>
-				</b:row>
+					</b:inputText>
+			
 					
 				<b:commandButton look="default btn-block" value="Se connecter"
 					icon="log-in" size="lg" action="#{AuthentificationAdminBean.connecterAdministrateur()}" />
