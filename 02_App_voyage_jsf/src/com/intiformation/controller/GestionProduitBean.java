@@ -25,15 +25,23 @@ import com.intiformation.modeles.ProduitCategorie;
 
 
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.faces.event.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+
+import org.apache.catalina.mapper.MappingData;
+import org.primefaces.component.datatable.DataTable;
+
 import org.apache.catalina.manager.util.SessionUtils;
+
 
 import javax.faces.component.*;
 import javax.faces.context.FacesContext;
@@ -412,17 +420,16 @@ public class GestionProduitBean implements Serializable {
 
 				// affectation du nom a la prop urlImage du voyage
 				produit.setUrlImageProduit(fileName);
+				FacesContext contextJSFajout = FacesContext.getCurrentInstance();	
 
 				// ajout du voyage dans la bdd + message
 				if (produitDAO.add(produit)) {
-					
-				FacesContext contextJSFajout = FacesContext.getCurrentInstance();	
 					
 					contextJSFajout.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout du produit",
 							"- Le produit a été ajouté avec succès"));
 
 				} else {
-					contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
+					contextJSFajout.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
 							" l'ajout du produit a échoué", " - le produit n'a pas été ajouté"));
 				} // end else pour msg ajout
 
@@ -484,14 +491,16 @@ public class GestionProduitBean implements Serializable {
 					produit.setUrlImageProduit(fileNameToUpdate);
 				} // end if equals
 			} // end if uploadedFile != null
+			
+			FacesContext contextJSFmodif = FacesContext.getCurrentInstance();	
 
 			if (produitDAO.update(produit)) {
-				FacesContext contextJSFmodif = FacesContext.getCurrentInstance();	
+				
 				contextJSFmodif.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification du produit",
 						"- Le produit a été modifié avec succès"));
 
 			} else {
-				contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
+				contextJSFmodif.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
 						" la modification du produit a échouée", " - le produit n'a pas été modifié"));
 			} // end else pour msg ajout
 			
@@ -536,6 +545,7 @@ public class GestionProduitBean implements Serializable {
 		
 	}//end AfficherListeProduit
 	
+
 		
 	// _____ Getter /setter ______//
 	

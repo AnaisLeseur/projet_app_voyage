@@ -1,9 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui"> 
 
 <h:head>
 
@@ -61,7 +62,7 @@
 		</b:column>
 			
 	
-			<b:column col-md="7" >	
+			<b:column col-md="5" >	
 			<h:dataTable id="tablecommande" styleClass="table" value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
 						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
 			
@@ -122,7 +123,12 @@
 			</b:column>	
 			
 				
-			<b:button size="lg" value="Procéder au paiement" rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" />
+			
+			<h:form>	
+			<p:commandButton  value="Procéder au paiement" size="lg" rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" 
+							action="#{AuthentificationAdminBean.Paiement()}"/>
+					
+			</h:form>		
 		</b:column>
 	</b:row>
 

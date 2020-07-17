@@ -17,6 +17,14 @@
     TARGET="rules:#accueil-client.xhtml" TITLE="ajoutPanier" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="GoToPanier::#panier.xhtml" NAME="output3"
     PATH="/panier.xhtml" TARGET="rules:#panier.xhtml" TITLE="GoToPanier" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="ProduitCateg::#client-voyage-par-categorie.xhtml" NAME="output4"
+    PATH="/client-voyage-par-categorie.xhtml"
+    TARGET="rules:#client-voyage-par-categorie.xhtml"
+    TITLE="ProduitCateg" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="ProduitDetail::#details-produit.xhtml"
+    NAME="output5" PATH="/details-produit.xhtml"
+    TARGET="rules:#details-produit.xhtml" TITLE="ProduitDetail" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#panier.xhtml" PATH="/panier.xhtml"
@@ -42,6 +50,13 @@
    <PROCESS-ITEM-OUTPUT ID="editVoyage::#edit-voyage.xhtml"
     NAME="output" PATH="/edit-voyage.xhtml"
     TARGET="rules:#edit-voyage.xhtml" TITLE="editVoyage" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="editCategorie::#accueil-admin-categorie.xhtml" NAME="output1"
+    PATH="/accueil-admin-categorie.xhtml"
+    TARGET="rules:#accueil-admin-categorie.xhtml" TITLE="editCategorie" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="setCategorie::#set-categorie.xhtml"
+    NAME="output2" PATH="/set-categorie.xhtml"
+    TARGET="rules:#set-categorie.xhtml" TITLE="setCategorie" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#edit-voyage.xhtml" PATH="/edit-voyage.xhtml"
@@ -53,4 +68,58 @@
     TARGET="rules:#accueil-admin.xhtml" TITLE="accueilAdmin" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#accueil-admin-categorie.xhtml"
+  PATH="/accueil-admin-categorie.xhtml" SHAPE="496,705,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#accueil-admin-categorie.xhtml:0" NAME="item"
+   PATH="/accueil-admin-categorie.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="editCategorie::#edit-categorie.xhtml"
+    NAME="output" PATH="/edit-categorie.xhtml"
+    TARGET="rules:#edit-categorie.xhtml" TITLE="editCategorie" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="ProduitCategorie::#produit-par-categorie.xhtml" NAME="output1"
+    PATH="/produit-par-categorie.xhtml"
+    TARGET="rules:#produit-par-categorie.xhtml" TITLE="ProduitCategorie" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#edit-categorie.xhtml"
+  PATH="/edit-categorie.xhtml" SHAPE="256,897,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#edit-categorie.xhtml:0" NAME="item"
+   PATH="/edit-categorie.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="accueilAdminCateg::#accueil-admin-categorie.xhtml" NAME="output"
+    PATH="/accueil-admin-categorie.xhtml"
+    TARGET="rules:#accueil-admin-categorie.xhtml"
+    TITLE="accueilAdminCateg" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#set-categorie.xhtml"
+  PATH="/set-categorie.xhtml" SHAPE="32,881,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#set-categorie.xhtml:0" NAME="item"
+   PATH="/set-categorie.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="accueilAdmin::#accueil-admin.xhtml"
+    NAME="output" PATH="/accueil-admin.xhtml"
+    TARGET="rules:#accueil-admin.xhtml" TITLE="accueilAdmin" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#produit-par-categorie.xhtml"
+  PATH="/produit-par-categorie.xhtml" SHAPE="720,721,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#proceder-paiement.xhtml"
+  PATH="/proceder-paiement.xhtml" SHAPE="256,897,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#proceder-paiement.xhtml:0" NAME="item"
+   PATH="/proceder-paiement.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="GoToPanier::#panier.xhtml" NAME="output"
+    PATH="/panier.xhtml" TARGET="rules:#panier.xhtml" TITLE="GoToPanier" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#client-voyage-par-categorie.xhtml"
+  PATH="/client-voyage-par-categorie.xhtml" SHAPE="320,305,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#client-voyage-par-categorie.xhtml:0"
+   NAME="item" PATH="/client-voyage-par-categorie.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="ProduitDetail::#details-produit.xhtml"
+    NAME="output" PATH="/details-produit.xhtml"
+    TARGET="rules:#details-produit.xhtml" TITLE="ProduitDetail" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#details-produit.xhtml"
+  PATH="/details-produit.xhtml" SHAPE="544,289,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

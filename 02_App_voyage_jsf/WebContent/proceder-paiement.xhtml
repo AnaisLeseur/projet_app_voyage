@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://java.sun.com/jsf/html"> 
+
+<h:head>
+
+<title>Votre commande</title>
+
+</h:head> 
+<body> 
+
+<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+
+<h2>Votre commande :</h2>
+
+
+
+<b:column col-md="12" >
+
+	<b:column col-md="3"  >	
+
+<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeProduitsSelectionnes()}" var="produit" 
+						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" >
+				
+			
+					<h:column > 
+						<f:facet name="header">
+							<h:outputText value="#" />
+						</f:facet>
+					
+						<h:outputText value="#" />	
+					</h:column>
+					
+					<h:column >
+						<f:facet name="header">
+							<h:outputText value="Destination" />
+						</f:facet>
+						<h:outputText value="#{produit.nomProduit}" />
+					</h:column>
+					
+	
+			</h:dataTable>	
+			
+		</b:column>		
+		
+		<b:column col-md="5" >		
+					
+			<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
+						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
+			
+				<h:column>
+					<h:inputHidden value="#{ligne.produit_id}" />
+				</h:column>	
+				
+				<h:column >
+					<f:facet name="header">
+						<h:outputText value="Nombre de personnes" />
+					</f:facet>
+					<h:outputText value="#{ligne.quantite_ligne} personne(s)" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Prix du voyage" />
+					</f:facet>
+					<h:outputText value="#{ligne.prix_ligne} €" />
+				</h:column>
+		
+	</h:dataTable>		
+ 				 
+		
+</b:column>
+
+<b:column col-md="8" >
+<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
+						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
+	
+	
+	
+	
+   			<f:facet name="footer">
+			Total: #{GestionLigneCommandeBean.PrixTotal()}
+			 </f:facet>
+
+	
+	</h:dataTable>
+	
+	</b:column>
+
+</b:column>	
+
+		<h:form>	
+			<p:commandButton  value="Procéder au paiement" size="lg"  
+							action="#{GestionProduitBean.DoubleList()}"/>
+					
+		</h:form>	
+		
+		
+		<h:form>	
+			<p:commandButton  value="Retourner au panier" size="lg"  
+							href="GoToPanier"/>
+					
+		</h:form>	
+	
+		
+		
+
+
+
+
+
+
+		<ui:decorate template="/templates/footer.xhtml"/>
+</body> 
+</html>

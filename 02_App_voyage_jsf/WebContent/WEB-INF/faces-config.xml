@@ -205,6 +205,18 @@
 	</navigation-rule>
 	
 	
+
+	<!-- 1. règles de navigation pour la page 'proceder-paiement.xhtml' -->
+	<navigation-rule>
+		<from-view-id>/proceder-paiement.xhtml</from-view-id>
+		<navigation-case>
+			<!-- 1.2.1 Clé d'outcome -->
+			<from-outcome>GoToPanier</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/panier.xhtml</to-view-id>
+			</navigation-case>
+	</navigation-rule>
+
 	<!-- 1. règles de navigation pour la page 'client-voyage-par-categorie.xhtml' -->
 	<navigation-rule>
 		<from-view-id>/client-voyage-par-categorie.xhtml</from-view-id>
@@ -213,10 +225,13 @@
 			<from-outcome>ProduitDetail</from-outcome>
 			<!-- 1.2.2 destination -->
 			<to-view-id>/details-produit.xhtml</to-view-id>
+
 			<!-- redirection (pour ne pas avoir de pb avec url décalé) -->
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+
+
 
 
 </faces-config>
