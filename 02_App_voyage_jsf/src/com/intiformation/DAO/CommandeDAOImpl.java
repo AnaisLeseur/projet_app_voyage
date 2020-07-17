@@ -230,6 +230,44 @@ public class CommandeDAOImpl implements ICommandeDAO{
 		}//end finally
 		return null;
 	}// end findIdMax
+
+
+
+	@Override
+	public List<Commande> findCommandeDuClient(Integer idClient) {
+		try {
+			ps = this.connexion.prepareStatement("select * from commandes where client_id= ?");
+			
+			ps.setInt(1, idClient);
+			
+			rs = ps.executeQuery();
+			
+			List<Commande> listeCommandesDuClient = new ArrayList<>();
+			Commande commande = null; 
+			
+			while (rs.next()) {
+				commande = new Commande(rs.getInt(1), rs.getDate(2), rs.getInt(3));
+							
+				listeCommandesDuClient.add(commande);
+					
+			}//end while
+			
+			return listeCommandesDuClient; 
+			
+		} catch (SQLException e) {
+			System.out.println("... Erreur lors de la méthode findCommandeDuClient() de CommandeDAOImpl ...");
+			e.printStackTrace();
+		}finally {		
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}//end catch
+		}//end finally
+		return null;
+	}// end findCommandeDuClient
 	
 	
 

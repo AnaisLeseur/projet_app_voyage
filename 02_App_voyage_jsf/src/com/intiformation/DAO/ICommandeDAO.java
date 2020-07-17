@@ -1,5 +1,7 @@
 package com.intiformation.DAO;
 
+import java.util.List;
+
 import com.intiformation.modeles.Commande;
 
 public interface ICommandeDAO extends IGenerique<Commande> {
@@ -9,6 +11,8 @@ public interface ICommandeDAO extends IGenerique<Commande> {
 	
 	
 	public Commande findIdMax();
+	
+	public List<Commande> findCommandeDuClient(Integer idClient);
 	
 	
 	

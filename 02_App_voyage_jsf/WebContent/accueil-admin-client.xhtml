@@ -104,8 +104,8 @@
 						<h:outputText value="Commandes associées" />
 					</f:facet>
 					<h:form>
-						<h:commandLink id="voyageParCateg" action="ProduitCategorie"
-							actionListener="#{GestionProduitBean.findProduitParCategorie}">
+						<h:commandLink id="commandeDuClient" 
+							actionListener="#{GestionCommandeBean.findAllCommandeDuClient}">
 
 							<f:param id="clientID" name="id" value="#{client.id_client}" />
 							

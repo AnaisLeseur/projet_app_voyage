@@ -199,6 +199,46 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 	}// end deleteDoubleId
 	
 	
+	/**
+	 * pour récup les ligne de commandes associées à une commande
+	 */
+	@Override
+	public List<LigneCommande> getByIdCommande(Integer pIdCommande) {
+		try {
+			
+			ps = this.connexion.prepareStatement("select * from lignes_commandes where commande_id=?");
+			
+			ps.setInt(1, pIdCommande);
+
+			rs = ps.executeQuery();
+			
+			List<LigneCommande> listeligneCommandeByIdCommande = new ArrayList<>();
+			LigneCommande ligneCommande = null;
+				
+			while (rs.next()) {
+				ligneCommande = new LigneCommande(rs.getInt(1), 
+												rs.getInt(2), 
+												rs.getInt(3), 
+												rs.getDouble(4)); 		
+				
+				listeligneCommandeByIdCommande .add(ligneCommande);
+			}// end while
+			
+			return listeligneCommandeByIdCommande ;
+			
+		} catch (SQLException e) {
+			System.out.println("LigneCommandeDAOImpl : erreur getByIdCommande()");
+			e.printStackTrace();
+		}finally {
+			try {
+				ps.close();
+			}catch (Exception e) {
+				// TODO: handle exception
+			}// end catch
+		}// end finally
+		return null;
+	}// end getByIdCommande
+	
 	
 	
 // METH NON UTILISEES
@@ -221,5 +261,8 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}// end getById
+
+
+
 
 }// end class
