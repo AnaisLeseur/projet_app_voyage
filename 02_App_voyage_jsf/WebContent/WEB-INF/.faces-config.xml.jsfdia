@@ -25,6 +25,9 @@
    <PROCESS-ITEM-OUTPUT ID="ProduitDetail::#details-produit.xhtml"
     NAME="output5" PATH="/details-produit.xhtml"
     TARGET="rules:#details-produit.xhtml" TITLE="ProduitDetail" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="monCompte::#compte-client.xhtml"
+    NAME="output6" PATH="/compte-client.xhtml"
+    TARGET="rules:#compte-client.xhtml" TITLE="monCompte" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#panier.xhtml" PATH="/panier.xhtml"
@@ -151,4 +154,31 @@
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#commande-du-client.xhtml"
   PATH="/commande-du-client.xhtml" SHAPE="240,1889,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#compte-client.xhtml"
+  PATH="/compte-client.xhtml" SHAPE="320,337,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#compte-client.xhtml:0" NAME="item"
+   PATH="/compte-client.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="modifClient::#modif-infos-client.xhtml"
+    NAME="output" PATH="/modif-infos-client.xhtml"
+    TARGET="rules:#modif-infos-client.xhtml" TITLE="modifClient" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="afficherCommandeClient::#client-commande-client.xhtml"
+    NAME="output1" PATH="/client-commande-client.xhtml"
+    TARGET="rules:#client-commande-client.xhtml"
+    TITLE="afficherCommandeClient" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#modif-infos-client"
+  PATH="/modif-infos-client" SHAPE="48,321,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#modif-infos-client:0" NAME="item"
+   PATH="/modif-infos-client" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="modifClient::#compte-client.xhtml"
+    NAME="output" PATH="/compte-client.xhtml"
+    TARGET="rules:#compte-client.xhtml" TITLE="modifClient" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#modif-infos-client.xhtml"
+  PATH="/modif-infos-client.xhtml" SHAPE="544,321,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#client-commande-client.xhtml"
+  PATH="/client-commande-client.xhtml" SHAPE="320,337,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

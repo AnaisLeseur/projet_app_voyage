@@ -11,7 +11,7 @@
 <h:body>
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 	<b:column col-md="9" style="margin-left : 150px">
-		<h4>Vos informations :</h4>
+		<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 20px ">Vos informations :</h2>
 		<br />
 
 		<h4>Nom : #{client.nom_client}</h4>
@@ -30,7 +30,7 @@
 
 		<h:inputHidden value="#{AuthentificationAdminBean.client.id_client}" />
 
-
+<br /><br />
 
 		<b:panel title="Actions :" look="succes">
 			<h:form>
@@ -38,19 +38,23 @@
 				actionListener="#{GestionClientBean.selectionnerClient}" > 
 				<f:param id="updateId" name="id" value="#{AuthentificationAdminBean.client.id_client}" />
 				</h:commandButton>
-				
-				
-				<h:outputText value="          " style="margin-left : 50 px" />
-				<h:commandButton value="Afficher la listes de mes commandes" />
+
+				<h:commandButton value="Afficher la listes de mes commandes" action="afficherCommandeClient"
+					actionListener="#{GestionCommandeBean.findAllCommandeDuClient}">
+				<f:param id="clientID" name="id" value="#{AuthentificationAdminBean.client.id_client}"  />
+				</h:commandButton>
 
 			</h:form>
 
 		</b:panel>
+		<br /><br /><br />
 	</b:column>
 
 
 
 
-</h:body>
+
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+</h:body>
+
 </html>

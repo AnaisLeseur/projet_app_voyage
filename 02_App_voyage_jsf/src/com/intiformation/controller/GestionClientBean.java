@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpSession;
 
 import com.intiformation.DAO.ClientDAOImpl;
 import com.intiformation.DAO.IClientDAO;
@@ -135,6 +136,9 @@ public class GestionClientBean implements Serializable {
 		
 		// 1.récup du contexteJSF
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
+		
+		Client client = (Client) session.getAttribute("client");
 
 		// 2. modification du client dans la bdd
 		if (clientDAO.update(client)) {
