@@ -219,12 +219,6 @@ public class GestionProduitBean implements Serializable {
 			}
 			
 			
-		
-		
-		
-	
-		
-		
 
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 		if (session == null) {

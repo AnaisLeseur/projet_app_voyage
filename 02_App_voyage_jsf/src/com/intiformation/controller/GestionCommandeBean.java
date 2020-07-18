@@ -42,6 +42,8 @@ public class GestionCommandeBean {
 	IProduitDAO produitDAO;
 	
 	private LigneCommande ligneCommande;
+	
+	int idClient;
 
 	
 	
@@ -86,14 +88,12 @@ public class GestionCommandeBean {
 	}// end findAllLigneCommandePourToutesCommandes
 	
 	
-	
-	
-	
+
 	public void findAllCommandeDuClient(ActionEvent event) {
 
 		
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("clientID");
-		int idClient = (int) uip.getValue();
+		idClient = (int) uip.getValue();
 		System.out.println("int idClient: " + idClient);
 		
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
@@ -114,15 +114,15 @@ public class GestionCommandeBean {
 		}//  end for
 		
 		
-//		session.setAttribute("listeLigneCommandeDuClient", listeLigneCommandeDuClient);
+		session.setAttribute("listeLigneCommandeDuClient", listeLigneCommandeDuClient);
 		
 //		return listeLigneCommandeDuClient;
 		
 	}// end findAllCommandeDuClient
 	
-public List<LigneCommande> AfficheCommandeDuClient() {
 	
-		
+	public List<LigneCommande> AfficheCommandeDuClient() {
+
 		return listeLigneCommandeDuClient;
 		
 	}// end findAllCommandeDuClient
