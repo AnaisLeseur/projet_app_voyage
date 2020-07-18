@@ -168,17 +168,24 @@
     TITLE="afficherCommandeClient" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#modif-infos-client"
-  PATH="/modif-infos-client" SHAPE="48,321,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#modif-infos-client:0" NAME="item"
-   PATH="/modif-infos-client" model-entity="JSFProcessItem">
+ <PROCESS-ITEM NAME="rules:#modif-infos-client.xhtml"
+  PATH="/modif-infos-client.xhtml" SHAPE="544,321,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#modif-infos-client.xhtml:0" NAME="item"
+   PATH="/modif-infos-client.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="modifClient::#compte-client.xhtml"
     NAME="output" PATH="/compte-client.xhtml"
     TARGET="rules:#compte-client.xhtml" TITLE="modifClient" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#modif-infos-client.xhtml"
-  PATH="/modif-infos-client.xhtml" SHAPE="544,321,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#client-commande-client.xhtml"
   PATH="/client-commande-client.xhtml" SHAPE="320,337,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#validation-commande.xhtml"
+  PATH="/validation-commande.xhtml" SHAPE="64,321,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#validation-commande.xhtml:0" NAME="item"
+   PATH="/validation-commande.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="GoToAccueil::#accueil-client.xhtml"
+    NAME="output" PATH="/accueil-client.xhtml"
+    TARGET="rules:#accueil-client.xhtml" TITLE="GoToAccueil" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>

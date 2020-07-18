@@ -6,12 +6,16 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIParameter;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpSession;
 
 import com.intiformation.DAO.CommandeDAOImpl;
 import com.intiformation.DAO.ICommandeDAO;
 import com.intiformation.DAO.ILigneCommandeDAO;
+import com.intiformation.DAO.IProduitDAO;
 import com.intiformation.DAO.LigneCommandeDAOImpl;
+import com.intiformation.DAO.ProduitDAOImpl;
 import com.intiformation.modeles.Commande;
 import com.intiformation.modeles.LigneCommande;
 import com.intiformation.modeles.Produit;
@@ -25,10 +29,17 @@ public class GestionCommandeBean {
 	private List<Commande> listeCommandesDuClient = new ArrayList<>();
 	private List<Commande> listeAllCommandeBDD = new ArrayList<>();
 	private List<LigneCommande> listeLigneCommande = new ArrayList<>();
+	private List<LigneCommande> listeLigneCommandeAll = new ArrayList<>();
 	private List<LigneCommande> listeLigneCommandeDuClient = new ArrayList<>();
+	private List<LigneCommande> listeLigneCommandeParCommande = new ArrayList<>();
+	
+	private List<Produit> listeProduitCommande = new ArrayList<>();
+	private Produit produit;
+	
 	
 	ICommandeDAO commandeDAO;
 	ILigneCommandeDAO lignecommandeDAO;
+	IProduitDAO produitDAO;
 	
 	private LigneCommande ligneCommande;
 
@@ -39,6 +50,7 @@ public class GestionCommandeBean {
 	public GestionCommandeBean() {
 		commandeDAO = new CommandeDAOImpl();
 		lignecommandeDAO = new LigneCommandeDAOImpl();
+		produitDAO = new ProduitDAOImpl();
 	}// end ctor vide
 	
 	
@@ -54,12 +66,39 @@ public class GestionCommandeBean {
 	}// end findAllProduitsBDD
 	
 	
-	public List<LigneCommande> findAllCommandeDuClient(ActionEvent event) {
+	public List<LigneCommande> findAllLigneCommandePourToutesCommandes() {
+
+
+		listeAllCommandeBDD = commandeDAO.getAll();
+		
+		for (Commande commande : listeAllCommandeBDD) {
+			
+			int idCommande = commande.getId_commande();
+			listeLigneCommandeAll = lignecommandeDAO.getByIdCommande(idCommande);
+
+			System.out.println("listeLigneCommande =" + listeLigneCommandeAll);
+			
+			listeLigneCommandeParCommande.addAll(listeLigneCommandeAll);	
+			
+		}//  end for
+		return listeLigneCommandeParCommande;
+
+	}// end findAllLigneCommandePourToutesCommandes
+	
+	
+	
+	
+	
+	public void findAllCommandeDuClient(ActionEvent event) {
 
 		
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("clientID");
 		int idClient = (int) uip.getValue();
 		System.out.println("int idClient: " + idClient);
+		
+		FacesContext contextJSF = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
+		
 		
 		listeCommandesDuClient = commandeDAO.findCommandeDuClient(idClient);
 		for (Commande commande : listeCommandesDuClient) {
@@ -73,7 +112,11 @@ public class GestionCommandeBean {
 			listeLigneCommandeDuClient.addAll(listeLigneCommande);	
 			
 		}//  end for
-		return listeLigneCommandeDuClient;
+		
+		
+//		session.setAttribute("listeLigneCommandeDuClient", listeLigneCommandeDuClient);
+		
+//		return listeLigneCommandeDuClient;
 		
 	}// end findAllCommandeDuClient
 	

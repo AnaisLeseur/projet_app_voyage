@@ -28,15 +28,17 @@
 
 	</b:tabLinks>
 	
-<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 20px ">Liste des commande du client :</h2>
+<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 20px ">Liste des commandes du client : </h2>
 
 <b:row>
 
 		<b:column col-md="9" style="margin-left : 150px">
 
+		<h3 style="font-style: italic; text-decoration: underline;"><h:outputText value="Le client n'a pas de commande" rendered="#{empty GestionCommandeBean.AfficheCommandeDuClient()}"/></h3>
+		<br/>
 			<h:dataTable styleClass="table"
 				value="#{GestionCommandeBean.AfficheCommandeDuClient()}" var="commande"
-				rows="8">
+				rendered="#{not empty GestionCommandeBean.AfficheCommandeDuClient()}" rows="8">
 				
 				<h:column>
 					<f:facet name="header">
@@ -60,7 +62,7 @@
 					<f:facet name="header">
 						<h:outputText value="Prix payé" />
 					</f:facet>
-					<h:outputText value="#{commande.prix_ligne}" />
+					<h:outputText value="#{commande.prix_ligne} €" />
 				</h:column>
 			
 

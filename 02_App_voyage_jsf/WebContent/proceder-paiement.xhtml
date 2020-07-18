@@ -15,11 +15,11 @@
 
 <ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
-<h2>Votre commande :</h2>
+<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 10px ">Votre commande :</h2>
 
 
 
-<b:column col-md="12" >
+<b:column col-md="12" style="margin-left : 100px; margin-top : 10px" >
 
 	<b:column col-md="3"  >	
 
@@ -47,7 +47,7 @@
 			
 		</b:column>		
 		
-		<b:column col-md="5" >		
+		<b:column col-md="7" >		
 					
 			<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
 						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
@@ -75,7 +75,7 @@
 		
 </b:column>
 
-<b:column col-md="8" >
+<b:column col-md="10" >
 <h:dataTable styleClass="table" value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
 						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
 	
@@ -83,7 +83,9 @@
 	
 	
    			<f:facet name="footer">
-			Total: #{GestionLigneCommandeBean.PrixTotal()}
+				<h3>
+				Total: #{GestionLigneCommandeBean.PrixTotal()} €
+				</h3>
 			 </f:facet>
 
 	
@@ -93,26 +95,15 @@
 
 </b:column>	
 
-		<h:form>	
+		<h:form style="margin-left : 130px; margin-top : 20px">	
 			<p:commandButton  value="Procéder au paiement" size="lg"  
 							action="#{GestionProduitBean.ApresPaiement()}"/>
-					
-		</h:form>	
-		
-		
-		<h:form>	
+
 			<p:commandButton  value="Retourner au panier" size="lg"  
-							href="GoToPanier"/>
+							action="GoToPanier"/>
 					
 		</h:form>	
 	
-		
-		
-
-
-
-
-
 
 		<ui:decorate template="/templates/footer.xhtml"/>
 </body> 

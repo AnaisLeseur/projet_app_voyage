@@ -22,15 +22,15 @@
 
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
-	<h2>Votre panier :</h2>
+	<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 10px ">Votre panier :</h2>
 
 	<b:row>
-		<b:column col-md="12" >
+		<b:column col-md="12" style="margin-left : 100px; margin-top : 10px">
 		<h3 style="font-style: italic; text-decoration: underline;"><h:outputText value="Votre panier est vide!" rendered="#{empty GestionProduitBean.ListeProduitsSelectionnes()}" /></h3>
 		<br/>
-		<b:column col-md="5"  >	
+		<b:column col-md="4"  >	
 			<h:dataTable id="tablepanier" styleClass="table" value="#{GestionProduitBean.ListeProduitsSelectionnes()}" var="produit" 
-						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" rowClasses="rowclass" >
+						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" rowClasses="rowclass">
 				
 			
 					<h:column > 
@@ -62,7 +62,7 @@
 		</b:column>
 			
 	
-			<b:column col-md="5" >	
+		<b:column col-md="6" >	
 			<h:dataTable id="tablecommande" styleClass="table" value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
 						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
 			
@@ -109,28 +109,35 @@
 						</h:commandLink>
 					</h:form>
 				</h:column>
-				
-		
-			
- 				    <f:facet name="footer">
-				        Total: #{GestionLigneCommandeBean.PrixTotal()}
-				    </f:facet>
-			
 
-			
-			
-			
 			</h:dataTable>
 			</b:column>	
 			
-				
 			
-			<h:form>	
+			<b:column col-md="10" >
+	<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne" 
+						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
+
+	
+   			<f:facet name="footer" >
+				<h3>
+				Total: #{GestionLigneCommandeBean.PrixTotal()} €
+				</h3>
+			</f:facet>
+
+	
+	</h:dataTable>
+	
+	</b:column>
+			
+</b:column>		
+			
+			<h:form style="margin-left : 130px; margin-top : 20px">	
 			<p:commandButton  value="Procéder au paiement" size="lg" rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" 
 							action="#{AuthentificationAdminBean.Paiement()}"/>
 					
 			</h:form>		
-		</b:column>
+	
 	</b:row>
 
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>

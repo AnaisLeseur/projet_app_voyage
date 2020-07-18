@@ -31,36 +31,37 @@
 		<b:column col-md="9" style="margin-left : 150px">
 
 			<h:dataTable styleClass="table"
-				value="#{ }" var="commande"
+				value="#{GestionCommandeBean.findAllLigneCommandePourToutesCommandes()}" var="lignecommande"
 				rows="8">
 				
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Id" />
+						<h:outputText value="Id de la commande" />
 					</f:facet>
-					<h:outputText value="#{produit.idProduit}" />
+					<h:outputText value="#{lignecommande.commande_id}" />
 				</h:column>
+				
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Date" />
+						<h:outputText value="Id du produit" />
 					</f:facet>
-					<h:outputText value="#{produit.nomProduit}" />
+					<h:outputText value="#{lignecommande.produit_id}" />
 				</h:column>
-
+				
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Id du client" />
+						<h:outputText value="Quantité" />
 					</f:facet>
-					<h:outputText value="#{produit.descriptionProduit}" />
+					<h:outputText value="#{lignecommande.quantite_ligne} personne(s)" />
 				</h:column>
-			
-
-
-			
+				
 				<h:column>
-					<h:message for="supp" styleClass="error" />
-					<h:message for="modif" styleClass="error" />
+					<f:facet name="header">
+						<h:outputText value="Prix payé pour ce voyage" />
+					</f:facet>
+					<h:outputText value="#{lignecommande.prix_ligne} €" />
 				</h:column>
+				
 
 			</h:dataTable>
 

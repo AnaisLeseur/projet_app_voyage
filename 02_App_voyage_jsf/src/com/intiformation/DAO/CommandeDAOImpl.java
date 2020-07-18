@@ -127,6 +127,7 @@ public class CommandeDAOImpl implements ICommandeDAO{
 				commande = new Commande(rs.getInt(1), rs.getDate(2), rs.getInt(3));
 							
 				listeCommandesDB.add(commande);
+				
 					
 			}//end while
 			
