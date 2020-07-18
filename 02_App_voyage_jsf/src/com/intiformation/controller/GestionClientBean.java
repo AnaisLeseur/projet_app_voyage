@@ -122,7 +122,7 @@ public class GestionClientBean implements Serializable {
 	 * déclenche. l'évenement encapsule ttes les infos concernant le composant.
 	 * 
 	 */
-	public void modifierClient(ActionEvent event) {
+	public String modifierClient() {
 
 		/**
 		 * la prop 'client' du MB encapsule les infos du client à modifier dans la bdd
@@ -158,6 +158,7 @@ public class GestionClientBean implements Serializable {
 			contextJSF.addMessage(null, messageNotOk);
 
 		} // end else
+		return "compte-client.xhtml?faces-redirect=true";
 	}// end modifierClient
 
 	/**

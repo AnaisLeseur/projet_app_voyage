@@ -121,7 +121,7 @@ public class AuthentificationAdminBean implements Serializable {
 	 * 
 	 * @return page d'accueil-client du site
 	 */
-	public void deconnecterUser() {
+	public String deconnecterUser() {
 		
 		// 1. récup du contexte de JSF 
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
@@ -151,7 +151,7 @@ public class AuthentificationAdminBean implements Serializable {
 		contextJSF.addMessage(null, message);
 		
 		// 5. redirection vers la page du formulaire
-	//	return "accueil-client.xhtml?faces-redirect=true";
+		return "accueil-client.xhtml?faces-redirect=true";
 				
 		
 	}// end deconnecterAdministrateur()
@@ -248,7 +248,37 @@ public class AuthentificationAdminBean implements Serializable {
 	}// end Paiement
 	
 	
+	/**
+	 * meth qui permet de vérifier que client est connecté à son espace AVANT d'afficher ses infos
+	 * la meth sera invoquée au click sur 'Mon Compte' dans le header
+	 * 
+	 * @return la page d'authentification client
+	 * OU 
+	 * @return la page compte-client.xhtml 
+	 */
+	public String VoirLesInfos() {
+		
+		// 1. déclaration du context de JSF (l'objet FacesContext)
+		FacesContext contextJSF = FacesContext.getCurrentInstance();
+		// -> création de la session
+		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
+		
+		
+		// 2.vérif si le client est connecté
+		if (session.getAttribute("user_login") == null) {
 
+			return "authentication.xhtml?faces-redirect=true";
+			
+		} else {
+
+			return "compte-client.xhtml?faces-redirect=true";
+			
+
+		}// end else
+			
+		
+	}// end VoirLesInfos
+	
 
 
 	

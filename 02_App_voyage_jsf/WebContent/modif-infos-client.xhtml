@@ -50,11 +50,9 @@
 			<h:inputHidden value="#{client.id_client}" />
 			
 				<h:commandButton value="Enregistrez-vous"
-					action="modifClient"
-					actionListener="#{GestionClientBean.modifierClient}">
-										
-				</h:commandButton>
-			
+					action="#{GestionClientBean.modifierClient()}"/>
+
+
 
 		</b:panelGrid>
 		</h:form>

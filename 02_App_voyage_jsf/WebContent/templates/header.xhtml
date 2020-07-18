@@ -21,10 +21,9 @@
 					<b:navLink><b:navLink value="Contact" href="mailto:AppVoyage@voyage.com"></b:navLink></b:navLink>
 					<b:navLink><b:navLink value="Connectez-vous" href="authentication.xhtml"></b:navLink></b:navLink>
 					
-					<b:navLink><b:navLink value="Mon compte" href="compte-client.xhtml"></b:navLink></b:navLink>
+					<b:navLink><b:commandLink value="Mon compte" action="#{AuthentificationAdminBean.VoirLesInfos()}"></b:commandLink></b:navLink>
 					<b:navLink><b:navLink value="Panier" href="panier.xhtml" ></b:navLink></b:navLink>
-					<b:navLink ><b:commandLink value="Se déconnecter" actionListener="#{AuthentificationAdminBean.deconnecterUser()}" action="retourAccueil"></b:commandLink>
-				</b:navLink>
+					<b:navLink ><b:commandLink value="Se déconnecter" action="#{AuthentificationAdminBean.deconnecterUser()}" ></b:commandLink></b:navLink>
 				</b:navbarLinks>
 			</h:form>
 			
