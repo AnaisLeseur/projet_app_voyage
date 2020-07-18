@@ -258,9 +258,8 @@ public class GestionProduitBean implements Serializable {
 
 	public List<Produit> ListeProduitsSelectionnes() {
 
-		// listePanier.forEach(e->System.out.println(e.getNomProduit()));
-
-		// session.setAttribute("listePanier", listePanier);
+		listePanier = produitDAO.getProduitSelectionnes(true);
+		
 		return listePanier;
 
 
@@ -572,11 +571,7 @@ public class GestionProduitBean implements Serializable {
 		
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
-		
-		listePanier = (List<Produit>) session.getAttribute("listePanier");
-		
-		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
-		
+
 		LocalDate date = LocalDate.now();
 		Date dateDuJour = Date.valueOf(date);
 	
@@ -610,7 +605,21 @@ public class GestionProduitBean implements Serializable {
 
 			lignecommandeDAO.add(ligneCreation);
 			
-		}
+		}// end for 
+		
+		
+		listePanier = produitDAO.getProduitSelectionnes(true);
+
+		for (Produit produit : listePanier) {
+			produit.setSelectionProduit(false);	
+			produitDAO.update(produit);
+			System.out.println("produitDAO.update(produit) id: " + produit.getIdProduit() + " : " + produit.isSelectionProduit());
+			
+		}// end for
+		
+		
+		session.setAttribute("listePanier", null);
+
 
 		return "validation-commande.xhtml?faces-redirect=true";
 		
