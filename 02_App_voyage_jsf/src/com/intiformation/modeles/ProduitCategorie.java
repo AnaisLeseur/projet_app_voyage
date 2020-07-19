@@ -11,8 +11,6 @@ public class ProduitCategorie {
 	
 	public ProduitCategorie() {
 	}//end ctor vide
-	
-	
 		
 	public ProduitCategorie(int categorie_id, int produit_id) {
 		super();

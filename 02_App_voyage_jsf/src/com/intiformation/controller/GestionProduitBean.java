@@ -32,9 +32,6 @@ import com.intiformation.modeles.LigneCommande;
 import com.intiformation.modeles.Produit;
 import com.intiformation.modeles.ProduitCategorie;
 
-
-
-
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.logging.Level;
@@ -47,12 +44,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-
 import org.apache.catalina.mapper.MappingData;
 import org.primefaces.component.datatable.DataTable;
 
 import org.apache.catalina.manager.util.SessionUtils;
-
 
 import javax.faces.component.*;
 import javax.faces.context.FacesContext;
@@ -63,24 +58,23 @@ public class GestionProduitBean implements Serializable {
 
 	// _____ Props ______//
 
-	private List<Produit> listeProduits;
 	private Produit produit;
-	private String motCle;
-	private boolean selectionProduit;
-	private List<Produit> listePanier = new ArrayList<>();
-	private List<Produit>  listeMonde =new ArrayList<>();
-	HttpSession session;
-	private List<Produit> listeProduitCateg; 
-	
-	private String nomCategorie;
-
 	private ProduitCategorie produitCateg;
 
+	private String motCle;
+	private String nomCategorie;
+	private boolean selectionProduit;
+
+	private List<Produit> listeProduits;
+	private List<Produit> listePanier = new ArrayList<>();
+	private List<Produit> listeMonde = new ArrayList<>();
+	private List<Produit> listeProduitCateg;
 	private List<LigneCommande> listeLigneCommande = new ArrayList<>();
-	
+
 	private int nbPersonne = 1;
 	private int idClient;
 
+	HttpSession session;
 	FacesContext contextJSF = FacesContext.getCurrentInstance();
 
 	// file upload de l'API servlet
@@ -90,14 +84,11 @@ public class GestionProduitBean implements Serializable {
 	IProduitCategorie produitCategDAO;
 	ICommandeDAO commandeDAO;
 	ILigneCommandeDAO lignecommandeDAO;
-	
+
 	GestionLigneCommandeBean gestionLigneCommandeBean;
 	GestionProduitBean gestionProduitBean;
-	
-	
+
 	Commande commandeRecup;
-	
-	
 
 	// _____ Ctor ______//
 
@@ -118,7 +109,6 @@ public class GestionProduitBean implements Serializable {
 	 * 
 	 * @return
 	 */
-
 	public List<Produit> findAllProduitsBDD() {
 
 		listeProduits = produitDAO.getAll();
@@ -126,9 +116,14 @@ public class GestionProduitBean implements Serializable {
 		return listeProduits;
 
 	}// end findAllProduitsBDD
-	
-	
 
+	
+	/**
+	 * Récupération de la liste de produits dont le nom ou la description contienne le mot clé
+	 * Méthode appelée dans la barre de recherche du header
+	 * @param motCle: paramètre de typeString qui doit etre retrouvé
+	 * @return
+	 */
 	public List<Produit> findProduitByMotCle(String motCle) {
 
 		System.out.println("Mot clé :" + motCle);
@@ -165,9 +160,12 @@ public class GestionProduitBean implements Serializable {
 
 	/*
 	 * =============================================================================
-	 * ===
 	 */
 
+	/**
+	 * Méthode
+	 * @param event
+	 */
 	public void selectionnerProduit(ActionEvent event) {
 
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("selectID");
@@ -186,39 +184,37 @@ public class GestionProduitBean implements Serializable {
 
 		produitDAO.update(produitASelectionner);
 
-//		listePanier = produitDAO.getProduitSelectionnes(isDispo);
-		
-// liste ligne commande		
+		// listePanier = produitDAO.getProduitSelectionnes(isDispo);
 
-// A REFAIRE : 
-// IF  produitASelectionner already exist in listePanier => fait rien sinon listeLigneCommande.add(ligneCommande);
-	
-		
+		// liste ligne commande
+
+		// A REFAIRE :
+		// IF produitASelectionner already exist in listePanier => fait rien sinon
+		// listeLigneCommande.add(ligneCommande);
+
 		boolean test = listePanier.contains(produitASelectionner);
-		
+
 		if (test) {
 			System.out.println("if (listePanier.contains(produitASelectionner)): Vrai => NE l'ajoute pas ");
-
 
 		} else {
 			System.out.println("if (listePanier.contains(produitASelectionner)): FAUX => ajoute ");
 			listePanier = produitDAO.getProduitSelectionnes(isDispo);
-			LigneCommande ligneCommande = new LigneCommande(produitASelectionner.getIdProduit(), 1, produitASelectionner.getPrixProduit());
+			LigneCommande ligneCommande = new LigneCommande(produitASelectionner.getIdProduit(), 1,
+					produitASelectionner.getPrixProduit());
 			listeLigneCommande.add(ligneCommande);
-			
+
 		}
-		
-		
-		
-//			LigneCommande ligneCommande = new LigneCommande(produitASelectionner.getIdProduit(), 1, produitASelectionner.getPrixProduit());
-//			listeLigneCommande.add(ligneCommande);
-			
-			
-			for (LigneCommande ligneCommandeTest : listeLigneCommande) {
-				System.out.println("LigneCommande ligneCommandeTest : listeLigneCommande: " + ligneCommandeTest.getProduit_id());
-			}
-			
-			
+
+		// LigneCommande ligneCommande = new
+		// LigneCommande(produitASelectionner.getIdProduit(), 1,
+		// produitASelectionner.getPrixProduit());
+		// listeLigneCommande.add(ligneCommande);
+
+		for (LigneCommande ligneCommandeTest : listeLigneCommande) {
+			System.out.println(
+					"LigneCommande ligneCommandeTest : listeLigneCommande: " + ligneCommandeTest.getProduit_id());
+		}
 
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 		if (session == null) {
@@ -226,22 +222,18 @@ public class GestionProduitBean implements Serializable {
 			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(true);
 
 			session.setAttribute("listePanier", listePanier);
-			
+
 			session.setAttribute("listeLigneCommande", listeLigneCommande);
 
-	
-		}else {
+		} else {
 
 			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
 
 			session.setAttribute("listePanier", listePanier);
 
 			session.setAttribute("listeLigneCommande", listeLigneCommande);
-			
-		}//end else
 
-
-	
+		} // end else
 
 	}// end selectionnerProduit
 
@@ -253,24 +245,16 @@ public class GestionProduitBean implements Serializable {
 	public List<Produit> ListeProduitsSelectionnes() {
 
 		listePanier = produitDAO.getProduitSelectionnes(true);
-		
-		return listePanier;
 
+		return listePanier;
 
 	}// end ListeProduitsSelectionnes()
 
-	
-	
-	
 	public List<LigneCommande> ListeLigneCommande() {
 
 		return listeLigneCommande;
-	
-	}//end ListeLigneCommande()
-	
-	
-	
-	
+
+	}// end ListeLigneCommande()
 
 	public double sommePanier() {
 
@@ -301,14 +285,12 @@ public class GestionProduitBean implements Serializable {
 
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("selectSuppIdPanier");
 		UIParameter uip2 = (UIParameter) event.getComponent().findComponent("selectSuppIdLignePanier");
-		
 
 		// 2. récup de la valeur du param
 		int idProduitSuppDuPanier = (int) uip.getValue();
 		int selectSuppIdLignePanier = (int) uip2.getValue();
-		
+
 		System.out.println("int selectSuppIdLignePanier =" + selectSuppIdLignePanier);
-		
 
 		// 3. récup du panier à retirer du panier
 		Produit produitARetirerDuPanier = produitDAO.getById(idProduitSuppDuPanier);
@@ -330,28 +312,22 @@ public class GestionProduitBean implements Serializable {
 					" la suppression du produit à échouée", " - le produit n'a pas été supprimé du panier"));
 
 		} // end else
-		
 
 		listePanier = produitDAO.getProduitSelectionnes(true);
-		
+
 		for (LigneCommande ligneCommande : listeLigneCommande) {
 			System.out.println("LigneCommande ligneCommande :" + ligneCommande);
-			
+
 		}
-		
-	
+
 		listeLigneCommande.remove(selectSuppIdLignePanier);
 		for (LigneCommande ligneCommande : listeLigneCommande) {
 			System.out.println("listeLigneCommande.remove(uipindex):" + ligneCommande);
-			
+
 		}
-		
+
 		return listePanier;
 	}// end supprimerProduit
-	
-	
-	
-
 
 	/*
 	 * =============================================================================
@@ -419,8 +395,6 @@ public class GestionProduitBean implements Serializable {
 
 	public void saveVoyage(ActionEvent event) {
 
-		
-
 		// -------------------------------------------
 		// cas : ajout
 		// -------------------------------------------
@@ -432,11 +406,11 @@ public class GestionProduitBean implements Serializable {
 
 				// affectation du nom a la prop urlImage du voyage
 				produit.setUrlImageProduit(fileName);
-				FacesContext contextJSFajout = FacesContext.getCurrentInstance();	
+				FacesContext contextJSFajout = FacesContext.getCurrentInstance();
 
 				// ajout du voyage dans la bdd + message
 				if (produitDAO.add(produit)) {
-					
+
 					contextJSFajout.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout du produit",
 							"- Le produit a été ajouté avec succès"));
 
@@ -479,8 +453,7 @@ public class GestionProduitBean implements Serializable {
 			} // end catch
 
 		} // end if ajout
-		
-		
+
 		// -------------------------------------------
 		// cas : modif
 		// -------------------------------------------
@@ -503,11 +476,11 @@ public class GestionProduitBean implements Serializable {
 					produit.setUrlImageProduit(fileNameToUpdate);
 				} // end if equals
 			} // end if uploadedFile != null
-			
-			FacesContext contextJSFmodif = FacesContext.getCurrentInstance();	
+
+			FacesContext contextJSFmodif = FacesContext.getCurrentInstance();
 
 			if (produitDAO.update(produit)) {
-				
+
 				contextJSFmodif.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification du produit",
 						"- Le produit a été modifié avec succès"));
 
@@ -515,126 +488,101 @@ public class GestionProduitBean implements Serializable {
 				contextJSFmodif.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
 						" la modification du produit a échouée", " - le produit n'a pas été modifié"));
 			} // end else pour msg ajout
-			
-	
+
 		} // end if modif
 
 	}// end saveBook()
 
-	public void findProduitParCategorie(ActionEvent event){
-		
-		
+	public void findProduitParCategorie(ActionEvent event) {
+
 		UIParameter cp = (UIParameter) event.getComponent().findComponent("CategorieID");
 		int idCategorie = (int) cp.getValue();
-		
+
 		UIParameter cpNom = (UIParameter) event.getComponent().findComponent("CategorieNom");
 		nomCategorie = (String) cpNom.getValue();
-		
-		System.out.println("Id Categorie = "  + idCategorie);
-		System.out.println("Id Categorie = "  + nomCategorie);
-		
+
+		System.out.println("Id Categorie = " + idCategorie);
+		System.out.println("Id Categorie = " + nomCategorie);
+
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-		
-		session.setAttribute("nomCategorie", nomCategorie);
-		
-		listeProduitCateg = produitDAO.getByCategorie(idCategorie);
-		
-	}//end findProduitParCategorie
 
-	public List<Produit> AfficherlisteProduitMonde(){
-		 
+		session.setAttribute("nomCategorie", nomCategorie);
+
+		listeProduitCateg = produitDAO.getByCategorie(idCategorie);
+
+	}// end findProduitParCategorie
+
+	public List<Produit> AfficherlisteProduitMonde() {
+
 		int i = 2;
-		
+
 		listeMonde = produitDAO.getByCategorie(i);
-		
-		return listeMonde; 
+
+		return listeMonde;
 	}
-	
+
 	public List<Produit> AfficherListeProduitParCateg() {
-		
+
 		return listeProduitCateg;
-		
-	}//end AfficherListeProduit
-	
-	
-	
-	
-	
+
+	}// end AfficherListeProduit
+
 	public String ApresPaiement() {
-		
+
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
 
 		LocalDate date = LocalDate.now();
 		Date dateDuJour = Date.valueOf(date);
-	
+
 		System.out.println("Date dateDuJour : " + dateDuJour);
-		
 
 		Client client = (Client) session.getAttribute("client");
 		idClient = client.getId_client();
-		
+
 		Commande commande = new Commande(dateDuJour, idClient);
 
 		commandeDAO.add(commande);
 
 		commandeRecup = new Commande();
 		commandeRecup = commandeDAO.findIdMax();
-		
+
 		int commandeIdRecup = commandeRecup.getId_commande();
-		
-		
-		System.out.println("commandeRecup: " + commandeRecup.getClient_id() + "," 
-		+ commandeRecup.getId_commande() + "," + commandeRecup.getDate_commande());
-		
-		
+
+		System.out.println("commandeRecup: " + commandeRecup.getClient_id() + "," + commandeRecup.getId_commande() + ","
+				+ commandeRecup.getDate_commande());
+
 		for (LigneCommande ligneCommande : listeLigneCommande) {
-			
+
 			int produitRecup = ligneCommande.getProduit_id();
 			int quantiteRecup = ligneCommande.getQuantite_ligne();
 			double PrixRecup = ligneCommande.getPrix_ligne();
-			
+
 			LigneCommande ligneCreation = new LigneCommande(commandeIdRecup, produitRecup, quantiteRecup, PrixRecup);
 
 			lignecommandeDAO.add(ligneCreation);
-			
-		}// end for 
-		
-		
+
+		} // end for
+
 		listePanier = produitDAO.getProduitSelectionnes(true);
 
 		for (Produit produit : listePanier) {
-			produit.setSelectionProduit(false);	
+			produit.setSelectionProduit(false);
 			produitDAO.update(produit);
-			System.out.println("produitDAO.update(produit) id: " + produit.getIdProduit() + " : " + produit.isSelectionProduit());
-			
-		}// end for
-		
-		
+			System.out.println(
+					"produitDAO.update(produit) id: " + produit.getIdProduit() + " : " + produit.isSelectionProduit());
+
+		} // end for
+
 		session.setAttribute("listePanier", null);
 
-
 		return "validation-commande.xhtml?faces-redirect=true";
-		
-	}// end ApresPaiement
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-		
+	}// end ApresPaiement
+
 	// _____ Getter /setter ______//
-	
-	
+
 	public String getNomCategorie() {
 		return nomCategorie;
 	}
@@ -642,7 +590,7 @@ public class GestionProduitBean implements Serializable {
 	public void setNomCategorie(String nomCategorie) {
 		this.nomCategorie = nomCategorie;
 	}
-	
+
 	public List<Produit> getListeProduits() {
 		return listeProduits;
 	}
