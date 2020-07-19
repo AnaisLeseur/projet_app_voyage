@@ -17,7 +17,7 @@ select * from produits_categories;
 
 select * from users;
 
-select * from produit_categ;
+select * from produit_categ1;
 
 
 
