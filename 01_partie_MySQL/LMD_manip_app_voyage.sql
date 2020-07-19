@@ -102,4 +102,56 @@ update produits_categories set categorie_id = 3, produit_id =4 where categorie_i
 	
     
     
+SELECT max(id_commande) FROM commandes;
+
+
+
+	create view ligneCom_produit  as
+	select *
+	from produits p
+	left join lignes_commandes lc
+	on p.id_produit = lc.produit_id;
+
+
+	create view commande_client  as
+	select *
+	from commandes c
+	left join ligneCom_produit viewLigneComProduit
+	on viewLigneComProduit.commande_id = c.id_commande;
+    
+    drop view produit_categ1;
+    
+    select * from commande_client where id_commande = 6;
+    
+    
+    create view vieu_commande_client_clients  as
+	select *
+	from clients clt
+	left join commande_client 
+	on commande_client.client_id = clt.id_client;
+    
+    select * from vieu_commande_client_clients where id_client = 1 and id_commande= 6;
+    
+    
+    
+    select *
+	from clients clt
+	left join commandes c
+	on c.client_id = clt.id_client
+    where id_client = 1;
+    
+    
+	select *
+	from commandes
+    where client_id=1;
+    
+    
+	select *
+    from lignes_commandes;
+    
+    select * from lignes_commandes where commande_id=6;
+    
+    
+    truncate table commandes;
+	truncate table produits;
     
