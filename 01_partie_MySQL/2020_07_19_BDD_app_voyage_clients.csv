@@ -1,0 +1,4 @@
+id_client,identifiant_client,mot_de_passe_client,nom_client,prenom_client,adresse_client,email_client,tel_client,activated_client
+1,12,12,Levardon,Hannah,"12 adresse de hannah",hannah@mail.com,123456789,1
+2,123,123,Leseur,Anais,Lachassagne,anais@mail.com,09875432,1
+5,1234,1234,Poire,Vanille,"Rue blabla",vanille@mail.fr,9876543,0

@@ -1,0 +1,13 @@
+id_produit,nom_produit,description_produit,prix_produit,quantite_produit,selectionne_produit,image_produit
+4,Paris,"3 jours dans la capitale Francaise",350.000,100,0,france_paris-2.jpg
+5,Chine,"Voyage de 15 jours pour voir la grande muraille",2350.000,0,0,chine-muraille.jpg
+6,Pekin,"Voyage de 7 jours pour voir la grande muraille",1350.000,0,0,chine-temple.jpg
+7,"Algarve ","Le sud du Portugal vous attend pour 8 jours ",790.000,0,0,algarve.jpg
+10,"Santa Maria","Vacances sur l’île capverdienne de Sal, dans le village de Santa Maria et sa plage de sable blanc (10 jours)",1500.000,0,0,santaMaria.jpg
+11,Palerme,"le temps d'un week-end ",370.000,0,0,palerme.jpg
+12,Iso-Syöte,"L’un des endroits les plus enneigés de Finlande (6jours)",1290.000,0,0,IsoSyote.jpg
+13,"Afrique du Sud","Grand road trip de 16 jours en Afrique du Sud et en Eswatini",1900.000,0,0,Afriquedusud.jpg
+14,"USA Route 66","Inoubliable road trip de 12 jours sur la route légendaire 66, de Chicago à Los Angeles. ",3030.000,0,0,route66.jpg
+15,Aotearoa,"Road trip du nord au sud de la Nouvelle-Zélande pendant 20 jours",3900.000,0,0,NZ.jpg
+16,Avignon,"Découverte de la cité des papes sur un long week-end",500.000,0,0,avignon.jpg
+17,"Alpes autrichiennes","Tournée des grands classiques de Bavière et du Tyrol autrichien pendant 6jours",1200.000,0,0,alpes.jpg

@@ -153,5 +153,5 @@ SELECT max(id_commande) FROM commandes;
     
     
     truncate table commandes;
-	truncate table produits;
+	truncate table produits_categories;
     
