@@ -3,7 +3,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui"> 
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"> 
 
 <h:head>
 
@@ -17,74 +18,45 @@
 	<b:row>
 
 
-		<b:column col-md="9" style="margin-left : 150px">
-		<h2>Voici les résultats de votre recherche :</h2>
-			<h:dataTable styleClass="table" value="#{GestionProduitBean.findProduitByMotCle(GestionProduitBean.motCle)}" var="produit"
-				rows="8">
-				
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Couverture" />
-					</f:facet>
-					<h:graphicImage library="images" name="#{produit.urlImageProduit}" width="250" height="160" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Id" />
-					</f:facet>
-					<h:outputText value="#{produit.idProduit}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Nom / Destination" />
-					</f:facet>
-					<h:outputText value="#{produit.nomProduit}" />
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Description" />
-					</f:facet>
-					<h:outputText value="#{produit.descriptionProduit}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Prix" />
-					</f:facet>
-					<h:outputText value="#{produit.prixProduit}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Quantité" />
-					</f:facet>
-					<h:outputText value="#{produit.quantitéProduit}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Selectionné" />
-					</f:facet>
-					<h:outputText value="#{produit.selectionProduit}" />
-				</h:column>
-				<h:column>
-				<h:form>
-					<f:facet name="header">
-						<h:outputText value="Ajouter au panier" />
-					</f:facet>
-					
-					<h:commandLink id="edit" action="ajoutPanier"
-					actionListener="#{GestionProduitBean.selectionnerProduit}">
+		<b:column col-md="9" style="margin-left : 200px">
+		
+			
+			
+			<h:form id="form2">
+				<p:dataGrid var="produit"
+					value="#{GestionProduitBean.findProduitByMotCle(GestionProduitBean.motCle)}" columns="3"
+					layout="grid" rows="12" paginator="true" 
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="6,12,16">
 
-						<f:param id="selectID" name="id" value="#{produit.idProduit}" />
-						<f:param id="selectIsDispo" name="selection" value="#{produit.selectionProduit}" />
-	
-						<h:outputText value="Choisir ce voyage!" />
+					<f:facet name="header" >
+           				<h2 style="font-size: x-large; font-weight: bold;" > Nos voyages correspondant à votre recherche</h2>
+      				 </f:facet>
+
+					<p:panel header="#{produit.nomProduit}" style="font-size: large; text-align:center">
+						<h:panelGrid columns="1" style="width:100%">
+							<h:graphicImage library="images"
+								name="#{produit.urlImageProduit}" width="250px" height="160px" />
+
+							<h:outputText style="font-size: medium;" value="#{produit.descriptionProduit}" />
+							
+							
+						<h:commandLink id="ParCateg" action="ProduitDetail"
+							actionListener="#{GestionProduitBean.recupProduit}">
+
+							<f:param id="modifId" name="id" value="#{produit.idProduit}" />
+
+							<h:outputText  style="font-size: large; color: black;" value="Voir les détails !" />
+
+						</h:commandLink>
+
+						</h:panelGrid>
+					</p:panel>
+
+				</p:dataGrid>
 
 
-					</h:commandLink>
-				</h:form>
-				</h:column>
-				
-			</h:dataTable>
+			</h:form>
 
 
 		</b:column>
