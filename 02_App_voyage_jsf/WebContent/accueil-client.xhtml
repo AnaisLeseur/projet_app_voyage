@@ -27,50 +27,14 @@
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
 	<h1
-		style="text-align: center; margin-bottom: 30px; margin-top: 30px; font-family: sans-serif; font-weight: bold; font-size: 50px;">
+		style="text-align: center; margin-bottom: 30px; margin-top: 30px; font-family: sans-serif; font-weight: bold ; font-size: 50px; color: red;">
 		Trouvez le voyage de vos rêves !</h1>
-	<b:row>
+		
+		
+	<b:row style="margin-bottom: 600px;">
 
 		<b:column col-md="10" style="margin-left : 120px">
-
-			<h:form id="form">
-				<p:carousel value="#{GestionCategorieBean.findAllCategoriesBDD()}" 
-					headerText="Vous ne savez pas où allez ? Nos catégories vous aideront peut-être:"
-					var="categ" itemStyle="text-align:center" responsive="true">
-					<p:panelGrid columns="2"
-						style="width:100%;margin:20px 0px; height:300px"
-						columnClasses="label,value" layout="grid"
-						styleClass="ui-panelgrid-blank">
-						<f:facet name="header">
-							<h:graphicImage styleClass="image" library="images"
-								name="#{categ.urlImageCategorie}" width="250" height="160"
-								style="opacity: 1" />
-						</f:facet>
-						<h:outputText />
-						
-						<h:outputText style="font-size: x-large; margin-bottom: 20px"  value="#{categ.nom_categorie}" />
-						<h:outputText value="#{categ.description_categorie}"
-							style="color: black;" />
-
-						<h:outputText />
-
-						<h:commandLink id="ParCateg" action="ProduitCateg"
-							actionListener="#{GestionProduitBean.findProduitParCategorie}">
-
-							<f:param id="CategorieID" name="id" value="#{categ.id_categorie}" />
-							<f:param id="CategorieNom" name="nom"
-								value="#{categ.nom_categorie}" />
-
-							<h:outputText style="font-size: large; margin-bottom: 20px; margin-top: 30px" value="Voir les voyages de cette catégorie"  />
-
-						</h:commandLink>
-
-					</p:panelGrid>
-
-				</p:carousel>
-			</h:form>
-
-
+		
 			<h:form>
 				<p:carousel
 					value="#{GestionProduitBean.AfficherlisteProduitMonde()}"
@@ -105,7 +69,42 @@
 				</p:carousel>
 			</h:form>
 
+			<h:form id="form" style="margin-bottom: 80px; margin-top: 80px">
+				<p:carousel value="#{GestionCategorieBean.findAllCategoriesBDD()}" 
+					headerText="Des voyages selon vos envies..."
+					var="categ" itemStyle="text-align:center" responsive="true" rows="4">
+					<p:panelGrid columns="2"
+						style="width:100%;margin:20px 0px; height:300px"
+						columnClasses="label,value" layout="grid"
+						styleClass="ui-panelgrid-blank">
+						<f:facet name="header">
+							<h:graphicImage styleClass="image" library="images"
+								name="#{categ.urlImageCategorie}" width="250" height="160"
+								style="opacity: 1" />
+						</f:facet>
+						<h:outputText />
+						
+						<h:outputText style="font-size: x-large; margin-bottom: 20px"  value="#{categ.nom_categorie}" />
+						<h:outputText value="#{categ.description_categorie}"
+							style="color: black;" />
 
+						<h:outputText />
+
+						<h:commandLink id="ParCateg" action="ProduitCateg"
+							actionListener="#{GestionProduitBean.findProduitParCategorie}">
+
+							<f:param id="CategorieID" name="id" value="#{categ.id_categorie}" />
+							<f:param id="CategorieNom" name="nom"
+								value="#{categ.nom_categorie}" />
+
+							<h:outputText style="font-size: large; margin-bottom: 20px; margin-top: 30px" value="Voir les voyages de cette catégorie"  />
+
+						</h:commandLink>
+
+					</p:panelGrid>
+
+				</p:carousel>
+			</h:form>
 
 
 
