@@ -34,13 +34,13 @@
 
 		<b:panel title="Actions :" look="succes">
 			<h:form>
-				<h:commandButton value="Modifier mes informations" action="modifClient" 
+				<h:commandButton class="btn btn-primary" value="Modifier mes informations" action="modifClient" 
 				actionListener="#{GestionClientBean.selectionnerClient}" > 
 				<f:param id="updateId" name="id" value="#{AuthentificationAdminBean.client.id_client}" />
 				</h:commandButton>
 
-				<h:commandButton value="Afficher la listes de mes commandes" action="afficherCommandeClient"
-					actionListener="#{GestionCommandeBean.findAllCommandeDuClient}">
+				<h:commandButton class="btn btn-primary" value="Afficher la listes de mes commandes" action="afficherCommandeClient"
+					actionListener="#{GestionCommandeBean.findAllCommandeDuClient}" >
 				<f:param id="clientID" name="id" value="#{AuthentificationAdminBean.client.id_client}"  />
 				</h:commandButton>
 
