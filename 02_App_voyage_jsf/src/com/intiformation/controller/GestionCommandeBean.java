@@ -61,16 +61,14 @@ public class GestionCommandeBean {
 		return listeAllCommandeBDD;
 
 	}// end findAllProduitsBDD
-<<<<<<< HEAD
 
-	public List<LigneCommande> findAllLigneCommandePourToutesCommandes() {
-=======
+
 	
 	
 	public List<LigneCommande> findAllLigneCommandePourToutesCommandes() {
 		
 		listeLigneCommandeParCommande.clear();
->>>>>>> 096d8d5bd86517c3106963a3a793207a0229761a
+
 
 		listeAllCommandeBDD2 = commandeDAO.getAll();
 		int taillelisteAllCommandeBDD = listeAllCommandeBDD2.size();
@@ -111,19 +109,19 @@ public class GestionCommandeBean {
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("clientID");
 		idClient = (int) uip.getValue();
 		System.out.println("int idClient: " + idClient);
-<<<<<<< HEAD
+
 
 		//FacesContext contextJSF = FacesContext.getCurrentInstance();
 		//HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
 
-=======
+
 		
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
 		
 		listeLigneCommandeDuClient.clear();
 		
->>>>>>> 096d8d5bd86517c3106963a3a793207a0229761a
+
 		listeCommandesDuClient = commandeDAO.findCommandeDuClient(idClient);
 		for (Commande commande : listeCommandesDuClient) {
 			
@@ -138,25 +136,20 @@ public class GestionCommandeBean {
 			listeLigneCommande = lignecommandeDAO.getByIdCommande(idCommande);
 
 			System.out.println("listeLigneCommande =" + listeLigneCommande);
-<<<<<<< HEAD
+
 
 			listeLigneCommandeDuClient.addAll(listeLigneCommande);
 
 		} // end for
 
 		//session.setAttribute("listeLigneCommandeDuClient", listeLigneCommandeDuClient);
-=======
-			
-			listeLigneCommandeDuClient.addAll(listeLigneCommande);	
-			
-		}//  end for
+	
 		
 		
 		session.setAttribute("listeLigneCommandeDuClient", listeLigneCommandeDuClient);
 		
 //		return "commande-du-client.xhtml?faces-redirect=true";
->>>>>>> 096d8d5bd86517c3106963a3a793207a0229761a
-		
+
 
 		// return listeLigneCommandeDuClient;
 

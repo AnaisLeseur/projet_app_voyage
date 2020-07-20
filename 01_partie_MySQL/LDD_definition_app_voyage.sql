@@ -83,7 +83,26 @@ create table lignes_commandes (	commande_id int(20),
                                                 foreign key (produit_id) references produits (id_produit) on delete cascade
 													);         
                                                         
-             	Drop table lignes_commandes;                           
+             	Drop table lignes_commandes;     
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
    
    
    create table paniers ( 	id_panier int(20) primary key auto_increment,
