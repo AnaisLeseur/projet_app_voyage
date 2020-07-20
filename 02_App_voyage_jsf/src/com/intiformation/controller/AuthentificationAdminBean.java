@@ -139,9 +139,6 @@ public class AuthentificationAdminBean implements Serializable {
 			produitDAO.update(produit);	
 		}
 		
-		
-		
-		
 		// 3. deconnexion
 		session.invalidate();
 		

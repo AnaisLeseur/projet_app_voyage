@@ -411,12 +411,11 @@ public class GestionProduitBean implements Serializable {
 				// ajout du voyage dans la bdd + message
 				if (produitDAO.add(produit)) {
 
-					contextJSFajout.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout du produit",
+					contextJSFajout.addMessage(null, new FacesMessage("Ajout du produit",
 							"- Le produit a été ajouté avec succès"));
 
 				} else {
-					contextJSFajout.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
-							" l'ajout du produit a échoué", " - le produit n'a pas été ajouté"));
+					contextJSFajout.addMessage(null, new FacesMessage("l'ajout du produit a échoué", " - le produit n'a pas été ajouté"));
 				} // end else pour msg ajout
 
 				// ----------------------------------------------
@@ -481,7 +480,7 @@ public class GestionProduitBean implements Serializable {
 
 			if (produitDAO.update(produit)) {
 
-				contextJSFmodif.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification du produit",
+				contextJSFmodif.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Modification du produit",
 						"- Le produit a été modifié avec succès"));
 
 			} else {
