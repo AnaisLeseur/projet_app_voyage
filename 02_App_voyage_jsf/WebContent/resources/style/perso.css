@@ -12,15 +12,15 @@ h1 {
 }
 
 #detail {
-	float: left;
-	margin-left: 300px;
+	
+	padding-left: 300px;
 }
 
 #imageDetail {
-	float: left;
-	margin-left: 0px;
+	
+	margin-left: 60px;
 	margin-right: 20px;
-	width: 30%;
+	width: 60%;
 	border: solid black 10px;
 }
 
