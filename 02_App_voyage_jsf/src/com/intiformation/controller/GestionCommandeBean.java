@@ -23,111 +23,120 @@ import com.intiformation.modeles.Produit;
 @ManagedBean(name = "GestionCommandeBean")
 @SessionScoped
 public class GestionCommandeBean {
-	
-	
+
 	// _____ Props ______//
 	private List<Commande> listeCommandesDuClient = new ArrayList<>();
 	private List<Commande> listeAllCommandeBDD = new ArrayList<>();
+	private List<Commande> listeAllCommandeBDD2 = new ArrayList<>();
 	private List<LigneCommande> listeLigneCommande = new ArrayList<>();
 	private List<LigneCommande> listeLigneCommandeAll = new ArrayList<>();
 	private List<LigneCommande> listeLigneCommandeDuClient = new ArrayList<>();
 	private List<LigneCommande> listeLigneCommandeParCommande = new ArrayList<>();
-	
+
 	private List<Produit> listeProduitCommande = new ArrayList<>();
 	private Produit produit;
-	
-	
+
 	ICommandeDAO commandeDAO;
 	ILigneCommandeDAO lignecommandeDAO;
 	IProduitDAO produitDAO;
-	
+
 	private LigneCommande ligneCommande;
-	
+
 	int idClient;
 
-	
-	
 	// _____ Ctor ______//
-	
+
 	public GestionCommandeBean() {
 		commandeDAO = new CommandeDAOImpl();
 		lignecommandeDAO = new LigneCommandeDAOImpl();
 		produitDAO = new ProduitDAOImpl();
 	}// end ctor vide
-	
-	
+
 	// _____ Methodes ______//
-	
+
 	public List<Commande> findAllCommandeBDD() {
 
 		listeAllCommandeBDD = commandeDAO.getAll();
-		
 
 		return listeAllCommandeBDD;
 
 	}// end findAllProduitsBDD
-	
-	
+
 	public List<LigneCommande> findAllLigneCommandePourToutesCommandes() {
 
-
-		listeAllCommandeBDD = commandeDAO.getAll();
+		listeAllCommandeBDD2 = commandeDAO.getAll();
+		int taillelisteAllCommandeBDD = listeAllCommandeBDD2.size();
+		int compteur = 0; 
 		
-		for (Commande commande : listeAllCommandeBDD) {
+		for (Commande commande : listeAllCommandeBDD2) {
 			
-			int idCommande = commande.getId_commande();
-			listeLigneCommandeAll = lignecommandeDAO.getByIdCommande(idCommande);
+			System.out.println(commande.getId_commande());
+			
+		}
+		//listeAllCommandeBDD.stream().forEach(e->System.out.println("Test 8500 : " +e.getId_commande()));
 
-			System.out.println("listeLigneCommande =" + listeLigneCommandeAll);
+		for (Commande commande : listeAllCommandeBDD2) {
 			
-			listeLigneCommandeParCommande.addAll(listeLigneCommandeAll);	
+			if (compteur < taillelisteAllCommandeBDD) {
 			
-		}//  end for
+				int idCommande = commande.getId_commande();
+				listeLigneCommandeAll = lignecommandeDAO.getByIdCommande(idCommande);
+
+				System.out.println("listeLigneCommande =" + listeLigneCommandeAll);
+
+				listeLigneCommandeParCommande.addAll(listeLigneCommandeAll);
+				
+				continue; 
+			}//end if
+			compteur ++; 
+
+		} // end for
+
+		listeLigneCommandeParCommande.stream().forEach(e -> System.out.println("ma méthode:" + e.getCommande_id()));
+		
 		return listeLigneCommandeParCommande;
 
 	}// end findAllLigneCommandePourToutesCommandes
-	
-	
 
 	public void findAllCommandeDuClient(ActionEvent event) {
 
-		
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("clientID");
 		idClient = (int) uip.getValue();
 		System.out.println("int idClient: " + idClient);
-		
-		FacesContext contextJSF = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
-		
-		
+
+		//FacesContext contextJSF = FacesContext.getCurrentInstance();
+		//HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
+
 		listeCommandesDuClient = commandeDAO.findCommandeDuClient(idClient);
 		for (Commande commande : listeCommandesDuClient) {
 			
+			System.out.println("listeCommandesDuClient" + commande.getId_commande());
+			
+		}
+			
+		for (Commande commande : listeCommandesDuClient) {
+
 			int idCommande = commande.getId_commande();
 			System.out.println("int idCommande = " + idCommande);
 			listeLigneCommande = lignecommandeDAO.getByIdCommande(idCommande);
-			
+
 			System.out.println("listeLigneCommande =" + listeLigneCommande);
-			
-			listeLigneCommandeDuClient.addAll(listeLigneCommande);	
-			
-		}//  end for
+
+			listeLigneCommandeDuClient.addAll(listeLigneCommande);
+
+		} // end for
+
+		//session.setAttribute("listeLigneCommandeDuClient", listeLigneCommandeDuClient);
 		
-		
-		session.setAttribute("listeLigneCommandeDuClient", listeLigneCommandeDuClient);
-		
-//		return listeLigneCommandeDuClient;
-		
+
+		// return listeLigneCommandeDuClient;
+
 	}// end findAllCommandeDuClient
-	
-	
+
 	public List<LigneCommande> AfficheCommandeDuClient() {
 
 		return listeLigneCommandeDuClient;
-		
+
 	}// end findAllCommandeDuClient
-	
-	
-	
 
 }// end GestionCommandeBean
