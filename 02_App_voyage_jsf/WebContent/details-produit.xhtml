@@ -38,13 +38,13 @@ body {
 			<h4>	
 				#{GestionProduitBean.produit.descriptionProduit}
 			</h4>
-			<br /> <br />
+			<br /> 
 			<h3> Prix:</h3>  
 			<h4>
 				#{GestionProduitBean.produit.prixProduit} € par
 				personne
 			</h4>
-			<br /> <br /> <br /> 
+			<br /> <br /> 
 			<h:form>
 				<h:commandLink id="edit" action="ajoutPanier"
 					actionListener="#{GestionProduitBean.selectionnerProduit}"
@@ -55,7 +55,8 @@ body {
 					<f:param id="selectIsDispo" name="selection"
 						value="#{GestionProduitBean.produit.selectionProduit}" />
 
-					<h:outputText value="Choisir ce voyage!" />
+					<h:outputText value="Choisir ce voyage!" 
+					style="text-decoration: underline"/>
 
 				</h:commandLink>
 			</h:form>
@@ -68,7 +69,7 @@ body {
 	</div>
 	<br />
 	<b:button class="btn btn-primary" href="accueil-client.xhtml"
-		value="Voir nos autres voyages !" style="margin-left: 300px" />
+		value="Voir nos autres voyages !" style="margin-left: 630px" />
 
 
 </h:body>

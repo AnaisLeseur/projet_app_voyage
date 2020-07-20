@@ -3,8 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:b="http://bootsfaces.net/ui" 
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 
@@ -28,40 +27,45 @@
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
 	<h1
-		style="text-align: center; margin-bottom: 30px; font-family:cursive; font-weight: bold ; font-size: 50px; color: black;">
+		style="text-align: center; margin-bottom: 30px; font-family: cursive; font-weight: bold; font-size: 50px; color: black;">
 		Trouvez le voyage de vos rêves !</h1>
-		
-		
+
+
 	<b:row style="margin-bottom: 340px;">
 
 		<b:column col-md="10" style="margin-left : 120px">
-		
+
 			<h:form>
 				<p:carousel
 					value="#{GestionProduitBean.AfficherlisteProduitMonde()}"
 					headerText="A la découverte du monde !" var="produit"
 					itemStyle="text-align:center" responsive="true">
-					<p:panelGrid columns="2"
-						style="width:100%;margin:20px 0px; height:300px"
+					<p:panelGrid columns="1"
+						style="width:100%;margin:20px 0px; height:320px"
 						columnClasses="label,value" layout="grid"
 						styleClass="ui-panelgrid-blank">
+						
 						<f:facet name="header">
 							<h:graphicImage library="images"
-								name="#{produit.urlImageProduit}" width="250" height="160" />
+								name="#{produit.urlImageProduit}" width="300" height="220" />
 						</f:facet>
 
 						<h:outputText />
-						<h:outputText  style="font-size: large; margin-bottom: 20px; margin-top: 30px"  value="#{produit.nomProduit}" />
-						<h:outputText value="#{produit.prixProduit}€/pers" style="color: black;" />
-						
-						<h:outputText />
+						<h:outputText
+							style="font-size: 20px; margin-bottom: 20px; margin-top: 30px; color: black"
+							value="#{produit.nomProduit}" />
+						<h:outputText value="#{produit.prixProduit}€/pers"
+							style="color: black; font-size: 17px" />
+
 
 						<h:commandLink id="ParCateg" action="ProduitDetail"
 							actionListener="#{GestionProduitBean.recupProduit}">
 
 							<f:param id="modifId" name="id" value="#{produit.idProduit}" />
 
-							<h:outputText  style="font-size: large; margin-bottom: 20px; margin-top: 30px"  value="Voir les détails !" />
+							<h:outputText
+								style="font-size: large; margin-bottom: 20px; margin-top: 30px"
+								value="Voir les détails !" />
 
 						</h:commandLink>
 
@@ -71,11 +75,11 @@
 			</h:form>
 
 			<h:form id="form" style="margin-bottom: 80px; margin-top: 80px">
-				<p:carousel value="#{GestionCategorieBean.findAllCategoriesBDD()}" 
-					headerText="Des voyages selon vos envies..."
-					var="categ" itemStyle="text-align:center" responsive="true" rows="4">
-					<p:panelGrid columns="2"
-						style="width:100%;margin:20px 0px; height:300px"
+				<p:carousel value="#{GestionCategorieBean.findAllCategoriesBDD()}"
+					headerText="Des voyages selon vos envies..." var="categ"
+					itemStyle="text-align:center" responsive="true" rows="4">
+					<p:panelGrid columns="1"
+						style="width:100%;margin:20px 0px; height:250px"
 						columnClasses="label,value" layout="grid"
 						styleClass="ui-panelgrid-blank">
 						<f:facet name="header">
@@ -84,10 +88,11 @@
 								style="opacity: 1" />
 						</f:facet>
 						<h:outputText />
-						
-						<h:outputText style="font-size: x-large; margin-bottom: 20px"  value="#{categ.nom_categorie}" />
+
+						<h:outputText style="font-size: 20px; margin-bottom: 20px; margin-top: 30px; color: black"
+							value="#{categ.nom_categorie}" />
 						<h:outputText value="#{categ.description_categorie}"
-							style="color: black;" />
+							style="color: black; font-size: 13px" />
 
 						<h:outputText />
 
@@ -98,7 +103,9 @@
 							<f:param id="CategorieNom" name="nom"
 								value="#{categ.nom_categorie}" />
 
-							<h:outputText style="font-size: large; margin-bottom: 20px; margin-top: 30px" value="Voir les voyages de cette catégorie"  />
+							<h:outputText
+								style="font-size: 15px; margin-bottom: 20px; margin-top: 30px"
+								value="Voir les voyages de cette catégorie" />
 
 						</h:commandLink>
 
@@ -112,30 +119,34 @@
 			<h:form id="form2">
 				<p:dataGrid var="produit"
 					value="#{GestionProduitBean.findAllProduitsBDD()}" columns="3"
-					layout="grid" rows="12" paginator="true" 
+					layout="grid" rows="12" paginator="true"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					rowsPerPageTemplate="6,12,16">
 
-					<f:facet name="header" >
-           				<h2 style="font-size: x-large; font-weight: bold;" > Tous nos voyages...</h2>
-      				 </f:facet>
+					<f:facet name="header">
+						<h2 style="font-size: x-large; font-weight: bold;">Tous nos
+							voyages...</h2>
+					</f:facet>
 
-					<p:panel header="#{produit.nomProduit}" style="font-size: large; text-align:center">
-						<h:panelGrid columns="1" style="width:100%">
+					<p:panel header="#{produit.nomProduit}"
+						style="font-size: large; text-align:center">
+						<h:panelGrid columns="1" style="width:100%; height: 350px">
 							<h:graphicImage library="images"
-								name="#{produit.urlImageProduit}" width="250px" height="160px" />
+								name="#{produit.urlImageProduit}" width="300px" height="200px" />
 
-							<h:outputText style="font-size: medium;" value="#{produit.descriptionProduit}" />
-							
-							
-						<h:commandLink id="ParCateg" action="ProduitDetail"
-							actionListener="#{GestionProduitBean.recupProduit}">
+							<h:outputText style="font-size: medium;"
+								value="#{produit.descriptionProduit}" />
 
-							<f:param id="modifId" name="id" value="#{produit.idProduit}" />
 
-							<h:outputText  style="font-size: large; color: black;" value="Voir les détails !" />
+							<h:commandLink id="ParCateg" action="ProduitDetail"
+								actionListener="#{GestionProduitBean.recupProduit}">
 
-						</h:commandLink>
+								<f:param id="modifId" name="id" value="#{produit.idProduit}" />
+
+								<h:outputText style="font-size: large; color: black;"
+									value="Voir les détails !" />
+
+							</h:commandLink>
 
 						</h:panelGrid>
 					</p:panel>
