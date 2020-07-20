@@ -200,7 +200,7 @@ public class AuthentificationAdminBean implements Serializable {
 			
 			
 		}else {
-			// l'admin n'existe pas la bdd
+			// le client n'existe pas la bdd
 			
 			// definition du msg à envoyer via un objet de type 'FacesMassage'
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Echec de connexion :", " Identifiant ou MdP invalide ");
