@@ -69,7 +69,8 @@ public class GestionCommandeBean {
 	
 	
 	public List<LigneCommande> findAllLigneCommandePourToutesCommandes() {
-
+		
+		listeLigneCommandeParCommande.clear();
 
 		listeAllCommandeBDD = commandeDAO.getAll();
 		
@@ -99,6 +100,7 @@ public class GestionCommandeBean {
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
 		
+		listeLigneCommandeDuClient.clear();
 		
 		listeCommandesDuClient = commandeDAO.findCommandeDuClient(idClient);
 		for (Commande commande : listeCommandesDuClient) {
@@ -116,7 +118,7 @@ public class GestionCommandeBean {
 		
 		session.setAttribute("listeLigneCommandeDuClient", listeLigneCommandeDuClient);
 		
-//		return listeLigneCommandeDuClient;
+//		return "commande-du-client.xhtml?faces-redirect=true";
 		
 	}// end findAllCommandeDuClient
 	

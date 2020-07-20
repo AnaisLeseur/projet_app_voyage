@@ -31,6 +31,7 @@
 					<h3 style="font-style: italic; text-decoration: underline; margin-left : 100px; margin-top : 10px">
 						<h:outputText value="Votre panier est vide!" rendered="#{empty GestionProduitBean.ListeProduitsSelectionnes()}" />
 					</h3>
+					
 					<br/>
 						<h:dataTable id="tablepanier" styleClass="table" value="#{GestionProduitBean.ListeProduitsSelectionnes()}" var="produit" 
 									rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" rowClasses="rowclass">
