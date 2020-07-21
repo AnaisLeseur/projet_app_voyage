@@ -130,8 +130,7 @@ SELECT max(id_commande) FROM commandes;
 	left join commande_client 
 	on commande_client.client_id = clt.id_client;
     
-    select * from vieu_commande_client_clients where id_client = 1 and id_commande= 6;
-    
+    select * from vieu_commande_client_clients where id_client = 1 ;
     
     
     select *
