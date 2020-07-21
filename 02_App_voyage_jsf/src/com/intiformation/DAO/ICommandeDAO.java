@@ -14,7 +14,7 @@ public interface ICommandeDAO extends IGenerique<Commande> {
 	
 	public List<Commande> findCommandeDuClient(Integer idClient);
 	
-	
+	public List<Commande> findCommandePourCreaAffichage(Integer idClient);
 	
 
 }// end ICommandeDAO

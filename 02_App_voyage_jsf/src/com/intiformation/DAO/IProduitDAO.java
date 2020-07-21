@@ -33,6 +33,8 @@ public interface IProduitDAO extends IGenerique<Produit> {
 	 */	
 	public List<Produit> getProduitSelectionnes(boolean selectionProduit);
 	
+	public List<Produit> findCommandePourCreaAffichage(Integer idClient);
+	
 	
 
 }// end interface

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import com.intiformation.modeles.Commande;
 import com.intiformation.modeles.LigneCommande;
 
 public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
@@ -241,6 +241,47 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 	
 	
 	
+	/**
+	 * methode pour récupérer la liste des lignes de commande faites par un client via la vue (avec d'autres infos : lignes de commande, produits...) 
+	 */
+	@Override
+	public List<LigneCommande> findCommandePourCreaAffichage(Integer idClient) {
+		try {
+			ps = this.connexion.prepareStatement("select * from vieu_commande_client_clients where id_client=?");
+			
+			ps.setInt(1, idClient);
+			
+			rs = ps.executeQuery();
+			
+			List<LigneCommande> listeLignesCommandeDuClient = new ArrayList<>();
+			LigneCommande lignecommande = null; 
+			
+			while (rs.next()) {
+				lignecommande = new LigneCommande(rs.getInt(20), rs.getInt(21), rs.getInt(22), rs.getDouble(23));
+							
+				listeLignesCommandeDuClient.add(lignecommande);
+					
+			}//end while
+			
+			return listeLignesCommandeDuClient; 
+			
+		} catch (SQLException e) {
+			System.out.println("... Erreur lors de la méthode findCommandePourCreaAffichage() de LigneCommandeDAOImpl ...");
+			e.printStackTrace();
+		}finally {		
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}//end catch
+		}//end finally
+		return null;
+	}
+	
+	
+	
 // METH NON UTILISEES
 	
 	
@@ -261,6 +302,10 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}// end getById
+
+
+
+
 
 
 

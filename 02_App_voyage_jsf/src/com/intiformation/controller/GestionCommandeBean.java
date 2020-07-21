@@ -32,6 +32,12 @@ public class GestionCommandeBean {
 	private List<LigneCommande> listeLigneCommandeAll = new ArrayList<>();
 	private List<LigneCommande> listeLigneCommandeDuClient = new ArrayList<>();
 	private List<LigneCommande> listeLigneCommandeParCommande = new ArrayList<>();
+	
+	
+	private List<Commande> listeCommandesCreaAffichage = new ArrayList<>();
+	private List<LigneCommande> listeLignesCommandeCreaAffichage = new ArrayList<>();
+	private List<Produit> listeProduitCommandeCreaAffichage = new ArrayList<>();
+	
 
 	private List<Produit> listeProduitCommande = new ArrayList<>();
 	private Produit produit;
@@ -109,8 +115,33 @@ public class GestionCommandeBean {
 		
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
+
+	
 		
-		listeLigneCommandeDuClient.clear();
+// MODIF		
+		listeCommandesCreaAffichage.clear();
+		listeCommandesCreaAffichage = commandeDAO.findCommandePourCreaAffichage(idClient);
+		
+		session.setAttribute("listeCommandesCreaAffichage", listeCommandesCreaAffichage);
+		
+		listeLignesCommandeCreaAffichage.clear();
+		listeLignesCommandeCreaAffichage = lignecommandeDAO.findCommandePourCreaAffichage(idClient);
+		
+		session.setAttribute("listeLignesCommandeCreaAffichage", listeLignesCommandeCreaAffichage);
+		
+		listeProduitCommandeCreaAffichage.clear();
+		listeProduitCommandeCreaAffichage = produitDAO.findCommandePourCreaAffichage(idClient);
+		
+		session.setAttribute("listeProduitCommandeCreaAffichage", listeProduitCommandeCreaAffichage);
+		
+		
+		
+		
+		
+		
+		
+		
+/*		listeLigneCommandeDuClient.clear();
 		
 		listeCommandesDuClient = commandeDAO.findCommandeDuClient(idClient);
 
@@ -131,7 +162,7 @@ public class GestionCommandeBean {
 		//session.setAttribute("listeLigneCommandeDuClient", listeLigneCommandeDuClient);
 
 		session.setAttribute("listeLigneCommandeDuClient", listeLigneCommandeDuClient);
-		
+*/		
 //		return "commande-du-client.xhtml?faces-redirect=true";
 
 
@@ -143,5 +174,33 @@ public class GestionCommandeBean {
 		return listeLigneCommandeDuClient;
 
 	}// end findAllCommandeDuClient
+	
+	
+	
+	public List<Commande> AfficherCommande() {
+
+		return listeCommandesCreaAffichage;
+
+	}// end findAllCommandeDuClient
+	
+	
+	public List<LigneCommande> AfficheLigneCommande() {
+
+		return listeLignesCommandeCreaAffichage;
+
+	}// end findAllCommandeDuClient
+	
+	
+	public List<Produit> AfficheProduit() {
+
+		return listeProduitCommandeCreaAffichage;
+
+	}// end findAllCommandeDuClient
+	
+	
+	
+	
+	
+	
 
 }// end GestionCommandeBean

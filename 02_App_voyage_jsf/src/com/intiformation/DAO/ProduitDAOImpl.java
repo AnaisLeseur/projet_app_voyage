@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.intiformation.modeles.LigneCommande;
 import com.intiformation.modeles.Produit;
 
 /**
@@ -348,5 +349,47 @@ public class ProduitDAOImpl implements IProduitDAO {
 		
 		return null;
 	}// end getProduitSelectionnes
+
+	
+	
+	
+	/**
+	 * methode pour récupérer la liste des produits faite par un client via la vue (avec d'autres infos : lignes de commande, produits...) 
+	 */
+	@Override
+	public List<Produit> findCommandePourCreaAffichage(Integer idClient) {
+		try {
+			ps = this.connexion.prepareStatement("select * from vieu_commande_client_clients where id_client=?");
+			
+			ps.setInt(1, idClient);
+			
+			rs = ps.executeQuery();
+			
+			List<Produit> listeProduitsCommandeDuClient = new ArrayList<>();
+			Produit produit = null; 
+			
+			while (rs.next()) {
+				produit = new Produit(rs.getInt(13), rs.getString(14), rs.getString(15), rs.getDouble(16), rs.getInt(17), rs.getBoolean(18), rs.getString(19));
+							
+						listeProduitsCommandeDuClient.add(produit);
+					
+			}//end while
+			
+			return listeProduitsCommandeDuClient; 
+			
+		} catch (SQLException e) {
+			System.out.println("... Erreur lors de la méthode findCommandePourCreaAffichage() de ProduitDAOimpl ...");
+			e.printStackTrace();
+		}finally {		
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}//end catch
+		}//end finally
+		return null;
+	}// end findCommandePourCreaAffichage
 
 }// end classe

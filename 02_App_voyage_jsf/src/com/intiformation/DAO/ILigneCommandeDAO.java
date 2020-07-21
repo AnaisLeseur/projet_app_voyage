@@ -37,6 +37,7 @@ public interface ILigneCommandeDAO extends IGenerique<LigneCommande>{
 	
 	
 	
+	public List<LigneCommande> findCommandePourCreaAffichage(Integer idClient);
 	
 
 }// end ILigneCommandeDAO

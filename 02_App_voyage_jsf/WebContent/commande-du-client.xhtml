@@ -32,21 +32,47 @@
 
 <b:row>
 
-		<b:column col-md="9" style="margin-left : 150px">
 
 		<h3 style="font-style: italic; text-decoration: underline;"><h:outputText value="Le client n'a pas de commande" 
-				rendered="#{empty GestionCommandeBean.AfficheCommandeDuClient()}"/></h3>
-		<br/>
+				rendered="#{empty GestionCommandeBean.AfficherCommande()}"/></h3>
+
+	
+		<b:column col-md="12" style="margin-left : 100px; margin-top : 10px; margin-bottom: 100px" >
+		
+				
+				
+		<b:column col-md="5" >
+		
 			<h:dataTable styleClass="table"
-				value="#{GestionCommandeBean.AfficheCommandeDuClient()}" var="commande"
-				rendered="#{not empty GestionCommandeBean.AfficheCommandeDuClient()}" rows="8">
+				value="#{GestionCommandeBean.AfficherCommande()}" var="commande"
+				rendered="#{not empty GestionCommandeBean.AfficherCommande()}" >
 				
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Id de la commande" />
 					</f:facet>
-					<h:outputText value="#{commande.commande_id}" />
+					<h:outputText value="#{commande.id_commande}" />
 				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Id du client" />
+					</f:facet>
+					<h:outputText value="#{commande.client_id}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Date de la commande" />
+					</f:facet>
+					<h:outputText value="#{commande.date_commande}" />
+				</h:column>
+
+			</h:dataTable>
+		</b:column>	
+		<b:column col-md="3" >	
+			<h:dataTable styleClass="table"
+				value="#{GestionCommandeBean.AfficheLigneCommande()}" var="commande"
+				rendered="#{not empty GestionCommandeBean.AfficheLigneCommande()}" >
+				
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Id du voyage" />
@@ -65,13 +91,43 @@
 					</f:facet>
 					<h:outputText value="#{commande.prix_ligne} €" />
 				</h:column>
-			
 
 			</h:dataTable>
+			</b:column>	
+			<b:column col-md="3" >
+				<h:dataTable styleClass="table"
+				value="#{GestionCommandeBean.AfficheProduit()}" var="commande"
+				rendered="#{not empty GestionCommandeBean.AfficheProduit()}">
+				
 
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Nom du voyage" />
+					</f:facet>
+					<h:outputText value="#{commande.nomProduit}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Prix par personne" />
+					</f:facet>
+					<h:outputText value="#{commande.prixProduit} €" />
+				</h:column>
 
-		</b:column>
-	</b:row>
+				<br/><br/>
+<br/>
+
+			</h:dataTable>
+				</b:column>	
+			
+			
+
+	</b:column>		
+		
+	</b:row>	
+		
+		
+		
+
 
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 

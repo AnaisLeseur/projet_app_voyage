@@ -234,6 +234,9 @@ public class CommandeDAOImpl implements ICommandeDAO{
 
 
 
+	/**
+	 * methode pour récupérer la liste des commandes faites par un client
+	 */
 	@Override
 	public List<Commande> findCommandeDuClient(Integer idClient) {
 		try {
@@ -269,6 +272,47 @@ public class CommandeDAOImpl implements ICommandeDAO{
 		}//end finally
 		return null;
 	}// end findCommandeDuClient
+
+
+
+	/**
+	 * methode pour récupérer la liste des commandes faites par un client via la vue (avec d'autres infos : lignes de commande, produits...) 
+	 */
+	@Override
+	public List<Commande> findCommandePourCreaAffichage(Integer idClient) {
+		try {
+			ps = this.connexion.prepareStatement("select * from vieu_commande_client_clients where id_client=?");
+			
+			ps.setInt(1, idClient);
+			
+			rs = ps.executeQuery();
+			
+			List<Commande> listeCommandesDuClient = new ArrayList<>();
+			Commande commande = null; 
+			
+			while (rs.next()) {
+				commande = new Commande(rs.getInt(10), rs.getDate(11), rs.getInt(12));
+							
+				listeCommandesDuClient.add(commande);
+					
+			}//end while
+			
+			return listeCommandesDuClient; 
+			
+		} catch (SQLException e) {
+			System.out.println("... Erreur lors de la méthode findCommandePourCreaAffichage() de CommandeDAOImpl ...");
+			e.printStackTrace();
+		}finally {		
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}//end catch
+		}//end finally
+		return null;
+	}// end findCommandePourCreaAffichage
 	
 	
 
