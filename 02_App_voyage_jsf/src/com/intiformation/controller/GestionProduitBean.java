@@ -7,18 +7,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import com.intiformation.DAO.CategorieDAOImpl;
 import com.intiformation.DAO.CommandeDAOImpl;
-import com.intiformation.DAO.ICategorieDAO;
 import com.intiformation.DAO.ICommandeDAO;
 import com.intiformation.DAO.ILigneCommandeDAO;
 import com.intiformation.DAO.IProduitCategorie;
@@ -33,25 +28,26 @@ import com.intiformation.modeles.Produit;
 import com.intiformation.modeles.ProduitCategorie;
 
 import java.util.*;
-import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.faces.event.*;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
-import org.apache.catalina.mapper.MappingData;
-import org.primefaces.component.datatable.DataTable;
-
-import org.apache.catalina.manager.util.SessionUtils;
 
 import javax.faces.component.*;
 import javax.faces.context.FacesContext;
 
+/**
+ * ManagedBean pour la gestion des Produits, utilisé pour : 
+ * 		- ajouter / modifier / supprimer un Produit de la bdd via la DAO 
+ * 		- ajouter / supprimer un produit du panier 
+ * 		- liste des produits de la bdd / liste des produits par categéries
+ * 		- rechercher et récupérer un produit par mot clé  
+ * 
+ * @author vincent
+ *
+ */
 @ManagedBean(name = "GestionProduitBean")
 @SessionScoped
 public class GestionProduitBean implements Serializable {
@@ -64,6 +60,8 @@ public class GestionProduitBean implements Serializable {
 	private String motCle;
 	private String nomCategorie;
 	private boolean selectionProduit;
+	private int nbPersonne = 1;
+	private int idClient;
 
 	private List<Produit> listeProduits;
 	private List<Produit> listePanier = new ArrayList<>();
@@ -71,11 +69,7 @@ public class GestionProduitBean implements Serializable {
 	private List<Produit> listeProduitCateg;
 	private List<LigneCommande> listeLigneCommande = new ArrayList<>();
 
-	private int nbPersonne = 1;
-	private int idClient;
-
 	HttpSession session;
-	FacesContext contextJSF = FacesContext.getCurrentInstance();
 
 	// file upload de l'API servlet
 	private Part uploadedFile;
@@ -86,8 +80,6 @@ public class GestionProduitBean implements Serializable {
 	ILigneCommandeDAO lignecommandeDAO;
 
 	GestionLigneCommandeBean gestionLigneCommandeBean;
-	GestionProduitBean gestionProduitBean;
-
 	Commande commandeRecup;
 
 	// _____ Ctor ______//
@@ -98,14 +90,16 @@ public class GestionProduitBean implements Serializable {
 		gestionLigneCommandeBean = new GestionLigneCommandeBean();
 		commandeDAO = new CommandeDAOImpl();
 		lignecommandeDAO = new LigneCommandeDAOImpl();
-	}// end ctor vide
+	}// end ctor 
 
+	
+	
 	// _____ Méthodes ______//
 
 	/**
-	 * Récuperation de la liste des produits dans db via DAO Méthode utilisé par le
-	 * composant <h:datatable> de accueil-client.xhtml pour afficher la liste des
-	 * livres de la db
+	 * Récuperation de la liste de tous les produits dans bdd via la DAO. Méthode utilisée par le
+	 * composant <h:datatable> de 'accueil-client.xhtml' pour afficher la liste des voyages.
+	 * et utilisée dans 'accueil-admin.xhtml'
 	 * 
 	 * @return
 	 */
@@ -114,28 +108,40 @@ public class GestionProduitBean implements Serializable {
 		listeProduits = produitDAO.getAll();
 
 		return listeProduits;
-
 	}// end findAllProduitsBDD
 
 	
+	
 	/**
-	 * Récupération de la liste de produits dont le nom ou la description contienne le mot clé
+	 * Récupération de la liste de produits dont le nom ou la description contiennent le mot clé.
 	 * Méthode appelée dans la barre de recherche du header
 	 * @param motCle: paramètre de type String qui doit etre retrouvé
-	 * @return
+	 * @return la liste des voyages ayant le mot clé 
+	 */
+	public String findProduitByMotCleRedirect(String motCle) {
+
+		listeProduits = produitDAO.getByKeyword(motCle);
+
+		return "recherche-produit-motcle.xhtml?faces-redirect=true";
+
+	}// end findProduitByMotClé
+	
+	
+	/**
+	 * Récupération de la liste de produits dont le nom ou la description contiennent le mot clé.
+	 * Méthode appelée dans la barre de recherche du header
+	 * @param motCle: paramètre de type String qui doit etre retrouvé
+	 * @return la liste des voyages ayant le mot clé 
 	 */
 	public List<Produit> findProduitByMotCle(String motCle) {
-
-		System.out.println("Mot clé :" + motCle);
-
-		FacesContext contextJSF = FacesContext.getCurrentInstance();
 
 		listeProduits = produitDAO.getByKeyword(motCle);
 
 		return listeProduits;
 
-
 	}// end findProduitByMotClé
+	
+	
 
 	/*
 	 * =============================================================================
