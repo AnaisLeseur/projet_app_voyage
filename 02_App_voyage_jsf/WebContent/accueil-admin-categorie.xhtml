@@ -11,7 +11,9 @@
 
 <h:body>
 
-	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+	<ui:decorate template="/templates/header.xhtml"/>
+	
+	
 	<b:tabLinks>
 		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" href="accueil-admin.xhtml" />
@@ -111,7 +113,7 @@
 				</h:column>
 
 				<h:column>
-
+					<!-- =========== V$Affichage des voyages dans cette catégorie ===========  -->
 					<f:facet name="header">
 						<h:outputText value="Voyages dans cette catégorie" />
 					</f:facet>
