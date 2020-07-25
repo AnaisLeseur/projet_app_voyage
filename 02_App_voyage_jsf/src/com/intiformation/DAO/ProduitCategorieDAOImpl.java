@@ -1,6 +1,10 @@
 package com.intiformation.DAO;
 
 import java.sql.PreparedStatement;
+/**
+ *  Implémentation concrète de la couche DAO pour un produit-catégorie
+ *  
+ */
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;

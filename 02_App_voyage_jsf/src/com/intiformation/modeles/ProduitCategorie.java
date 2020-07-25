@@ -1,5 +1,11 @@
 package com.intiformation.modeles;
-
+/**
+ * Modele de données pour une catégorie
+ * Mappé sur la table 'categories' de la bdd 
+ * 
+ * @author hannahlevardon
+ *
+ */
 public class ProduitCategorie {
 	
 	// _____ Props ______//
