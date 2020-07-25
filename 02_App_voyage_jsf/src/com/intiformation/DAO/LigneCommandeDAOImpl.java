@@ -6,44 +6,58 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.intiformation.modeles.Commande;
 import com.intiformation.modeles.LigneCommande;
 
+/**
+ * Implémentation concrète de la DAO pour 'lignes_commandes'.
+ * 'lignes_commandes' : table d'association entre un produit et une commande.
+ * classe qui implemente l'interface ILigneCommandeDAO
+ * 
+ * @author vincent
+ *
+ */
 public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 	
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
 
 	
+	/* ================================================== */	
 	
 	/**
-	 * pour ajouter une ligne de commande
+	 * AJOUTER UNE LIGNE DE COMMANDE 
+	 * @param pLigneCommande : ligne de commande à ajouter
+	 * @return boolean: si ajout ok ou non 
 	 */
 	@Override
 	public boolean add(LigneCommande pLigneCommande) {
 		try {
+			
+			// prepared statement + requete SQL
 			ps = this.connexion.prepareStatement("insert into lignes_commandes"
 					+ "(commande_id, produit_id, quantite_ligne, prix_ligne)"
 					+ "values (?, ?, ?, ?)");
 			
+			// passage de params
 			ps.setInt(1, pLigneCommande.getCommande_id());
 			ps.setInt(2, pLigneCommande.getProduit_id());
 			ps.setInt(3, pLigneCommande.getQuantite_ligne());
 			ps.setDouble(4, pLigneCommande.getPrix_ligne());
-
 			
+			// executeUpdate
 			int verif = ps.executeUpdate();
-				
 			
-			return (verif == 1);
-			
+			return (verif == 1);			
 			
 		} catch (SQLException e) {
 			System.out.println("LigneCommandeDAOImpl : erreur add()");
 			e.printStackTrace();
 		}finally {
 			try {
+				
+				// fermeture des ressources
 				ps.close();
+				
 			}catch (Exception e) {
 			}// end catch
 		}// end finally
@@ -51,10 +65,13 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 		return false;
 	}// end add
 
-	
+
+	/* ================================================== */
 	
 	/**
-	 * pour modifier une ligne de commande
+	 * MODIFIER UNE LIGNE DE COMMANDE 
+	 * @param pLigneCommande : ligne de commande à modifier
+	 * @return boolean: si modification ok ou non 
 	 */
 	@Override
 	public boolean update(LigneCommande pLigneCommande) {
@@ -83,10 +100,14 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 		return false;
 	}// end update
 
-
+	
+	
+	/* ================================================== */
 	
 	/**
-	 * pour récup la liste de toutes les lignes de commande
+	 * RECUPERER LA LISTE DE TOUTES LES LIGNES DE COMMANDES 
+	 * @return List<LigneCommande> listeligneCommandeBdd : la liste de toutes les lignes de commandes 
+	 * 
 	 */
 	@Override
 	public List<LigneCommande> getAll() {
@@ -126,8 +147,21 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 		return null;
 	}// end getAll
 
-	
 
+	
+	/* ================================================== */
+
+	/**
+	 * RECUPERER UNE LIGNE DE COMMANDE
+	 * @param pIdCommande : id de la commande 
+	 * @param pIdProduit : id du produit
+	 * 
+	 * @return List<LigneCommande> listeligneCommandeByDbleId : liste des lignes de commande avec pIdCommande et pIdProduit
+	 */
+	
+// ERREUR sur le return : devrait être <LigneCommande> car il n'y a qu'une ligne de commande avec pIdCommande et pIdProduit
+// ICI return List<LigneCommande> listeligneCommandeByDbleId : composée d'1 seul element <LigneCommande>
+	
 	@Override
 	public List<LigneCommande> getByDoubleId(Integer pIdCommande, Integer pIdProduit) {
 		try {
@@ -165,10 +199,17 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 		}// end finally
 		return null;
 	}// end getByDoubleId
-
+	
+	
+	/* ================================================== */
 
 	/**
-	 * pour supprimer une ligne de commande via ses 2 PK
+	 * SUPPRIMER UNE LIGNE DE COMMANDE via ses 2 PK
+	 * 
+	 * @param pIdCommande : id de la commande
+	 * @param pIdProduit : id du produit
+	 * 
+	 * @return boolean: si la suppression ok ou non 
 	 */
 	@Override
 	public boolean deleteDoubleId(Integer pIdCommande, Integer pIdProduit) {
@@ -181,10 +222,8 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 			
 			int verif = ps.executeUpdate();
 				
-			
 			return (verif == 1);
-			
-			
+
 		} catch (SQLException e) {
 			System.out.println("LigneCommandeDAOImpl : erreur delete()");
 			e.printStackTrace();
@@ -199,8 +238,15 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 	}// end deleteDoubleId
 	
 	
+	
+	/* ================================================== */
+	
 	/**
-	 * pour récup les ligne de commandes associées à une commande
+	 * RECUPERER LA LISTE DES LIGNES DE COMMANDE ASSOCIEES A UNE COMMANDE
+	 * @param pIdCommande : id de la commande 
+	 * 
+	 * @return List<LigneCommande> listeligneCommandeByIdCommande : liste des lignes de commande avec pIdCommande
+	 * 
 	 */
 	@Override
 	public List<LigneCommande> getByIdCommande(Integer pIdCommande) {
@@ -240,9 +286,16 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 	}// end getByIdCommande
 	
 	
+	/* ================================================== */
 	
 	/**
-	 * methode pour récupérer la liste des lignes de commande faites par un client via la vue (avec d'autres infos : lignes de commande, produits...) 
+	 * RECUPERER LA LISTE DES LIGNES DE COMMANDE "SELECTIONNES" PAR LE CLIENT ( via les produits ajoutés au panier)
+	 *  		via une vue de la bdd
+	 * ( cette vue permet aussi de récupérer d'autres infos pour afficher un récapitulatif complet avant le paiement: lignes de commande, produits...) 
+	 * 
+	 * @param idClient : id du client => la récupération des informations se fait a partir de l'id du client
+	 * 
+	 * @return List<LigneCommande> listeLignesCommandeDuClient : liste des lignes de commande que le client à dans son panier via les produits ajoutés
 	 */
 	@Override
 	public List<LigneCommande> findCommandePourCreaAffichage(Integer idClient) {
@@ -278,15 +331,17 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 			}//end catch
 		}//end finally
 		return null;
-	}
+	}// end findCommandePourCreaAffichage
 	
 	
+	
+	/* ================================================== */
 	
 // METH NON UTILISEES
 	
 	
 	/**
-	 * pour supprimer : ne peut pas utilisée car besoin de 2 id => Cf meth deleteDoubleId
+	 * pour supprimer une ligne de commande : ne peut pas utilisée car besoin de 2 id => Cf meth deleteDoubleId
 	 */
 	@Override
 	public boolean delete(Integer pidLigneCommande) {
@@ -295,19 +350,13 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 	
 	
 	/**
-	 * pour récup : ne peut pas utilisée car besoin de 2 id => Cf meth getByDoubleId
+	 * pour récupérer une ligne de commande : ne peut pas utilisée car besoin de 2 id => Cf meth getByDoubleId
 	 */
 	@Override
 	public LigneCommande getById(Integer pidLigneCommande) {
 		// TODO Auto-generated method stub
 		return null;
 	}// end getById
-
-
-
-
-
-
 
 
 }// end class

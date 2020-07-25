@@ -1,7 +1,8 @@
 package com.intiformation.modeles;
+
 /**
- * Modele de données pour une liaison (table association) entre un produit et une catégorie
- * Mappé sur la table 'produits_categories' de la bdd 
+ * Modele de données pour une liaison entre un produit et une catégorie
+ * Mappé sur la table 'produits_categories' (table association) de la bdd 
  * 
  * @author hannahlevardon
  *
