@@ -116,15 +116,17 @@ public class GestionProduitBean implements Serializable {
 	 * Récupération de la liste de produits dont le nom ou la description contiennent le mot clé.
 	 * Méthode appelée dans la barre de recherche du header
 	 * @param motCle: paramètre de type String qui doit etre retrouvé
-	 * @return la liste des voyages ayant le mot clé 
+	 * @return la page d'affichage de la liste des produit trouvés pour ce mot clé
 	 */
-	public String findProduitByMotCleRedirect(String motCle) {
+	public String findProduitByMotCleRedirect() {
 
-		listeProduits = produitDAO.getByKeyword(motCle);
+//		listeProduits = produitDAO.getByKeyword(motCle);
 
 		return "recherche-produit-motcle.xhtml?faces-redirect=true";
 
-	}// end findProduitByMotClé
+	}// end findProduitByMotCleRedirect
+	
+	
 	
 	
 	/**
