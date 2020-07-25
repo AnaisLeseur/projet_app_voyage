@@ -23,7 +23,7 @@ import com.intiformation.modeles.ProduitCategorie;
 @SessionScoped
 public class GestionProduitCategorieBean implements Serializable {
 
-	// _____ Props ______//
+	// _________________ Props __________________//
 
 	private Map<Integer, Boolean> listeCategorieSelectionnes = new HashMap<Integer, Boolean>();
 	private List<Categorie> Listecategorie;
@@ -32,28 +32,37 @@ public class GestionProduitCategorieBean implements Serializable {
 
 	IProduitCategorie produitCategorieDAO;
 
-	// _____ Ctor ______//
+	// ___________________ Ctor ____________________//
 
 	public GestionProduitCategorieBean() {
 		produitCategorieDAO = new ProduitCategorieDAOImpl();
 	}// end ctor
 
-	// _____ Méthodes ______//
+	// _________________ Méthodes __________________//
+	
+	/**
+	 * Méthode pour créer un lien entre le produit et la catégorie via la table d'association produit-catgorie
+	 * 
+	 * @param event
+	 */
 	public void creerLiaisonProduitCategorie(ActionEvent event) {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		
+		// Récupération de l'ID du produit envoyé via le f:param
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("ProduitID");
 		int produitID = (int) uip.getValue();
-		System.out.println("Id du produit selectionné: "+produitID);
 		
 		
+		// Récupération des ID des catégories sous forme de liste, selectionnées via les booleancheckbox cochées en true
 		List<Integer> listeIdCategorieSelectionnees = listeCategorieSelectionnes.entrySet().stream()
 				.filter(Entry::getValue).map(Entry::getKey).collect(Collectors.toList());
 
+		// Boucle for pour chaque ID de catégorie à lier au produit
 		for (Integer integer : listeIdCategorieSelectionnees) {
 			System.out.println(integer);
 			
+			// Creation d'une ligne dans la table produit-catégorie
 			if(produitCategorieDAO.addVersion2(integer, produitID)) {
 				
 				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -64,16 +73,11 @@ public class GestionProduitCategorieBean implements Serializable {
 						"Ajout Livre", "Echec de l'Ajout du livre ..."));
 
 			}// end else
-
 		}//end for
-
-		
-
-		
-
 	}// end creerLiaisonProduitCategorie
+	
 
-	// _____ Getter / Setter ______//
+	// __________________ Getter / Setter __________________ //
 
 	public Map<Integer, Boolean> getListeCategorieSelectionnes() {
 		return listeCategorieSelectionnes;

@@ -1,6 +1,5 @@
 package com.intiformation.modeles;
 
-
 /**
  * modele de données pour une catégorie
  * mappé sur la table 'categories' de la bdd 

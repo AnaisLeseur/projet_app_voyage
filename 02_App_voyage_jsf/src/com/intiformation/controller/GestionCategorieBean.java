@@ -209,6 +209,10 @@ public class GestionCategorieBean implements Serializable {
 
 	}// end saveCategorie
 
+	/**
+	 * 
+	 * @param event
+	 */
 	public void onItemUnselect(UnselectEvent event) {
 		FacesContext context = FacesContext.getCurrentInstance();
 
@@ -219,6 +223,8 @@ public class GestionCategorieBean implements Serializable {
 		context.addMessage(null, msg);
 	}// end onItemUnselect
 
+	
+	
 	// _____ Getter / Setter ______//
 
 	public Part getUploadedFile() {

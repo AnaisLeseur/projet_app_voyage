@@ -1,6 +1,5 @@
 package com.intiformation.modeles;
 
-
 /**
  * modele de données pour un administrateur
  * mappé sur la table 'users' de la bdd
