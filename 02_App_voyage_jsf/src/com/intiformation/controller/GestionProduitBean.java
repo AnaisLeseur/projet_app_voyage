@@ -100,7 +100,7 @@ public class GestionProduitBean implements Serializable {
 	/**
 	 * Récuperation de la liste de tous les produits dans bdd via la DAO. Méthode utilisée par le
 	 * composant <h:datatable> de 'accueil-client.xhtml' pour afficher la liste des voyages.
-	 * et utilisée dans 'accueil-admin.xhtml'
+	 * et utilisée dans 'accueil-admin.xhtml' pour afficher la liste de tous les voyages
 	 * 
 	 * @return
 	 */
