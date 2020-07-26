@@ -2,7 +2,6 @@ package com.intiformation.controller;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.ArrayList;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -22,6 +21,12 @@ import com.intiformation.modeles.Produit;
 
 /**
  * MB pour la gestion de l'authentification de l'administrateur ou du client
+ * Permet de:
+ * 		- commecter un client 
+ * 		- connecter un administrateur 
+ * 		- déconnecter un utilisateur (client ou admin)
+ * 		- voir les infos du client 
+ * 		- vérif de la connexion pour procéder au paiement 
  * 
  * @author vincent
  *
@@ -31,55 +36,54 @@ import com.intiformation.modeles.Produit;
 @SessionScoped
 public class AuthentificationAdminBean implements Serializable {
 	
-//  ----- Props ----
+	
+	//  ----- Props ----
+	
 	private String adminIdentifiant;
 	private String adminMotDePasse;
-	
 	private String clientIdentifiant;
 	private String clientMotDePasse;
-	
-	private Produit produit;
+
 	private List<Produit> listePanier;
 	
 	private Administrateur administrateur;
-	
 	private Client client;
 	
 	// déclaration de la DAO
 	private IAdministrateurDAO administrateurDAO;
-	
 	private IClientDAO clientDAO;
+	
 	IProduitDAO produitDAO;
 
 	
-	//  ----- Ctors ---- ctor vide pour l'instanciation du MB 
+	//  ----- Ctors ---- 
+	
+	// ctor vide pour l'instanciation du MB 
 	public AuthentificationAdminBean() {
 		administrateurDAO = new AdministrateurDAOImpl();
-		
 		clientDAO = new ClientDAOImpl();
-		
-		produitDAO = new ProduitDAOImpl();
-				
+		produitDAO = new ProduitDAOImpl();			
 	}// end ctor 
 	
 	
 	
-//  ----- Meths ----
+	/* ============================================================================= */
+	// ____________________ Méthodes ________________________________________________//
+	/* ============================================================================= */
+	
+	
 	/**
-	 * meth qui permet de faire connecter l'admin à son espace et lui créer une session http
-	 * la meth sera invoquée à la soumission du formulaire d'authentification admin
+	 * methode qui permet de faire connecter l'admin à son espace et lui créer une session http
+	 * la methode sera invoquée à la soumission du formulaire d'authentification admin
 	 * 
 	 * @return la page d'accueil-admin
 	 */
 	public String connecterAdministrateur() {
 		
 		// 1. déclaration du context de JSF (l'objet FacesContext)
-		/**
-		 * javax.faces.FacesContext : encapsule l'arbre des composants coté serveur et la rqt/rep http
-		 */
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 		
-		// 2.vérif si admin existe dans la bdd 
+		// 2.vérif si admin existe dans la bdd
 		if (administrateurDAO.isAdministrateurExists(adminIdentifiant, adminMotDePasse)) {
 			
 			// si vrai => admin existe dans bdd
@@ -107,7 +111,7 @@ public class AuthentificationAdminBean implements Serializable {
 			contextJSF.addMessage(null, message);
 			
 			// -> navigation vers la page du formulaire "authentification.xhtml"
-						return "authentification.xhtml?faces-redirect=true";
+			return "authentification.xhtml?faces-redirect=true";
 			
 			
 		}// end else
@@ -115,9 +119,13 @@ public class AuthentificationAdminBean implements Serializable {
 	
 	
 	
+
+	/* ============================================================================= */
+	
+	
 	/**
-	 * meth qui permet de faire deconnecter l'administrateur ou le client de son espace et de détruire la session http
-	 * la meth sera invoquée au click sur se deconnecter (dans le header de toutes les pages)
+	 * meth qui permet de faire deconnecter l'administrateur ou le client de son espace et de détruire la session
+	 * la methode sera invoquée au click sur se deconnecter (dans le header de toutes les pages)
 	 * 
 	 * @return page d'accueil-client du site
 	 */
@@ -129,17 +137,16 @@ public class AuthentificationAdminBean implements Serializable {
 		// 2. récup de la session http de l'admin 
 		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
 		
-		// récup des produit sélectionné 
+		// récup des produits sélectionné 
 		listePanier = produitDAO.getProduitSelectionnes(true);
 
-	
-	
+		// remise à false de 'SelectionProduit' => le produit ne sera plus selectionné dans le panier
 		for (Produit produit : listePanier) {
 			produit.setSelectionProduit(false);	
 			produitDAO.update(produit);	
-		}
+		}// end for
 		
-		// 3. deconnexion
+		// 3. deconnexion => suppression de la session
 		session.invalidate();
 		
 		// 4. message de deconnexion vers la vue 
@@ -147,17 +154,21 @@ public class AuthentificationAdminBean implements Serializable {
 		System.out.println("FacesMessage message =" + message);
 		contextJSF.addMessage(null, message);
 		
-		// 5. redirection vers la page du formulaire
+		// 5. redirection vers la page 'accueil-client.xhtml'
 		return "accueil-client.xhtml?faces-redirect=true";
-				
-		
-	}// end deconnecterAdministrateur()
+
+	}// end deconnecterUser()
 	
 	
+	
+	/* ============================================================================= */
 	
 	/**
-	 * meth qui permet de faire connecter le client à son espace
-	 * la meth sera invoquée à la soumission du formulaire d'authentification client
+	 * methode qui permet de faire connecter le client à son espace personnel
+	 * la methode sera invoquée à la soumission du formulaire d'authentification client
+	 * 
+	 * - mise en place de la session si elle n'existe pas deja 
+	 * - récupération des données du client 
 	 * 
 	 * @return la page d'accueil-client
 	 */
@@ -170,29 +181,24 @@ public class AuthentificationAdminBean implements Serializable {
 		if (clientDAO.isClientExists(clientIdentifiant, clientMotDePasse)) {
 			
 			// si vrai => client existe dans bdd
-			// -> création de la session
+			// -> création ou récupération de la session
 			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
 			
-			// -> sauvegarde du login de l'utilisateur dans la session
+			// si session n'existe pas => création de session
+			if (session == null) {
+				session = (HttpSession) contextJSF.getExternalContext().getSession(true);
+			}// end if
+			
+			// -> sauvegarde du login du client dans la session
 			session.setAttribute("user_login", clientIdentifiant);
 
-			// sauvegarde du client dans la session 
-		
+			// récupération des infos du client dans la bdd via son id et son mdp
             client = clientDAO.getByIdAndMdp(clientIdentifiant, clientMotDePasse);
-            System.out.println("client : " + client.getId_client() );
             
-            setClient(client);
+            // sauvegarde des infos du client via setAttribute
             session.setAttribute("client", client);
 			
-			// sauvegarde du client dans la session
-			client = clientDAO.getByIdAndMdp(clientIdentifiant, clientMotDePasse);
-			System.out.println("client : " + client.getId_client() );
-			session.setAttribute("client", client);
-			
-			
-			
-			
-			// -> navigation vers la page "accueil-admin.xhtml"
+			// -> navigation vers la page "accueil-client.xhtml"
 			return "accueil-client.xhtml?faces-redirect=true";
 			
 			
@@ -206,16 +212,17 @@ public class AuthentificationAdminBean implements Serializable {
 			contextJSF.addMessage(null, message);
 			
 			// -> navigation vers la page du formulaire "authentification.xhtml"
-						return "authentication.xhtml?faces-redirect=true";
-			
-			
+			return "authentication.xhtml?faces-redirect=true";
+
 		}// end else
 	}// end connecterClient
 	
 	
+	/* ============================================================================= */
+	
 	/**
-	 * meth qui permet de vérifier que client est connecté à son espace AVANT de payer
-	 * la meth sera invoquée au click sur 'procéder au paiment' dans panier.xhtml
+	 * methode qui permet de vérifier que client est connecté à son espace AVANT de payer sa commande
+	 * la methode sera invoquée au click sur 'procéder au paiment' dans panier.xhtml
 	 * 
 	 * @return la page d'authentification client
 	 * OU 
@@ -225,29 +232,30 @@ public class AuthentificationAdminBean implements Serializable {
 		
 		// 1. déclaration du context de JSF (l'objet FacesContext)
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
-		// -> création de la session
+		// -> récupération de la session
 		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
-		
 		
 		// 2.vérif si le client est connecté
 		if (session.getAttribute("user_login") == null) {
 
+			// redirection vers la page d'autentification client
 			return "authentication.xhtml?faces-redirect=true";
 			
 		} else {
 
+			// redirection vers la page pour valider la commande
 			return "proceder-paiement.xhtml?faces-redirect=true";
-			
 
 		}// end else
-			
-		
 	}// end Paiement
 	
 	
+	
+	/* ============================================================================= */
+	
 	/**
-	 * meth qui permet de vérifier que client est connecté à son espace AVANT d'afficher ses infos
-	 * la meth sera invoquée au click sur 'Mon Compte' dans le header
+	 * methode qui permet de vérifier que le client est connecté à son espace AVANT d'afficher ses infos
+	 * la methode sera invoquée au click sur 'Mon Compte' dans le header
 	 * 
 	 * @return la page d'authentification client
 	 * OU 
@@ -263,21 +271,24 @@ public class AuthentificationAdminBean implements Serializable {
 		
 		// 2.vérif si le client est connecté
 		if (session.getAttribute("user_login") == null) {
-
+			
+			// redirection vers la page d'autentification client
 			return "authentication.xhtml?faces-redirect=true";
 			
 		} else {
 
+			// redirection vers la page 'compte-client.xhtml' avec l'affichage des infos du client
 			return "compte-client.xhtml?faces-redirect=true";
 			
-
 		}// end else
-			
-		
 	}// end VoirLesInfos
 	
 
 
+	
+	/* ============================================================================= */
+	/* ============================================================================= */
+	
 	
 	//  ----- Getters/setters ----
 	public String getAdminIdentifiant() {
