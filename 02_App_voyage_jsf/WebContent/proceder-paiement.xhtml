@@ -1,110 +1,116 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:p="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://java.sun.com/jsf/html">
 
 <h:head>
 
-<title>Votre commande</title>
+	<title>Votre commande</title>
 
-</h:head> 
-<body> 
+</h:head>
 
-<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+<body>
 
-<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 10px ">Votre commande :</h2>
+	<!--  HEADER  -->
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
-
-
-<b:column col-md="12" style="margin-left : 100px; margin-top : 10px" >
-
-	<b:column col-md="3"  >	
-
-<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeProduitsSelectionnes()}" var="produit" 
-						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" >
-				
-			
-					<h:column > 
-						<f:facet name="header">
-							<h:outputText value="#" />
-						</f:facet>
-					
-						<h:outputText value="#" />	
-					</h:column>
-					
-					<h:column >
-						<f:facet name="header">
-							<h:outputText value="Destination" />
-						</f:facet>
-						<h:outputText value="#{produit.nomProduit}" />
-					</h:column>
-					
-	
-			</h:dataTable>	
-			
-		</b:column>		
+	<!--  Titre principal de la page  -->
+	<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 10px">Votre commande :</h2>
 		
-		<b:column col-md="7" >		
-					
-			<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
-						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
+
+	<b:column col-md="12" style="margin-left : 100px; margin-top : 10px">
+
+		<b:column col-md="3">
+
+			<!--  LISTE DES PRODUITS DU PANIER -->
 			
+			<h:dataTable styleClass="table"
+				value="#{GestionProduitBean.ListeProduitsSelectionnes()}"
+				var="produit"
+				rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
+
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+
+					<h:outputText value="#" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Destination" />
+					</f:facet>
+					<h:outputText value="#{produit.nomProduit}" />
+				</h:column>
+
+
+			</h:dataTable>
+
+		</b:column>
+
+		<b:column col-md="7">
+
+			<!--  LISTE DES LIGNES DE COMMANDE QUI COMPOSENT LE PANIER -->
+			
+			<h:dataTable styleClass="table"
+				value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
+				rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
+
 				<h:column>
 					<h:inputHidden value="#{ligne.produit_id}" />
-				</h:column>	
-				
-				<h:column >
+				</h:column>
+
+				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Nombre de personnes" />
 					</f:facet>
 					<h:outputText value="#{ligne.quantite_ligne} personne(s)" />
 				</h:column>
-				
+
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Prix du voyage" />
 					</f:facet>
 					<h:outputText value="#{ligne.prix_ligne} €" />
 				</h:column>
-		
-	</h:dataTable>		
- 				 
-		
-</b:column>
 
-<b:column col-md="10" >
-<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
-						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
-	
-	
-	
-	
-   			<f:facet name="footer">
-				<h3>
-				Total: #{GestionLigneCommandeBean.PrixTotal()} €
-				</h3>
-			 </f:facet>
+			</h:dataTable>
 
-	
-	</h:dataTable>
-	
+
+		</b:column>
+
+		<b:column col-md="10">
+			<h:dataTable styleClass="table"
+				value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
+				rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
+
+				<!--  Affichage du prix total du panier  -->
+				<f:facet name="footer">
+					<h3>Total: #{GestionLigneCommandeBean.PrixTotal()} €</h3>
+				</f:facet>
+
+			</h:dataTable>
+		</b:column>
+
 	</b:column>
 
-</b:column>	
+	<!--  Bouton pour valider la commande et pour revenir au panier -->
+	<h:form style="margin-left : 130px; margin-top : 20px">
+		<p:commandButton value="Procéder au paiement" size="lg"
+			action="#{GestionProduitBean.ApresPaiement()}" />
 
-		<h:form style="margin-left : 130px; margin-top : 20px">	
-			<p:commandButton  value="Procéder au paiement" size="lg"  
-							action="#{GestionProduitBean.ApresPaiement()}"/>
+		<p:commandButton value="Retourner au panier" size="lg"
+			action="GoToPanier" />
 
-			<p:commandButton  value="Retourner au panier" size="lg"  
-							action="GoToPanier"/>
-					
-		</h:form>	
+	</h:form>
+
+	<!--  FOOTER  -->
+	<ui:decorate template="/templates/footer.xhtml" />
 	
-
-		<ui:decorate template="/templates/footer.xhtml"/>
-</body> 
+</body>
 </html>
