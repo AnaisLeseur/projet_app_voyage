@@ -3,11 +3,10 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:b="http://bootsfaces.net/ui"
-	>
+	xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
-<style type="text/css">
+	<style type="text/css">
 .form-signin {
 	margin: 0 auto;
 	max-width: 350px;
@@ -29,43 +28,49 @@ body {
 
 	</ui:decorate>
 
-	<h:messages globalOnly="true" layout="table" showDetail="true" styleClass="error" fatalClass="error" infoClass="message"/>
+	<h:messages globalOnly="true" layout="table" showDetail="true"
+		styleClass="error" fatalClass="error" infoClass="message" />
 
 	<h:body style="background-color: white;">
-	
+
 		<b:container>
-		
+
 			<h:form styleClass="form-signin" prependId="false">
-				<h2 class="form-signin-heading" align="center">Veuillez vous connecter</h2>
-				
-					<b:inputText id="idlogin" placeholder="Identifiant" required="true"
-								requiredMessage="Identifiant obligatoire" 
-								value="#{AuthentificationAdminBean.adminIdentifiant}">
-						<f:facet name="prepend">
-							<b:icon name="user" />
-						</f:facet>
-						<h:message for="idlogin" layout="table" showDetail="true" styleClass="error" fatalClass="error"/>
-					</b:inputText>
-					
-					
-					<b:inputText id="password" placeholder="Mot de passe" required="true"
-						type="password" requiredMessage="Mot de passe obligatoire"
-							value="#{AuthentificationAdminBean.adminMotDePasse}">
-						<f:facet name="prepend">
-							<b:iconAwesome name="key" />
-						</f:facet>
-						<h:message for="password" layout="table" showDetail="true" styleClass="error" fatalClass="error" infoClass="message"/>
-					</b:inputText>
-			
-					
+				<h2 class="form-signin-heading" align="center">Veuillez vous
+					connecter</h2>
+
+				<b:inputText id="idlogin" placeholder="Identifiant" required="true"
+					requiredMessage="Identifiant obligatoire"
+					value="#{AuthentificationAdminBean.adminIdentifiant}">
+					<f:facet name="prepend">
+						<b:icon name="user" />
+					</f:facet>
+					<h:message for="idlogin" layout="table" showDetail="true"
+						styleClass="error" fatalClass="error" />
+				</b:inputText>
+
+
+				<b:inputText id="password" placeholder="Mot de passe"
+					required="true" type="password"
+					requiredMessage="Mot de passe obligatoire"
+					value="#{AuthentificationAdminBean.adminMotDePasse}">
+					<f:facet name="prepend">
+						<b:iconAwesome name="key" />
+					</f:facet>
+					<h:message for="password" layout="table" showDetail="true"
+						styleClass="error" fatalClass="error" infoClass="message" />
+				</b:inputText>
+
+
 				<b:commandButton look="default btn-block" value="Se connecter"
-					icon="log-in" size="lg" action="#{AuthentificationAdminBean.connecterAdministrateur()}" />
+					icon="log-in" size="lg"
+					action="#{AuthentificationAdminBean.connecterAdministrateur()}" />
 			</h:form>
 		</b:container>
 
 		<ui:decorate template="/templates/footer.xhtml">
 
 		</ui:decorate>
-		</h:body>
+	</h:body>
 </h:body>
 </html>

@@ -121,7 +121,7 @@ public class GestionProduitBean implements Serializable {
 	/**
 	 * Récupération de la liste de produits dont le nom ou la description contienne le mot clé
 	 * Méthode appelée dans la barre de recherche du header
-	 * @param motCle: paramètre de typeString qui doit etre retrouvé
+	 * @param motCle: paramètre de type String qui doit etre retrouvé
 	 * @return
 	 */
 	public List<Produit> findProduitByMotCle(String motCle) {
@@ -132,30 +132,7 @@ public class GestionProduitBean implements Serializable {
 
 		listeProduits = produitDAO.getByKeyword(motCle);
 
-		/*
-		 * if (motCle != null) {
-		 * 
-		 * listeProduits = produitDAO.getByKeyword(motCle);
-		 * 
-		 * if (listeProduits.isEmpty()) {
-		 * 
-		 * contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-		 * "Pas de voyage", ": Aucun voyage correspondant à votre recherche...")); }
-		 * else {
-		 * 
-		 */
 		return listeProduits;
-		/*
-		 * }
-		 * 
-		 * } else {
-		 * 
-		 * contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-		 * "Pas de voyage", ": vous avez pas rentré de requête"));
-		 * 
-		 * } // end else
-		 */
-
 	}// end findProduitByMotClé
 
 	/*
@@ -378,7 +355,8 @@ public class GestionProduitBean implements Serializable {
 	}// end initVoyage
 
 	/**
-	 * recup d'un produit
+	 * Récupération d'un produit via son ID
+	 * Appelée dans plusieurs méthodes 
 	 *
 	 * @param event
 	 */
@@ -492,6 +470,7 @@ public class GestionProduitBean implements Serializable {
 
 	}// end saveBook()
 
+	
 	public void findProduitParCategorie(ActionEvent event) {
 
 		UIParameter cp = (UIParameter) event.getComponent().findComponent("CategorieID");
