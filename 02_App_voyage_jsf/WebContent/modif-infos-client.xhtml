@@ -9,14 +9,19 @@
 	<title>Modification de vos données</title>
 
 </h:head>
+
 <h:body>
+
+	<!--  HEADER  -->
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+	
 	<b:column col-md="8" style="margin-left : 250px ; margin-right : auto ; margin-bottom: 50px">
-		<h1
-			style="text-align: center; margin-bottom: 30px; margin-top: 30px; font-family: sans-serif; font-weight: bold; font-size: 50px;">
+		
+			<!--  Titre principal de la page  -->
+		<h1 style="text-align: center; margin-bottom: 30px; margin-top: 30px; font-family: sans-serif; font-weight: bold; font-size: 50px;">
 			Modifiez vos informations</h1>
 		<h:form>	
-		<b:panelGrid columns="2">
+		<b:panelGrid columns="1" col-md="5">
 
 
 			<b:inputText placeholder="nom" label="Nom"
@@ -49,7 +54,8 @@
 
 			<h:inputHidden value="#{client.id_client}" />
 			
-				<h:commandButton class="btn btn-primary" value="Enregistrez-vous"
+			<!--  Bouton pour valider les nouvelles informations du client-->
+			<h:commandButton class="btn btn-primary" value="Valider les informations"
 					action="#{GestionClientBean.modifierClient()}"/>
 
 
@@ -57,11 +63,12 @@
 		</b:panelGrid>
 		</h:form>
 		
-			<br /> <br /> 
+	<br /> <br /> 
 	</b:column>
 
 
-
+	<!--  FOOTER  -->
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+	
 </h:body>
 </html>

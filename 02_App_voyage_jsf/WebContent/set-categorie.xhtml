@@ -3,15 +3,21 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	xmlns:b="http://bootsfaces.net/ui" 
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+
 	<title>Lier à des catégories</title>
+	
 </h:head>
+
 <h:body>
 
+	<!--  HEADER  -->
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
+	<!--  Barre de navigation pour l'admin  -->
 	<b:tabLinks>
 		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" href="accueil-admin.xhtml" />
@@ -21,17 +27,17 @@
 			iconAlign="right" href="accueil-admin-client.xhtml" />
 		<b:navLink value="Commandes" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" href="accueil-admin-commande.xhtml" />
-
 	</b:tabLinks>
 	
+	
+	<!--  Titre principal de la page  -->
 	<h2  style="margin-left: 120px; margin-top: 40px; margin-bottom: 20px ">Lier le voyage à certaines catégories :</h2>
-
-
 
 	<h:form style="margin-left: 120px;">
 		<h:panelGrid>
 			<h:inputHidden value="#{GestionProduitBean.produit.idProduit}" />
 			
+			<!--  BooleanCheckbox avec toutes les catégories disponibles  -->
 			<h:dataTable styleClass="table"
 				value="#{GestionCategorieBean.findAllCategoriesBDD()}" var="categ"
 				rows="8">
@@ -45,7 +51,7 @@
 			</h:dataTable>
 			
 	
-			
+			<!--  Boutons pour valider les liens entre le voyage et les catégories selectionnees (lien produit-categorie)  -->
 			<f:facet name="footer">
 				<h:commandButton value="Lier ce voyage aux catégories selectionnées"
 					action="accueilAdmin"
@@ -54,18 +60,23 @@
 				</h:commandButton>
 			</f:facet>
 			
+			
+			<!--  Bouton de retour à la liste des produits -->
 			<f:facet name="footer">
-				<h:commandButton value="Retour à la liste de produits"
+				<h:commandButton value="Retour à la liste des produits"
 					action="accueilAdmin">
 				</h:commandButton>
 			</f:facet>
 			
+			<!--  colonne pour afficher des messages généraux -->
 			<h:messages globalOnly="true" showDetail="true" fatalStyle="color:red; font-style:italic;" 
-	infoStyle="color:green; font-style:italic;"/>
-	
+				infoStyle="color:green; font-style:italic;"/>
 	
 		</h:panelGrid>
 	</h:form>
+	
+	<!--  FOOTER  -->
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+	
 </h:body>
 </html>

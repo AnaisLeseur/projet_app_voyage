@@ -1,34 +1,35 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:p="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://java.sun.com/jsf/html">
 
 <h:head>
 
-<title>Merci</title>
+	<title>Merci</title>
 
-</h:head> 
-<h:body> 
-		<ui:decorate template="/templates/header.xhtml" />
+</h:head>
 
+<h:body>
 
+	<!--  HEADER  -->
+	<ui:decorate template="/templates/header.xhtml" />
 
-<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 10px ">Merci pour votre commande</h2>
-
-
-		<h:form style="margin-left : 130px; margin-top : 20px">	
-
-			<p:commandButton  value="Retour à la page d'accueil" size="lg" action="GoToAccueil"/>
+	<!--  Titre principal de la page  -->
+	<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 10px">Merci pour votre commande</h2>
 		
-		</h:form>	
 
+	<h:form style="margin-left : 130px; margin-top : 20px">
 
+		<p:commandButton value="Retour à la page d'accueil" size="lg" action="GoToAccueil" />
+			
+	</h:form>
+	
 
-
-
-		<ui:decorate template="/templates/footer.xhtml"/>
-</h:body> 
+	<!--  FOOTER  -->
+	<ui:decorate template="/templates/footer.xhtml" />
+	
+</h:body>
 </html>

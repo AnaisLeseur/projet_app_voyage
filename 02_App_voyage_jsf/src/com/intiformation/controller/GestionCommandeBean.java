@@ -20,17 +20,24 @@ import com.intiformation.modeles.Commande;
 import com.intiformation.modeles.LigneCommande;
 import com.intiformation.modeles.Produit;
 
+
+/**
+ * ManagedBean pour la gestion des commandes, utilisé pour : 
+ * 		- récupérer les lignes de commandes pour toutes les commandes passées par tous les clients
+ * 		- récupérer les lignes de commandes pour toutes les commandes passées par UN CLIENT 
+ * 
+ * @author vincent
+ *
+ */
 @ManagedBean(name = "GestionCommandeBean")
 @SessionScoped
 public class GestionCommandeBean {
 
 	// _____ Props ______//
-	private List<Commande> listeCommandesDuClient = new ArrayList<>();
+	
 	private List<Commande> listeAllCommandeBDD = new ArrayList<>();
 	private List<Commande> listeAllCommandeBDD2 = new ArrayList<>();
-	private List<LigneCommande> listeLigneCommande = new ArrayList<>();
 	private List<LigneCommande> listeLigneCommandeAll = new ArrayList<>();
-	private List<LigneCommande> listeLigneCommandeDuClient = new ArrayList<>();
 	private List<LigneCommande> listeLigneCommandeParCommande = new ArrayList<>();
 	
 	
@@ -39,17 +46,13 @@ public class GestionCommandeBean {
 	private List<Produit> listeProduitCommandeCreaAffichage = new ArrayList<>();
 	
 
-	private List<Produit> listeProduitCommande = new ArrayList<>();
-	private Produit produit;
-
 	ICommandeDAO commandeDAO;
 	ILigneCommandeDAO lignecommandeDAO;
 	IProduitDAO produitDAO;
 
-	private LigneCommande ligneCommande;
-
 	int idClient;
 
+	
 	// _____ Ctor ______//
 
 	public GestionCommandeBean() {
@@ -58,149 +61,156 @@ public class GestionCommandeBean {
 		produitDAO = new ProduitDAOImpl();
 	}// end ctor vide
 
-	// _____ Methodes ______//
+	
 
+
+	/* ============================================================================= */
+	// ____________________ Méthodes ________________________________________________//
+	/* ============================================================================= */
+	
+	
+	/**
+	 * methode pour récupérer la liste de toutes les commandes de la bdd
+	 * 
+	 * @return : la liste de toutes les commandes 
+	 */
 	public List<Commande> findAllCommandeBDD() {
 
 		listeAllCommandeBDD = commandeDAO.getAll();
 
 		return listeAllCommandeBDD;
 
-	}// end findAllProduitsBDD
+	}// end findAllCommandeBDD
+	
+	
+	
+	/* ============================================================================= */
 
-
+	
+	/**
+	 * methode pour récupérer la liste de toutes les lignes de commande pour CHAQUE commande de la bdd
+	 * methode utilisée dans 'accueil-admin-commande' afin d'afficher toutes les commande effectuées par les clients 
+	 * @return la liste des lignes de commande pour toutes les commandes
+	 */
 	public List<LigneCommande> findAllLigneCommandePourToutesCommandes() {
 
+		// la liste des lignes de commande est remise à zéro
 		listeLigneCommandeParCommande.clear();
 
+		// récupération de toutes les commandes de la bdd dans une liste 
 		listeAllCommandeBDD2 = commandeDAO.getAll();
+		
+		// taille de la liste de commande
 		int taillelisteAllCommandeBDD = listeAllCommandeBDD2.size();
 		int compteur = 0; 
-		
-		for (Commande commande : listeAllCommandeBDD2) {
-			
-			System.out.println(commande.getId_commande());
-			
-		}
-		//listeAllCommandeBDD.stream().forEach(e->System.out.println("Test 8500 : " +e.getId_commande()));
 
+		// pour chaque commande de la liste :
 		for (Commande commande : listeAllCommandeBDD2) {
 			
 			if (compteur < taillelisteAllCommandeBDD) {
 			
+				// récupération de l'id de la commande 
 				int idCommande = commande.getId_commande();
+				
+				// on récupère la liste des lignes de commande pour la commande en cours
 				listeLigneCommandeAll = lignecommandeDAO.getByIdCommande(idCommande);
 
-				System.out.println("listeLigneCommande =" + listeLigneCommandeAll);
-
+				// ajout des lignes de commande à la liste de toutes les lignes de commande
 				listeLigneCommandeParCommande.addAll(listeLigneCommandeAll);
 				
 				continue; 
 			}//end if
+			
+			// on incrémente le compteur pour passer à la commande suivante
 			compteur ++; 
 
 		} // end for
-
-		listeLigneCommandeParCommande.stream().forEach(e -> System.out.println("ma méthode:" + e.getCommande_id()));
 		
 		return listeLigneCommandeParCommande;
 
 	}// end findAllLigneCommandePourToutesCommandes
+	
+	
 
+	
+	/* ============================================================================= */
+
+	/**
+	 * methode pour récupérer la liste de toutes les lignes de commande pour CHAQUE commande D'UN CLIENT
+	 * methode utilisée dans 'accueil-admin-client/affichage des commandes du client' afin d'afficher toutes les commande effectuées par ce client 
+	 * @return la liste des lignes de commande pour toutes les commandes du client 
+	 * @param event 
+	 */
 	public void findAllCommandeDuClient(ActionEvent event) {
 
+		// récupération de l'id du client dont on veut récupérer les commandes et les lignes de commandes
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("clientID");
 		idClient = (int) uip.getValue();
-		System.out.println("int idClient: " + idClient);
 		
+		// récupération de la session 
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
 
-	
-		
-// MODIF		
+		// on vide et on récupère la liste des commandes du client (via la DAO)
 		listeCommandesCreaAffichage.clear();
 		listeCommandesCreaAffichage = commandeDAO.findCommandePourCreaAffichage(idClient);
 		
-		session.setAttribute("listeCommandesCreaAffichage", listeCommandesCreaAffichage);
-		
+
+		// on vide et on récupère la liste des lignes de commande du client (via la DAO)
 		listeLignesCommandeCreaAffichage.clear();
 		listeLignesCommandeCreaAffichage = lignecommandeDAO.findCommandePourCreaAffichage(idClient);
 		
-		session.setAttribute("listeLignesCommandeCreaAffichage", listeLignesCommandeCreaAffichage);
-		
+
+		// on vide et on récupère la liste des produits dans le panier du client (via la DAO)
 		listeProduitCommandeCreaAffichage.clear();
 		listeProduitCommandeCreaAffichage = produitDAO.findCommandePourCreaAffichage(idClient);
 		
-		session.setAttribute("listeProduitCommandeCreaAffichage", listeProduitCommandeCreaAffichage);
-		
-		
-		
-		
-		
-		
-		
-		
-/*		listeLigneCommandeDuClient.clear();
-		
-		listeCommandesDuClient = commandeDAO.findCommandeDuClient(idClient);
-
-			
-		for (Commande commande : listeCommandesDuClient) {
-
-			int idCommande = commande.getId_commande();
-			System.out.println("int idCommande = " + idCommande);
-			listeLigneCommande = lignecommandeDAO.getByIdCommande(idCommande);
-
-			System.out.println("listeLigneCommande =" + listeLigneCommande);
-
-
-			listeLigneCommandeDuClient.addAll(listeLigneCommande);
-
-		} // end for
-
-		//session.setAttribute("listeLigneCommandeDuClient", listeLigneCommandeDuClient);
-
-		session.setAttribute("listeLigneCommandeDuClient", listeLigneCommandeDuClient);
-*/		
-//		return "commande-du-client.xhtml?faces-redirect=true";
-
-
-		// return listeLigneCommandeDuClient;
 	}// end findAllCommandeDuClient
 
-	public List<LigneCommande> AfficheCommandeDuClient() {
-
-		return listeLigneCommandeDuClient;
-
-	}// end findAllCommandeDuClient
 	
 	
+	/* ============================================================================= */
 	
+	/**
+	 * methode pour retourner la liste de toutes les commandes D'UN CLIENT afin de les afficher.
+	 * methode utilisée dans 'accueil-admin-client/affichage des commandes du client' pour d'afficher toutes les commandes effectuées par ce client 
+	 * @return la liste des commandes du client 
+	 */
 	public List<Commande> AfficherCommande() {
 
 		return listeCommandesCreaAffichage;
 
-	}// end findAllCommandeDuClient
+	}// end AfficherCommande
 	
 	
+	
+	/* ============================================================================= */
+	
+	/**
+	 * methode pour retourner la liste de toutes les lignes de commande des commandes D'UN CLIENT afin de les afficher.
+	 * methode utilisée dans 'accueil-admin-client/affichage des commandes du client' pour d'afficher les infos des commandes effectuées par ce client 
+	 * @return la liste des lignes de commande du client 
+	 */
 	public List<LigneCommande> AfficheLigneCommande() {
 
 		return listeLignesCommandeCreaAffichage;
 
-	}// end findAllCommandeDuClient
+	}// end AfficheLigneCommande
 	
 	
+	
+	/* ============================================================================= */
+	
+	/**
+	 * methode pour retourner la liste de tous les produits des commandes D'UN CLIENT afin de les afficher.
+	 * methode utilisée dans 'accueil-admin-client/affichage des commandes du client' pour d'afficher les infos des commandes effectuées par ce client 
+	 * @return la liste des produits achetés par le client 
+	 */
 	public List<Produit> AfficheProduit() {
 
 		return listeProduitCommandeCreaAffichage;
 
-	}// end findAllCommandeDuClient
-	
-	
-	
-	
-	
+	}// end AfficheProduit
 	
 
 }// end GestionCommandeBean

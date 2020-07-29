@@ -12,24 +12,41 @@ import java.util.*;
 
 import com.intiformation.modeles.ProduitCategorie;
 
+/**
+ * Implémentation concrète de la DAO pour 'Produits_categories'.
+ * 'Produits_categories' : table d'association entre un produit et une catégorie
+ * classe qui implemente l'interface IProduitCategorie
+ * 
+ * @author hannahlevardon
+ *
+ */
 public class ProduitCategorieDAOImpl implements IProduitCategorie {
 
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
 
+	
+	/* ================================================== */
+	
 	/**
 	 * AJOUTER UNE LIAISON PRODUIT-CATEGORIE
+	 * @param ProduitCategorie pPC : le lien existant entre un produit et une catégorie
+	 * @return boolean: si ajout ok ou non 
 	 */
 	@Override
 	public boolean add(ProduitCategorie pPC) {
 
 		try {
+			
+			// prepared statement + requete SQL
 			ps = this.connexion
 					.prepareStatement("insert into produits_categories(categorie_id, produit_id) " + "values(?, ?)");
 
+			// passage de params
 			ps.setInt(1, pPC.getCategorie_id());
 			ps.setInt(2, pPC.getProduit_id());
 
+			// executeUpdate
 			int verifAjout = ps.executeUpdate();
 
 			return verifAjout == 1;
@@ -39,16 +56,25 @@ public class ProduitCategorieDAOImpl implements IProduitCategorie {
 			e.printStackTrace();
 		} finally {
 			try {
+				
+				// fermeture des ressources
 				ps.close();
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} // end catch
 		} // end finally
 		return false;
 	}// end add
+	
+	
+	
+	/* ================================================== */
 
 	/**
 	 * MODIFIER UNE LIAISON PRODUIT-CATEGORIE
+	 * @param ProduitCategorie pPC : le lien existant entre un produit et une catégorie
+	 * @return boolean: si modification ok ou non 
 	 */
 	@Override
 	public boolean update(ProduitCategorie pPC) {
@@ -78,15 +104,14 @@ public class ProduitCategorieDAOImpl implements IProduitCategorie {
 
 		return false;
 	}// end update
+	
+	
+	/* ================================================== */
 
-	@Override
-	public boolean delete(Integer id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	/**
-	 * AFFICHER LA LISTE DE TOUTES LES LIAISONS PRODUIT-CATEGORIE
+	 * RECUPERER LA LISTE DE TOUTES LES LIAISONS PRODUIT-CATEGORIE
+	 * @return List<ProduitCategorie> listeProdCateg : la liste de tous les liens entre les produits et les catégories
 	 */
 	@Override
 	public List<ProduitCategorie> getAll() {
@@ -123,14 +148,16 @@ public class ProduitCategorieDAOImpl implements IProduitCategorie {
 		return null;
 	}//end getAll 
 
-	@Override
-	public ProduitCategorie getById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+	
+	/* ================================================== */
 
 	/**
-	 * TROUVER UNE LIAISON PRODUIT-CATEGORIE
+	 * RECUPERER UNE LIAISON PRODUIT-CATEGORIE
+	 * @param pIdCategorie : id de la catégorie
+	 * @param pIdProduit : id du produit
+	 * 
+	 * @return prodCategorie : l'unique lien existant entre 1 produit et 1 catégorie
 	 */
 	@Override
 	public ProduitCategorie getByDoubleId(Integer pIdCategorie, Integer pIdProduit) {
@@ -167,9 +194,16 @@ public class ProduitCategorieDAOImpl implements IProduitCategorie {
 		
 		return null;
 	}// end getByDoubleId 
+	
+	
+	/* ================================================== */
 
 	/**
 	 * SUPPRIMER UNE LIAISON PRODUIT-CATEGORIE
+	 * @param pIdCategorie : id de la catégorie
+	 * @param pIdProduit : id du produit
+	 * 
+	 * @return boolean: si la suppression ok ou non 
 	 */
 	@Override
 	public boolean deleteByDoubleId(Integer pIdCategorie, Integer pIdProduit) {
@@ -202,11 +236,17 @@ public class ProduitCategorieDAOImpl implements IProduitCategorie {
 
 		return false;
 	}// end deleteByDoubleId
-
 	
+	
+	
+	/* ================================================== */
 
 	/**
 	 * AJOUTER UNE LIAISON PRODUIT-CATEGORIE VERSION 2
+	 * @param IDcategorie : id de la catégorie
+	 * @param IdProduit : id du produit
+	 * 
+	 * @return boolean: si l'ajout est ok ou non 
 	 */
 	@Override
 	public boolean addVersion2(int IDcategorie,int IdProduit) {
@@ -234,5 +274,33 @@ public class ProduitCategorieDAOImpl implements IProduitCategorie {
 		} // end finally
 		return false;
 	}// end add
+	
+	
+	/* ================================================== */
+	
+// METH NON UTILISEES
+	
+	/**
+	 * SUPPRIMER UNE LIAISON PRODUIT-CATEGORIE
+	 * ne peut pas être utilisée car besoin de 2 id => cf : deleteByDoubleId
+	 */
+	@Override
+	public boolean delete(Integer id) {
+		// TODO Auto-generated method stub
+		return false;
+	}// end delete
+	
+	
+
+	/**
+	 * RECUPERER UNE LIAISON PRODUIT-CATEGORIE VIA SON ID
+	 * ne peut pas être utilisée car besoin de 2 id => cf : getByDoubleId
+	 */
+	@Override
+	public ProduitCategorie getById(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}// end getById
+	
 
 }// end classe

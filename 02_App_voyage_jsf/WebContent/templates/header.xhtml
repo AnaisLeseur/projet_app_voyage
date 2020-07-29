@@ -38,8 +38,8 @@
 					</b:inputText>
 
 				</div>
-				<b:commandButton action="recherche"
-					actionListener="#{GestionProduitBean.findProduitByMotCle(GestionProduitBean.motCle)}"
+				<b:commandButton 
+					action="#{GestionProduitBean.findProduitByMotCleRedirect()}"
 					value="Recherche" look="success" icon="chevron-right"
 					iconAlign="right">
 

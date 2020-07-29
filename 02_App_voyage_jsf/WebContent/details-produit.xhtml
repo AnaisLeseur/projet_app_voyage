@@ -7,72 +7,90 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+
 	<title>Détail du voyage</title>
 
 	<h:outputStylesheet library="style" name="perso.css" />
+	
 	<style type="text/css">
+	
 .value {
 	font-weight: bold;
 	font-size: 20px;
-}
-
-.ui-carousel {
-	margin-bottom: 20px;
 }
 
 body {
 	background-color: white;
 	background-image: none;
 }
-</style>
+
+	</style>
+
 </h:head>
 
+
 <h:body>
+	<!--  HEADER  -->
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
 	<div class="container-fluid">
+	
+		<!--  Titre principal de la page  -->
 		<h1>Plus de détails sur le voyage:
 			#{GestionProduitBean.produit.nomProduit}</h1>
+		
+		<!--  caractéristiques du voyage (colonne de gauche) -->
 		<div id="detail" class="col-md-6">
+
+			<h3>Description:</h3>
+			<h4>#{GestionProduitBean.produit.descriptionProduit}</h4>
+			<br />
 			
-			<h3> Description:</h3> 
-			<h4>	
-				#{GestionProduitBean.produit.descriptionProduit}
-			</h4>
-			<br /> 
-			<h3> Prix:</h3>  
-			<h4>
-				#{GestionProduitBean.produit.prixProduit} € par
-				personne
-			</h4>
-			<br /> <br /> 
+			<h3>Prix:</h3>
+			<h4>#{GestionProduitBean.produit.prixProduit} € par personne</h4>
+			<br /> <br />
+			
+			
+			<!--  Lien pour 'choisir ce voyage' => AJOUTER AU PANIER -->
 			<h:form>
 				<h:commandLink id="edit" action="ajoutPanier"
-					actionListener="#{GestionProduitBean.selectionnerProduit}"
-					style="font-size: 20px">
-
+								actionListener="#{GestionProduitBean.selectionnerProduit}"
+								style="font-size: 20px">
+					
+					<!--  param passé : id du produit  -->
 					<f:param id="selectID" name="id"
-						value="#{GestionProduitBean.produit.idProduit}" />
+							value="#{GestionProduitBean.produit.idProduit}" />
+							
+					<!--  param passé : 'selectionProduit'  --> 
 					<f:param id="selectIsDispo" name="selection"
-						value="#{GestionProduitBean.produit.selectionProduit}" />
+							value="#{GestionProduitBean.produit.selectionProduit}" />
 
-					<h:outputText value="Choisir ce voyage!" 
-					style="text-decoration: underline"/>
+					<h:outputText value="Choisir ce voyage!"
+						style="text-decoration: underline" />
 
 				</h:commandLink>
 			</h:form>
 		</div>
+		
+		<!--  photo du voyage (colonne de droite) -->
 		<div class="col-md-6">
 			<h:graphicImage id="imageDetail"
 				value="/resources/images/#{GestionProduitBean.produit.urlImageProduit}"
 				library="images" />
 		</div>
+		
 	</div>
+	
 	<br />
+	
+	<!--  Bouton pour retourner à l'accueil -->
 	<b:button class="btn btn-primary" href="accueil-client.xhtml"
 		value="Voir nos autres voyages !" style="margin-left: 630px" />
 
 
 </h:body>
-<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+
+	<!--  FOOTER  -->
+	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+	
 </html>

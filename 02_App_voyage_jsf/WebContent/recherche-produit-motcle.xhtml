@@ -1,115 +1,134 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:p="http://primefaces.org/ui"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" 
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 
 	<title>page de la liste des produits par mot clé</title>
-	
-</h:head> 
-<h:body> 
-<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
-<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 50px ">Votre recherche :</h2>
+</h:head>
+
+<h:body>
+
+	<!--  HEADER  -->
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+
+	<!--  Titre principal de la page  -->
+	<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 50px">Votre recherche :</h2>
+		
 	<b:row>
 
-
 		<b:column col-md="9" style="margin-left : 200px">
-		
+
+			<!--  Affichage si rien ne correspond à la recherche -->
 			<h3 style="font-style: italic; text-decoration: underline;">
-						<h:outputText value="Désolé, nous n'avons rien trouvé pour votre recherche..." rendered="#{empty GestionProduitBean.findProduitByMotCle(GestionProduitBean.motCle)}" />
+				<h:outputText
+					value="Désolé, nous n'avons rien trouvé pour votre recherche..."
+					rendered="#{empty GestionProduitBean.findProduitByMotCle(GestionProduitBean.motCle)}" />
 			</h3>
-			
-			
-	<b:row >
-		<b:column col-md="12" rendered="#{empty GestionProduitBean.findProduitByMotCle(GestionProduitBean.motCle)}">
-			<h:form id="form" style="margin-bottom: 80px; margin-top: 50px">
-				<p:carousel value="#{GestionCategorieBean.findAllCategoriesBDD()}" 
-					headerText="Mais vous trouverez peut-etre avec l'aide denos categories..."
-					var="categ" itemStyle="text-align:center" responsive="true" rows="4">
-					<p:panelGrid columns="2"
-						style="width:100%;margin:20px 0px; height:300px"
-						columnClasses="label,value" layout="grid"
-						styleClass="ui-panelgrid-blank">
-						<f:facet name="header">
-							<h:graphicImage styleClass="image" library="images"
-								name="#{categ.urlImageCategorie}" width="250" height="160"
-								style="opacity: 1" />
-						</f:facet>
-						<h:outputText />
-						
-						<h:outputText style="font-size: x-large; margin-bottom: 20px"  value="#{categ.nom_categorie}" />
-						<h:outputText value="#{categ.description_categorie}"
-							style="color: black;" />
 
-						<h:outputText />
+			<!--  Affichage si rien ne correspond à la recherche : caroussel des categories -->
+			<b:row>
+				<b:column col-md="12"
+					rendered="#{empty GestionProduitBean.findProduitByMotCle(GestionProduitBean.motCle)}">
+					<h:form id="form" style="margin-bottom: 80px; margin-top: 50px">
+						<p:carousel value="#{GestionCategorieBean.findAllCategoriesBDD()}"
+							headerText="Mais vous trouverez peut-etre avec l'aide denos categories..."
+							var="categ" itemStyle="text-align:center" responsive="true"
+							rows="4">
+							<p:panelGrid columns="2"
+								style="width:100%;margin:20px 0px; height:300px"
+								columnClasses="label,value" layout="grid"
+								styleClass="ui-panelgrid-blank">
+								<f:facet name="header">
+									<h:graphicImage styleClass="image" library="images"
+										name="#{categ.urlImageCategorie}" width="250" height="160"
+										style="opacity: 1" />
+								</f:facet>
+								<h:outputText />
 
-						<h:commandLink id="ParCateg" action="ProduitCateg"
-							actionListener="#{GestionProduitBean.findProduitParCategorie}">
+								<h:outputText style="font-size: x-large; margin-bottom: 20px"
+									value="#{categ.nom_categorie}" />
+								<h:outputText value="#{categ.description_categorie}"
+									style="color: black;" />
 
-							<f:param id="CategorieID" name="id" value="#{categ.id_categorie}" />
-							<f:param id="CategorieNom" name="nom"
-								value="#{categ.nom_categorie}" />
+								<h:outputText />
 
-							<h:outputText style="font-size: large; margin-bottom: 20px; margin-top: 30px" value="Voir les voyages de cette catégorie"  />
+								<h:commandLink id="ParCateg" action="ProduitCateg"
+									actionListener="#{GestionProduitBean.findProduitParCategorie}">
 
-						</h:commandLink>
+									<f:param id="CategorieID" name="id"
+										value="#{categ.id_categorie}" />
+									<f:param id="CategorieNom" name="nom"
+										value="#{categ.nom_categorie}" />
 
-					</p:panelGrid>
+									<h:outputText
+										style="font-size: large; margin-bottom: 20px; margin-top: 30px"
+										value="Voir les voyages de cette catégorie" />
 
-				</p:carousel>
-			</h:form>
+								</h:commandLink>
 
-		</b:column>
-	</b:row>
-			
+							</p:panelGrid>
+
+						</p:carousel>
+					</h:form>
+
+				</b:column>
+			</b:row>
+
+
+			<!--  Affichage si la recherche donne un résultat -->
 			<h:form id="form2">
-		
+
 				<p:dataGrid var="produit"
-					value="#{GestionProduitBean.findProduitByMotCle(GestionProduitBean.motCle)}" columns="3"
-					layout="grid" rows="12" paginator="true" rendered="#{not empty GestionProduitBean.findProduitByMotCle(GestionProduitBean.motCle)}"
+					value="#{GestionProduitBean.findProduitByMotCle(GestionProduitBean.motCle)}"
+					columns="3" layout="grid" rows="12" paginator="true"
+					rendered="#{not empty GestionProduitBean.findProduitByMotCle(GestionProduitBean.motCle)}"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					rowsPerPageTemplate="6,12,16">
 
-					<f:facet name="header" >
-           				<h2 style="font-size: x-large; font-weight: bold;" > Nos voyages correspondant à votre recherche</h2>
-      				 </f:facet>
+					<f:facet name="header">
+						<h2 style="font-size: x-large; font-weight: bold;">Nos
+							voyages correspondant à votre recherche</h2>
+					</f:facet>
 
-					<p:panel header="#{produit.nomProduit}" style="font-size: large; text-align:center">
+					<p:panel header="#{produit.nomProduit}"
+						style="font-size: large; text-align:center">
 						<h:panelGrid columns="1" style="width:100%">
 							<h:graphicImage library="images"
 								name="#{produit.urlImageProduit}" width="250px" height="160px" />
 
-							<h:outputText style="font-size: medium;" value="#{produit.descriptionProduit}" />
-							
-							
-						<h:commandLink id="ParCateg" action="ProduitDetail"
-							actionListener="#{GestionProduitBean.recupProduit}">
+							<h:outputText style="font-size: medium;"
+								value="#{produit.descriptionProduit}" />
 
-							<f:param id="modifId" name="id" value="#{produit.idProduit}" />
 
-							<h:outputText  style="font-size: large; color: black;" value="Voir les détails !" />
+							<h:commandLink id="ParCateg" action="ProduitDetail"
+								actionListener="#{GestionProduitBean.recupProduit}">
 
-						</h:commandLink>
+								<f:param id="modifId" name="id" value="#{produit.idProduit}" />
+
+								<h:outputText style="font-size: large; color: black;"
+									value="Voir les détails !" />
+
+							</h:commandLink>
 
 						</h:panelGrid>
 					</p:panel>
 
 				</p:dataGrid>
-
-
 			</h:form>
 
 
 		</b:column>
 	</b:row>
 
+	<!--  FOOTER  -->
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 
 
-</h:body> 
+</h:body>
 </html>

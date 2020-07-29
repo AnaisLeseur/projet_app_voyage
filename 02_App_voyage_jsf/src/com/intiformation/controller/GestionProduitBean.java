@@ -7,18 +7,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import com.intiformation.DAO.CategorieDAOImpl;
 import com.intiformation.DAO.CommandeDAOImpl;
-import com.intiformation.DAO.ICategorieDAO;
 import com.intiformation.DAO.ICommandeDAO;
 import com.intiformation.DAO.ILigneCommandeDAO;
 import com.intiformation.DAO.IProduitCategorie;
@@ -33,25 +28,26 @@ import com.intiformation.modeles.Produit;
 import com.intiformation.modeles.ProduitCategorie;
 
 import java.util.*;
-import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.faces.event.*;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
-import org.apache.catalina.mapper.MappingData;
-import org.primefaces.component.datatable.DataTable;
-
-import org.apache.catalina.manager.util.SessionUtils;
 
 import javax.faces.component.*;
 import javax.faces.context.FacesContext;
 
+/**
+ * ManagedBean pour la gestion des Produits, utilisé pour : 
+ * 		- ajouter / modifier / supprimer un Produit de la bdd via la DAO 
+ * 		- ajouter / supprimer un produit du panier 
+ * 		- liste des produits de la bdd / liste des produits par categéries
+ * 		- rechercher et récupérer un produit par mot clé  
+ * 
+ * @author vincent
+ *
+ */
 @ManagedBean(name = "GestionProduitBean")
 @SessionScoped
 public class GestionProduitBean implements Serializable {
@@ -64,6 +60,8 @@ public class GestionProduitBean implements Serializable {
 	private String motCle;
 	private String nomCategorie;
 	private boolean selectionProduit;
+	private int nbPersonne = 1;
+	private int idClient;
 
 	private List<Produit> listeProduits;
 	private List<Produit> listePanier = new ArrayList<>();
@@ -71,11 +69,7 @@ public class GestionProduitBean implements Serializable {
 	private List<Produit> listeProduitCateg;
 	private List<LigneCommande> listeLigneCommande = new ArrayList<>();
 
-	private int nbPersonne = 1;
-	private int idClient;
-
 	HttpSession session;
-	FacesContext contextJSF = FacesContext.getCurrentInstance();
 
 	// file upload de l'API servlet
 	private Part uploadedFile;
@@ -86,8 +80,6 @@ public class GestionProduitBean implements Serializable {
 	ILigneCommandeDAO lignecommandeDAO;
 
 	GestionLigneCommandeBean gestionLigneCommandeBean;
-	GestionProduitBean gestionProduitBean;
-
 	Commande commandeRecup;
 
 	// _____ Ctor ______//
@@ -98,14 +90,17 @@ public class GestionProduitBean implements Serializable {
 		gestionLigneCommandeBean = new GestionLigneCommandeBean();
 		commandeDAO = new CommandeDAOImpl();
 		lignecommandeDAO = new LigneCommandeDAOImpl();
-	}// end ctor vide
+	}// end ctor 
 
-	// _____ Méthodes ______//
-
+	
+	/* ============================================================================= */
+	// ____________________ Méthodes ________________________________________________//
+	/* ============================================================================= */
+	
 	/**
-	 * Récuperation de la liste des produits dans db via DAO Méthode utilisé par le
-	 * composant <h:datatable> de accueil-client.xhtml pour afficher la liste des
-	 * livres de la db
+	 * Récuperation de la liste de tous les produits dans bdd via la DAO. Méthode utilisée par le
+	 * composant <h:datatable> de 'accueil-client.xhtml' pour afficher la liste des voyages.
+	 * et utilisée dans 'accueil-admin.xhtml' pour afficher la liste de tous les voyages
 	 * 
 	 * @return
 	 */
@@ -114,60 +109,83 @@ public class GestionProduitBean implements Serializable {
 		listeProduits = produitDAO.getAll();
 
 		return listeProduits;
-
 	}// end findAllProduitsBDD
+	
 
+	/* ============================================================================= */
+	
 	
 	/**
+<<<<<<< HEAD
 	 * Récupération de la liste de produits dont le nom ou la description contienne le mot clé
 	 * Méthode appelée dans la barre de recherche du header
 	 * @param motCle: paramètre de type String qui doit etre retrouvé
 	 * @return
+=======
+	 * Méthode appelée dans la barre de recherche du header lors de la recherche par mot clé 
+	 * @return la page d'affichage de la liste des produit trouvés pour ce mot clé
+>>>>>>> b506f927e2e569d9fdcc3b5c0c5b03a3705deec0
+	 */
+	public String findProduitByMotCleRedirect() {
+
+		return "recherche-produit-motcle.xhtml?faces-redirect=true";
+
+	}// end findProduitByMotCleRedirect
+	
+	
+	
+	/* ============================================================================= */
+	
+	/**
+	 * Récupération de la liste de produits, via la DAO, dont le nom ou la description contiennent le mot clé.
+	 * Méthode appelée pour l'affichage de la page 'recherche-produit-motcle.xhtml'
+	 * @param motCle: paramètre de type String qui a été saisi dans la barre de recherche
+	 * @return la liste des voyages ayant le mot clé 
 	 */
 	public List<Produit> findProduitByMotCle(String motCle) {
-
-		System.out.println("Mot clé :" + motCle);
-
-		FacesContext contextJSF = FacesContext.getCurrentInstance();
 
 		listeProduits = produitDAO.getByKeyword(motCle);
 
 		return listeProduits;
-	}// end findProduitByMotClé
+<<<<<<< HEAD
+=======
 
-	/*
-	 * =============================================================================
-	 */
+>>>>>>> b506f927e2e569d9fdcc3b5c0c5b03a3705deec0
+	}// end findProduitByMotClé
+	
+	
+
+	/* ================= Metode à revoir ============================================ */
 
 	/**
-	 * Méthode
-	 * @param event
+	 * Méthode qui permet de récupérer les produits sélectionnés via le bouton "choisir ce voyage"
+	 * appelée via la page 'details-produit.xhtml"
+	 * @param event : récupération de l'id du produit sélectionné
 	 */
 	public void selectionnerProduit(ActionEvent event) {
 
+		// parametres à récupérer
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("selectID");
 		UIParameter uip2 = (UIParameter) event.getComponent().findComponent("selectIsDispo");
 
 		int idProduit = (int) uip.getValue();
 		boolean isDispo = (boolean) uip2.getValue();
 
-		// selection du produit
+		// récupération des informations du produit sélectionné (via la DAO) 
 		Produit produitASelectionner = produitDAO.getById(idProduit);
 
-		// update du selection en true
+		// update du selection en true = le produit est sélectionné dans le panier
 		isDispo = true;
 
 		produitASelectionner.setSelectionProduit(isDispo);
 
+		// mise à jour du produit dans la BDD 
 		produitDAO.update(produitASelectionner);
 
-		// listePanier = produitDAO.getProduitSelectionnes(isDispo);
 
-		// liste ligne commande
-
-		// A REFAIRE :
-		// IF produitASelectionner already exist in listePanier => fait rien sinon
-		// listeLigneCommande.add(ligneCommande);
+// A REFAIRE (ne fonctionne pas correctement: tous les cas se retrouvent dans le ELSE):
+// IF : produitASelectionner already exist in listePanier => on ne l'ajoute pas à la listePanier
+// ELSE : (le produitASelectionner n'est pas encore dans listePanier) => ajout à la listePanier
 
 		boolean test = listePanier.contains(produitASelectionner);
 
@@ -176,49 +194,52 @@ public class GestionProduitBean implements Serializable {
 
 		} else {
 			System.out.println("if (listePanier.contains(produitASelectionner)): FAUX => ajoute ");
+			
+			// MaJ de la listePanier = liste des produits dont la selection = true 
 			listePanier = produitDAO.getProduitSelectionnes(isDispo);
-			LigneCommande ligneCommande = new LigneCommande(produitASelectionner.getIdProduit(), 1,
-					produitASelectionner.getPrixProduit());
+			
+			// création d'une ligne de commande pour le produit sélectionné
+			LigneCommande ligneCommande = new LigneCommande(	produitASelectionner.getIdProduit(), 
+															1,
+															produitASelectionner.getPrixProduit());
+			// on ajoute la ligne de commande créée à la liste des lignes de commande pour ce panier 
 			listeLigneCommande.add(ligneCommande);
 
-		}
+		}// end else
 
-		// LigneCommande ligneCommande = new
-		// LigneCommande(produitASelectionner.getIdProduit(), 1,
-		// produitASelectionner.getPrixProduit());
-		// listeLigneCommande.add(ligneCommande);
-
-		for (LigneCommande ligneCommandeTest : listeLigneCommande) {
-			System.out.println(
-					"LigneCommande ligneCommandeTest : listeLigneCommande: " + ligneCommandeTest.getProduit_id());
-		}
-
+		
+		// MaJ des différents Attributs de session : 'listePanier' et 'listeLigneCommande' en fonction de l'existance ou non de la session
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
-		if (session == null) {
 
+		if (session == null) {
+			// IF = Vrai => la session n'existe pas encore => on la créer et on 'setAttribute'
+			
 			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(true);
 
 			session.setAttribute("listePanier", listePanier);
-
 			session.setAttribute("listeLigneCommande", listeLigneCommande);
 
 		} else {
+			
+			// la session existe deja; on la récupère et on 'setAttribute'
 
 			HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
 
 			session.setAttribute("listePanier", listePanier);
-
 			session.setAttribute("listeLigneCommande", listeLigneCommande);
 
 		} // end else
-
 	}// end selectionnerProduit
+	
 
-	/*
-	 * =============================================================================
-	 * ===
+
+
+	/* ============================================================================= */
+
+	/**
+	 * Méthode qui permet de récupérer la liste des produits sélectionnés via le bouton "choisir ce voyage"
+	 * appelée lors de l'affichage du panier 
 	 */
-
 	public List<Produit> ListeProduitsSelectionnes() {
 
 		listePanier = produitDAO.getProduitSelectionnes(true);
@@ -226,59 +247,52 @@ public class GestionProduitBean implements Serializable {
 		return listePanier;
 
 	}// end ListeProduitsSelectionnes()
+	
 
+
+	/* ============================================================================= */
+	
+	/**
+	 * Méthode qui permet de récupérer la liste des lignes de commande
+	 * appelée lors de l'affichage du panier 
+	 */
 	public List<LigneCommande> ListeLigneCommande() {
 
 		return listeLigneCommande;
 
 	}// end ListeLigneCommande()
 
-	public double sommePanier() {
 
-		double sommePanier = listePanier.stream().mapToDouble(produit -> produit.getPrixProduit() * getNbPersonne())
-				.sum();
 
-		return sommePanier;
-
-	}// end
-
-	/*
-	 * =============================================================================
-	 * ===
-	 */
+	/* ============================================================================= */
 
 	/**
 	 * Méthode pour supprimer un produit DU PANIER Invoquée au clic sur lien
-	 * 'retirer du panier' dans PANIER au clic, l'évenement
-	 * 'javax.faces.event.ActionEvent' se déclenche et encapsule toutes les infos
-	 * concernant le composant
-	 * 
+	 * 'retirer du panier' dans PANIER
 	 * @param event
+	 * @return 'listePanier' : la nouvelle liste des produits contenus dans le panier 
 	 */
 	public List<Produit> supprimerProduitduPanier(ActionEvent event) {
 
-		// 1. récup du param passé dans le composant au clic sur le lien 'retirer du
-		// panier'
-
+		// 1. récup des params passés dans le composant au clic sur le lien 'retirer du panier'
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("selectSuppIdPanier");
 		UIParameter uip2 = (UIParameter) event.getComponent().findComponent("selectSuppIdLignePanier");
 
-		// 2. récup de la valeur du param
+		// 2. récup des valeurs des params
 		int idProduitSuppDuPanier = (int) uip.getValue();
 		int selectSuppIdLignePanier = (int) uip2.getValue();
 
-		System.out.println("int selectSuppIdLignePanier =" + selectSuppIdLignePanier);
 
-		// 3. récup du panier à retirer du panier
+		// 3. récup des infos du produit à retirer du panier
 		Produit produitARetirerDuPanier = produitDAO.getById(idProduitSuppDuPanier);
 
-		// update du selection en true
+		// update de la props du produit selectionné à false
 		produitARetirerDuPanier.setSelectionProduit(false);
 
-		// 3.1 récup du context de JSF
+		// récup du context de JSF
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 
-		// 3.2 suppression du livre
+		// 3.2 suppression du produit du panier 
 		if (produitDAO.update(produitARetirerDuPanier)) {
 
 			contextJSF.addMessage(null,
@@ -290,30 +304,22 @@ public class GestionProduitBean implements Serializable {
 
 		} // end else
 
+		// récup de la nouvelle liste des produits sélectionnés dans le panier
 		listePanier = produitDAO.getProduitSelectionnes(true);
 
-		for (LigneCommande ligneCommande : listeLigneCommande) {
-			System.out.println("LigneCommande ligneCommande :" + ligneCommande);
-
-		}
-
+		// MAJ de la liste des ligne de commande présente pour faire le panier
 		listeLigneCommande.remove(selectSuppIdLignePanier);
-		for (LigneCommande ligneCommande : listeLigneCommande) {
-			System.out.println("listeLigneCommande.remove(uipindex):" + ligneCommande);
-
-		}
 
 		return listePanier;
 	}// end supprimerProduit
 
-	/*
-	 * =============================================================================
-	 * ===
-	 */
+
+
+	/* ============================================================================= */
 
 	/**
-	 * Méthode pour supprimer un produit dans la db Invoquée au clic sur lien
-	 * 'supprimer' dans admin-accueil au clic, l'évenement
+	 * Méthode pour supprimer un produit dans la bdd. Invoquée au clic sur lien
+	 * 'supprimer' dans 'admin-accueil' au clic, l'évenement
 	 * 'javax.faces.event.ActionEvent' se déclenche et encapsule toutes les infos
 	 * concernant le composant
 	 * 
@@ -327,12 +333,10 @@ public class GestionProduitBean implements Serializable {
 		// 2. récup de la valeur du param
 		int idProduitSupp = (int) uip.getValue();
 
-		// 3. suppression du produit dans la bdd via id
-
 		// 3.1 récup du context de JSF
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 
-		// 3.2 suppression du livre
+		// 3.2 suppression du produit dans la bdd via id
 		if (produitDAO.delete(idProduitSupp)) {
 
 			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Suppression du produit",
@@ -344,33 +348,56 @@ public class GestionProduitBean implements Serializable {
 
 		} // end else
 	}// end supprimerProduit
-
+	
+	
+	
+	/* ============================================================================= */
+	
 	/**
-	 * permet d'initialiser un produit methode appelée lors de l'ajout du produit
-	 *
+	 * methode qui permet d'initialiser un produit. Appelée lors de l'ajout du produit dans 'accueil-admin'
 	 * @param event
 	 */
 	public void initVoyage(ActionEvent event) {
 		setProduit(new Produit());
 	}// end initVoyage
+	
+	
+	
+	/* ============================================================================= */
 
 	/**
+<<<<<<< HEAD
 	 * Récupération d'un produit via son ID
 	 * Appelée dans plusieurs méthodes 
 	 *
+=======
+	 * recupération d'un produit via son id, par la methode getById de la DAO
+>>>>>>> b506f927e2e569d9fdcc3b5c0c5b03a3705deec0
 	 * @param event
 	 */
 	public void recupProduit(ActionEvent event) {
 
+		// on récupère l'id du produit passé en paramètre 
 		UIParameter cp = (UIParameter) event.getComponent().findComponent("modifId");
 		int id = (int) cp.getValue();
 
+		// récupération des infos du produit via son id 
 		Produit produit = produitDAO.getById(id);
 
 		setProduit(produit);
 
 	}// end recupProduit
+	
+	
 
+	/* ============================================================================= */
+	
+	
+	/**
+	 * methode pour l'ajout ou la modification d'un voyage dans la bdd 
+	 * methode utilisée dans les pages 'admin' 
+	 * @param event
+	 */
 	public void saveVoyage(ActionEvent event) {
 
 		// -------------------------------------------
@@ -397,10 +424,8 @@ public class GestionProduitBean implements Serializable {
 				} // end else pour msg ajout
 
 				// ----------------------------------------------
-				// ajout de la photo dans le dossier images
+				// ajout de la photo dans le dossier images (resources)
 				// -----------------------------------------------
-
-				/* ++++++++++++++++++++++++++++++++ version 1 ++++++++++++++++++ */
 
 				// recup du contenu de l'image
 				InputStream imageContent = uploadedFile.getInputStream();
@@ -451,6 +476,7 @@ public class GestionProduitBean implements Serializable {
 
 					// affectation du nouveau nom à la prop urlImage du voyage
 					produit.setUrlImageProduit(fileNameToUpdate);
+					
 				} // end if equals
 			} // end if uploadedFile != null
 
@@ -465,46 +491,92 @@ public class GestionProduitBean implements Serializable {
 				contextJSFmodif.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
 						" la modification du produit a échouée", " - le produit n'a pas été modifié"));
 			} // end else pour msg ajout
-
 		} // end if modif
-
 	}// end saveBook()
+<<<<<<< HEAD
 
 	
+=======
+	
+	
+	
+	/* ============================================================================= */
+	
+	
+	/**
+	 * methode pour récupérer les produits d'une catégorie et récupérer le nom de la catégorie selectionnée
+	 * @param event
+	 */
+>>>>>>> b506f927e2e569d9fdcc3b5c0c5b03a3705deec0
 	public void findProduitParCategorie(ActionEvent event) {
 
+		// récupération de l'id de la catégorie sélectionnée
 		UIParameter cp = (UIParameter) event.getComponent().findComponent("CategorieID");
 		int idCategorie = (int) cp.getValue();
 
+		// récupération du nom de la catégorie sélectionnée
 		UIParameter cpNom = (UIParameter) event.getComponent().findComponent("CategorieNom");
 		nomCategorie = (String) cpNom.getValue();
 
-		System.out.println("Id Categorie = " + idCategorie);
-		System.out.println("Id Categorie = " + nomCategorie);
-
-		FacesContext contextJSF = FacesContext.getCurrentInstance();
+		// attribut de session avec le nom de la catégorie sélectionnée (pour afficher ce mot dans le titre de la page 'produit-par-categorie.xhtml'
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-
 		session.setAttribute("nomCategorie", nomCategorie);
 
+		// on récupère tous les produits appartenant à la catégorie dans la liste 'listeProduitCateg'
 		listeProduitCateg = produitDAO.getByCategorie(idCategorie);
 
 	}// end findProduitParCategorie
-
+	
+	
+	
+	/* ============================================================================= */
+	
+	/**
+	 * methode pour récupérer les produits de la categorie monde pour l'affichage dans la page d'accueil-client
+	 * @param event
+	 */
 	public List<Produit> AfficherlisteProduitMonde() {
-
+		
+		// id de la catégorie monde =2
 		int i = 2;
 
+		// récup des voyages dans une liste
 		listeMonde = produitDAO.getByCategorie(i);
 
 		return listeMonde;
-	}
-
+	}// end AfficherlisteProduitMonde
+	
+	
+	
+	
+	/* ============================================================================= */
+	
+	/**
+	 * methode pour récupérer la liste des produits de 'listeProduitCateg'
+	 * @param event
+	 */
 	public List<Produit> AfficherListeProduitParCateg() {
 
 		return listeProduitCateg;
 
-	}// end AfficherListeProduit
+	}// end AfficherListeProduitParCateg
+	
+	
+	
+	
+	/* ============================================================================= */
+	
+	/**
+	 * methode invoquée après la validation de la commande 
+	 * methode qui permet de :
+	 * 		- créer une commande (avec une id et une date du jour)
+	 * 		- créer les lignes de commandes finales dans la bdd (avec le prix, la quantité, id de la commande)
+	 * 		- remettre tous les produits qui etaient dans le panier avec un selection = false 
+	 * 		- remettre l'attribut 'listePanier' à null afin de vider le panier 
+	 * 
+	 * @param event
+	 * @return 'validation-commande.xhtml' : page pour dire "merci pour votre commande"
+	 */
 
 	public String ApresPaiement() {
 
@@ -528,8 +600,6 @@ public class GestionProduitBean implements Serializable {
 
 		int commandeIdRecup = commandeRecup.getId_commande();
 
-		System.out.println("commandeRecup: " + commandeRecup.getClient_id() + "," + commandeRecup.getId_commande() + ","
-				+ commandeRecup.getDate_commande());
 
 		for (LigneCommande ligneCommande : listeLigneCommande) {
 
@@ -548,8 +618,6 @@ public class GestionProduitBean implements Serializable {
 		for (Produit produit : listePanier) {
 			produit.setSelectionProduit(false);
 			produitDAO.update(produit);
-			System.out.println(
-					"produitDAO.update(produit) id: " + produit.getIdProduit() + " : " + produit.isSelectionProduit());
 
 		} // end for
 
@@ -558,7 +626,15 @@ public class GestionProduitBean implements Serializable {
 		return "validation-commande.xhtml?faces-redirect=true";
 
 	}// end ApresPaiement
+	
+	
 
+	
+	
+	/* ============================================================================= */
+	/* ============================================================================= */
+	
+	
 	// _____ Getter /setter ______//
 
 	public String getNomCategorie() {

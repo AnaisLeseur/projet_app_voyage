@@ -6,11 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.intiformation.modeles.LigneCommande;
 import com.intiformation.modeles.Produit;
 
 /**
  * Implémentation concrète de la DAO pour un produit
+ * classe qui implemente l'interface IProduitDAO
  * 
  * @author hannahlevardon
  *
@@ -21,16 +21,21 @@ public class ProduitDAOImpl implements IProduitDAO {
 	private ResultSet rs = null;
 
 	/**
-	 * AJOUTER UN PRODUIT
+	 * AJOUTER UN PRODUIT 
+	 * @param pProduit : le produit à ajouter
+	 * @return boolean: si ajout ok ou non 
 	 */
 	@Override
 	public boolean add(Produit pProduit) {
 
 		try {
+			
+			// prepared statement + requete SQL
 			ps = this.connexion.prepareStatement(
 					"INSERT into produits(nom_produit, description_produit, prix_produit, quantite_produit, selectionne_produit, image_produit ) "
 							+ "VALUES (?,?,?,?,?,?)");
 
+			// passage de params
 			ps.setString(1, pProduit.getNomProduit());
 			ps.setString(2, pProduit.getDescriptionProduit());
 			ps.setDouble(3, pProduit.getPrixProduit());
@@ -38,6 +43,7 @@ public class ProduitDAOImpl implements IProduitDAO {
 			ps.setBoolean(5, pProduit.isSelectionProduit());
 			ps.setString(6, pProduit.getUrlImageProduit());
 
+			// executeUpdate
 			int verifAjout = ps.executeUpdate();
 
 			return verifAjout == 1;
@@ -47,7 +53,10 @@ public class ProduitDAOImpl implements IProduitDAO {
 			e.printStackTrace();
 		} finally {
 			try {
+				
+				// fermeture des ressources
 				ps.close();
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} // end catch
@@ -57,10 +66,14 @@ public class ProduitDAOImpl implements IProduitDAO {
 
 	}// end add()
 
+	
+	
 	/* ================================================== */
 
 	/**
 	 * MODIFIER UN PRODUIT
+	 * @param pProduit : le produit à modifier
+	 * @return boolean: si modification ok ou non 
 	 */
 	@Override
 	public boolean update(Produit pProduit) {
@@ -102,6 +115,8 @@ public class ProduitDAOImpl implements IProduitDAO {
 	
 	/**
 	 *  SUPPRIMER UN PRODUIT
+	 * @param idProduit : l'id du produit à supprimer de la bdd
+	 * @return boolean: si ajout ok ou non 
 	 */
 	@Override
 	public boolean delete(Integer idProduit) {
@@ -132,7 +147,9 @@ public class ProduitDAOImpl implements IProduitDAO {
 	/* ================================================== */
 	
 	/**
-	 * AFFICHER TOUS LES PRODUITS
+	 * RECUPERER LA LISTE DE TOUS LES PRODUITS
+	 * @return List<Produit> listeProduitsDB : liste de tous les produits de la bdd
+	 * 
 	 */
 	@Override
 	public List<Produit> getAll() {
@@ -142,13 +159,15 @@ public class ProduitDAOImpl implements IProduitDAO {
 			
 			rs = ps.executeQuery();
 			
+			// on créé la liste 'listeProduitsDB' qui va récupérer tous les produits de la bdd
 			List<Produit> listeProduitsDB = new ArrayList<>();
 			Produit produit = null; 
 			
 			while (rs.next()) {
 				produit = new Produit(rs.getInt(1), rs.getString(2), rs.getString(3), 
 						rs.getDouble(4), rs.getInt(5), rs.getBoolean(6), rs.getString(7));
-							
+				
+				// pour chaque produit de la bdd => ajout à la liste 'listeProduitsDB'
 				listeProduitsDB.add(produit);
 					
 			}//end while
@@ -175,7 +194,9 @@ public class ProduitDAOImpl implements IProduitDAO {
 	/* ================================================== */
 	
 	/**
-	 * AFFICHER PRODUIT PAR SON ID
+	 * RECUPERER UN PRODUIT PAR SON ID
+	 * @param idProduit : l'id du produit à récupérer dans la bdd
+	 * @return produit : le produit récupéré 
 	 */
 	@Override
 	public Produit getById(Integer idProduit) {
@@ -217,11 +238,14 @@ public class ProduitDAOImpl implements IProduitDAO {
 	/* ================================================== */
 
 	/**
-	 * AFFICHER LA LISTE DES PRODUITS CONTENANT UN MOT-CLE
+	 * RECUPERER LA LISTE DES PRODUITS CONTENANT UN MOT-CLE
+	 * @param pMotClé : le mot clé saisi dans la barre de recherche 
+	 * @return List<Produit> 'listeProduitsDB' : la liste des produits dont le titre ou la description contient 'pMotClé'
 	 */
 	@Override
 	public List<Produit> getByKeyword(String pMotClé) {
 		
+		//récupération de 'pMotClé' sous forme correcte 
 		pMotClé = pMotClé.replace("%", "!%");
 		
 		try {
@@ -265,7 +289,9 @@ public class ProduitDAOImpl implements IProduitDAO {
 	/* ================================================== */
 
 	/**
-	 * AFFICHER LA LISTE DES PRODUITS PAR CATEGORIES
+	 * RECUPERER LA LISTE DES PRODUITS PAR CATEGORIE
+	 * @param idCategorie : id de la catégorie 
+	 * @return List<Produit> listePorduitCateg : liste des produits de la catégorie avec id = 'idCategorie'
 	 */
 	@Override
 	public List<Produit> getByCategorie(Integer idCategorie) {
@@ -310,7 +336,11 @@ public class ProduitDAOImpl implements IProduitDAO {
 	
 	/* ================================================== */
 	
-	
+	/**
+	 * RECUPERER LA LISTE DES PRODUITS SELECTIONNES (ajoutés au panier)
+	 * @param boolean selectionProduit : true si le produit a été ajouté au panier 
+	 * @return List<Produit> listeProduitsSelect : liste des produits selectionnés = ajoutés au panier
+	 */
 	@Override
 	public List<Produit> getProduitSelectionnes(boolean selectionProduit) {
 		
@@ -351,10 +381,15 @@ public class ProduitDAOImpl implements IProduitDAO {
 	}// end getProduitSelectionnes
 
 	
-	
+	/* ================================================== */
 	
 	/**
-	 * methode pour récupérer la liste des produits faite par un client via la vue (avec d'autres infos : lignes de commande, produits...) 
+	 * RECUPERER LA LISTE DES PRODUITS SELECTIONNES PAR LE CLIENT (ajoutés au panier)
+	 * via une vue de la bdd
+	 * ( cette vue permet aussi de récupérer d'autres infos pour afficher un récapitulatif complet avant le paiement: lignes de commande, produits...) 
+	 * 
+	 * @param idClient : id du client => la récupération des informations se fait a partir de l'id du client
+	 * @return List<Produit> listeProduitsCommandeDuClient : liste des produits que le client à ajouté à son panier 
 	 */
 	@Override
 	public List<Produit> findCommandePourCreaAffichage(Integer idClient) {

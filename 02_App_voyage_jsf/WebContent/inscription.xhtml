@@ -6,17 +6,25 @@
 	xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
+
 	<title>Inscription</title>
 
 </h:head>
+
 <h:body>
+
+	<!--  HEADER  -->
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+	
 	<b:column col-md="8" style="margin-left : 250px ; margin-right : auto ; margin-bottom: 50px">
-		<h1
-			style="text-align: center; margin-bottom: 30px; margin-top: 30px; font-family: sans-serif; font-weight: bold; font-size: 50px;">
+	
+		<!--  Titre principal de la page  -->
+		<h1 style="text-align: center; margin-bottom: 30px; margin-top: 30px; font-family: sans-serif; font-weight: bold; font-size: 50px;">
 			Formulaire d'inscription</h1>
-		<h:form>	
-		<b:panelGrid columns="2">
+			
+		<!--  Affichage du formulaire pour 'inscription.xhtml'  -->
+		<h:form >	
+		<b:panelGrid columns="1" col-md="5">
 
 
 			<b:inputText placeholder="nom" label="Nom"
@@ -49,6 +57,8 @@
 
 			<h:inputHidden value="#{GestionClientBean.client.id_client}" />
 			
+			
+				<!--  Bouton pour valider l'inscription / création du nouveau compte clinet -->
 				<h:commandButton class="btn btn-primary" value="Enregistrer-vous"
 					action="enregistrement"
 					actionListener="#{GestionClientBean.ajouterClient}">
@@ -58,10 +68,12 @@
 
 		</b:panelGrid>
 		</h:form>
+		
 	</b:column>
 	<br /> <br /> <br />
 
-
+	<!--  FOOTER  -->
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
+	
 </h:body>
 </html>
