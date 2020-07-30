@@ -29,6 +29,8 @@ public class AdministrateurDAOImpl implements IAdministrateurDAO {
 	 *            identifiant à vérifier
 	 * @param pMdp:
 	 *            mot de passe à vérifier
+	 *            
+	 * @return boolean: true si ajout validé, sinon false
 	 * 
 	 *            Utilisation de la méthode 'count()' de mysql pour déterminer le
 	 *            nombre de lignes contenant le mot de passe et l'identitifiant
@@ -65,7 +67,9 @@ public class AdministrateurDAOImpl implements IAdministrateurDAO {
 		return false;
 	}// end isAdministrateurExists
 
+	/*_____________________________________________________*/
 	/* _____________ Méthodes non implémentées ___________ */
+	/*_____________________________________________________*/
 
 	/**
 	 * Ajouter un administrateur

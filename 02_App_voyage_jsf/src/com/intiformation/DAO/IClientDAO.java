@@ -22,6 +22,9 @@ public interface IClientDAO extends IGenerique<Client> {
 	 *            identifiant à vérifier
 	 * @param pMdp:
 	 *            mot de passe à vérifier
+	 *            
+	 * @return true si un seul client avec l'identifiant et le mot de passe existe, 
+	 * false si plusieurs clients qui possèdent les memes identifiant et mot de passe ou si aucun client n'est trouvé         
 	 */
 	public boolean isClientExists(String pIdentifiant, String pMdp);
 	
@@ -34,6 +37,7 @@ public interface IClientDAO extends IGenerique<Client> {
 	 *            identifiant à vérifier
 	 * @param pMdp:
 	 *            mot de passe à vérifier
+	 * @return : client possédant l'identifiand et le mot de passe
 	 */
 	public Client getByIdAndMdp(String pIdentifiant, String pMdp);
 

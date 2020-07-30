@@ -28,6 +28,8 @@ public class CommandeDAOImpl implements ICommandeDAO {
 	 * 
 	 * @param pCommande:
 	 *            commande à ajouter à la database
+	 * 
+	 * @return: true si l'ajout est validé, sinon false
 	 */
 	@Override
 	public boolean add(Commande pCommande) {
@@ -59,6 +61,7 @@ public class CommandeDAOImpl implements ICommandeDAO {
 	 * 
 	 * @param pCommande:
 	 *            commande à modifier à la database
+	 * @return: true si la modification est validée, sinon false
 	 */
 	@Override
 	public boolean update(Commande pCommande) {
@@ -91,6 +94,7 @@ public class CommandeDAOImpl implements ICommandeDAO {
 	 * 
 	 * @param pCommande:
 	 *            id de la commande à supprimer de la database
+	 * @return: true si la suppression est validée, sinon false
 	 */
 	@Override
 	public boolean delete(Integer idCommande) {
@@ -118,6 +122,9 @@ public class CommandeDAOImpl implements ICommandeDAO {
 
 	/**
 	 * Récupération de la liste de toutes les commandes dans la database
+	 * 
+	 * @return listeCommandesDB: liste de toutes les commandes contenues dans la
+	 *         database
 	 */
 	@Override
 	public List<Commande> getAll() {
@@ -158,6 +165,7 @@ public class CommandeDAOImpl implements ICommandeDAO {
 	 * 
 	 * @param pCommande:
 	 *            id de la commande à récupérer à la database
+	 * @return commande: commande possèdant l'idCommande
 	 */
 	@Override
 	public Commande getById(Integer idCommande) {
@@ -191,20 +199,18 @@ public class CommandeDAOImpl implements ICommandeDAO {
 
 		return null;
 	}// end getById()
-	
 
 	/**
 	 * Récupération de la dernière commande enregistrée dans la database
 	 * 
-	 * @param pCommande:
-	 *            id de la commande à récupérer à la database
+	 * @return commande: la commande ayant l'id le plus élevée
 	 */
 	@Override
 	public Commande findIdMax() {
 		try {
-			
-			// Récupération du dernier ID ajouté à la database, correspondant à la dernière commande effectuée (auto-incrémentation)
-			
+
+			// Récupération du dernier ID ajouté à la database, correspondant à la dernière
+			// commande effectuée (auto-incrémentation)
 			ps = this.connexion.prepareStatement("SELECT max(id_commande) FROM commandes;");
 
 			rs = ps.executeQuery();
@@ -245,12 +251,13 @@ public class CommandeDAOImpl implements ICommandeDAO {
 		} // end finally
 		return null;
 	}// end findIdMax()
-	
 
 	/**
 	 * Récupération de la la liste des commandes effectuées par un client
 	 * 
-	 * @param idClient : ID du client 
+	 * @param idClient
+	 *            : ID du client
+	 * @return listeCommandesDuClient: liste des commandes du client ayant 'idClient'
 	 */
 	@Override
 	public List<Commande> findCommandeDuClient(Integer idClient) {
@@ -288,13 +295,14 @@ public class CommandeDAOImpl implements ICommandeDAO {
 		return null;
 	}// end findCommandeDuClient()
 
-	
-	
 	/**
-	 * Récupération de la liste des commandes faites par un client via la vue vieu_commande_client_clients (voir Mysql)	 * 
-	 * (avec d'autres infos : lignes de commande, produits...)
+	 * Récupération de la liste des commandes faites par un client via la vue
+	 * vieu_commande_client_clients (voir Mysql) 
+	 * Cette vue contient d'autres informations récupérées des tables commandes et lignes_commandes de la database
 	 * 
-	 * @param idClient : ID du client	  
+	 * @param idClient
+	 *            : ID du client
+	 * @return listeCommandesDuClient
 	 */
 	@Override
 	public List<Commande> findCommandePourCreaAffichage(Integer idClient) {

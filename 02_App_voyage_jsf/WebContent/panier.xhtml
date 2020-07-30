@@ -3,21 +3,20 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:p="http://primefaces.org/ui"> 
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 
 	<title>Votre panier</title>
-	
+
 	<h:outputStylesheet library="style" name="perso.css" />
-	
+
 	<style>
-	body {
+body {
 	background-color: white;
 	background-image: none;
 }
-	</style>
+</style>
 
 </h:head>
 
@@ -27,85 +26,98 @@
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
 	<!--  Titre principal de la page  -->
-	<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 10px ">Votre panier :</h2>
-	
-	
-	<div class="ui-g" style="margin-left : 100px; margin-top : 10px">
- 		<div class="ui-g-12 ui-g-nopad">
-            <div class="ui-g">
-         		<div class="ui-g-12 ui-md-4">
-         			
-         			<!--  affichage si le panier est vide -->
-					<h3 style="font-style: italic; text-decoration: underline; margin-left : 100px; margin-top : 10px">
-						<h:outputText value="Votre panier est vide!" rendered="#{empty GestionProduitBean.ListeProduitsSelectionnes()}" />
+	<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 10px">Votre
+		panier :</h2>
+
+
+	<div class="ui-g" style="margin-left: 100px; margin-top: 10px">
+		<div class="ui-g-12 ui-g-nopad">
+			<div class="ui-g">
+				<div class="ui-g-12 ui-md-4">
+
+					<!--  affichage si le panier est vide -->
+					<h3
+						style="font-style: italic; text-decoration: underline; margin-left: 100px; margin-top: 10px">
+						<h:outputText value="Votre panier est vide!"
+							rendered="#{empty GestionProduitBean.ListeProduitsSelectionnes()}" />
 					</h3>
-					
-					<br/>
-					
-						<!--  affichage si le panier n'est pas vide -->
-						
-						<!--  LISTE DES PRODUITS DU PANIER -->
-						
-						<h:dataTable id="tablepanier" styleClass="table" value="#{GestionProduitBean.ListeProduitsSelectionnes()}" var="produit" 
-									rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" rowClasses="rowclass">
-				
-							<h:column > 
-								<f:facet name="header">
-									<h:outputText value="#" />
-								</f:facet>
-								<h:outputText value="#" />	
-							</h:column>
-					
-							<h:column >
-								<f:facet name="header">
-									<h:outputText value="Destination" />
-								</f:facet>
-								<h:outputText value="#{produit.nomProduit}"  />
-							</h:column>
-				
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Prix par personne" />
-								</f:facet>
-								<h:outputText value="#{produit.prixProduit} €" />
-							</h:column>
-				
-						</h:dataTable>
+
+					<br />
+
+					<!--  affichage si le panier n'est pas vide -->
+
+					<!--  LISTE DES PRODUITS DU PANIER -->
+
+					<h:dataTable id="tablepanier" styleClass="table"
+						value="#{GestionProduitBean.ListeProduitsSelectionnes()}"
+						var="produit"
+						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}"
+						rowClasses="rowclass">
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#" />
+							</f:facet>
+							<h:outputText value="#" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Destination" />
+							</f:facet>
+							<h:outputText value="#{produit.nomProduit}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Prix par personne" />
+							</f:facet>
+							<h:outputText value="#{produit.prixProduit} €" />
+						</h:column>
+
+					</h:dataTable>
 				</div>
 
-	 			<div class="ui-g-12 ui-md-6">
-	 			<h3 style="font-style: italic; text-decoration: underline; margin-left : 100px; margin-top : 10px">
-	 				<h:outputText value="" rendered="#{empty GestionProduitBean.ListeProduitsSelectionnes()}" />
-	 			</h3>
-	 			<br/>
-	 			
-	 				<!--  LISTE DES LIGNES DE COMMANDE QUI COMPOSENT LE PANIER : choix de la quantité voulue -->
-	 				
-					<h:dataTable id="tablecommande" styleClass="table" value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
-							rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
-			
+				<div class="ui-g-12 ui-md-6">
+					<h3
+						style="font-style: italic; text-decoration: underline; margin-left: 100px; margin-top: 10px">
+						<h:outputText value=""
+							rendered="#{empty GestionProduitBean.ListeProduitsSelectionnes()}" />
+					</h3>
+					<br />
+
+					<!--  LISTE DES LIGNES DE COMMANDE QUI COMPOSENT LE PANIER : choix de la quantité voulue -->
+
+					<h:dataTable id="tablecommande" styleClass="table"
+						value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
+						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
+
 						<h:column>
 							<h:inputHidden value="#{ligne.produit_id}" />
-						</h:column>	
-						
-						<h:column >
+						</h:column>
+
+						<h:column>
 							<f:facet name="header">
 								<h:outputText value="Nombre de personnes" />
 							</f:facet>
 
 							<!--  formulaire pour choisir la quantité voulue -->
-							<h:form>	
-								<b:touchSpin for="@next" min="1" max="200" step="1" value="#{ligne.quantite_ligne}" col-md="4"/>
-								<f:param id="QuantiteProduit" name="id" value="#{ligne.quantite_ligne}" />
+							<h:form>
+								<b:touchSpin for="@next" min="1" max="200" step="1"
+									value="#{ligne.quantite_ligne}" col-md="4" />
+								<f:param id="QuantiteProduit" name="id"
+									value="#{ligne.quantite_ligne}" />
 								<f:param id="IdProduit" name="id" value="#{ligne.produit_id}" />
-								<f:param id="selectModifIdLignePanier" name="id" value="#{GestionProduitBean.ListeLigneCommande().indexOf(ligne)}" />
-								<h:commandLink id="nbPersonne" action="supprimerPanier" actionListener="#{GestionLigneCommandeBean.updateQuantitePrix}">
-									<h:outputText value="OK"/>
+								<f:param id="selectModifIdLignePanier" name="id"
+									value="#{GestionProduitBean.ListeLigneCommande().indexOf(ligne)}" />
+								<h:commandLink id="nbPersonne" action="supprimerPanier"
+									actionListener="#{GestionLigneCommandeBean.updateQuantitePrix}">
+									<h:outputText value="OK" />
 								</h:commandLink>
-							</h:form>	
-							
+							</h:form>
+
 						</h:column>
-						
+
 						<h:column>
 							<f:facet name="header">
 								<h:outputText value="Prix du voyage" />
@@ -114,56 +126,58 @@
 						</h:column>
 
 						<h:column>
-						
+
 							<!--  formulaire pour supprimer le voyage du panier -->
-							<h:form>				
+							<h:form>
 								<f:facet name="header">
 									<h:outputText value="Supprimer le voyage" />
 								</f:facet>
 								<h:commandLink id="suppIdPanier" action="supprimerPanier"
-								actionListener="#{GestionProduitBean.supprimerProduitduPanier}">
-			
-									<f:param id="selectSuppIdPanier" name="id" value="#{ligne.produit_id}" />
-									<f:param id="selectSuppIdLignePanier" name="id" value="#{GestionProduitBean.ListeLigneCommande().indexOf(ligne)}" />
+									actionListener="#{GestionProduitBean.supprimerProduitduPanier}">
+
+									<f:param id="selectSuppIdPanier" name="id"
+										value="#{ligne.produit_id}" />
+									<f:param id="selectSuppIdLignePanier" name="id"
+										value="#{GestionProduitBean.ListeLigneCommande().indexOf(ligne)}" />
 									<h:outputText value="Retirer du panier" />
 								</h:commandLink>
 							</h:form>
-							
+
 						</h:column>
 
 					</h:dataTable>
-					
-			      </div>	
-			 </div>
+
+				</div>
+			</div>
 
 
 
-		<div class="ui-g">
-			<div class="ui-g-12 ui-md-10">
-				<h:dataTable styleClass="table" value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne" 
-							rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
+			<div class="ui-g">
+				<div class="ui-g-12 ui-md-10">
+					<h:dataTable styleClass="table"
+						value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
+						rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
 
-					<!--  Affichage du prix total du panier : somme des prix de toutes les lignes de commande (quantité prise en compte) -->
-		   			<f:facet name="footer" >
-						<h3>
-						Total: #{GestionLigneCommandeBean.PrixTotal()} €
-						</h3>
-					</f:facet>
+						<!--  Affichage du prix total du panier : somme des prix de toutes les lignes de commande (quantité prise en compte) -->
+						<f:facet name="footer">
+							<h3>Total: #{GestionLigneCommandeBean.PrixTotal()} €</h3>
+						</f:facet>
 
-				</h:dataTable>
-			</div>	
+					</h:dataTable>
+				</div>
+			</div>
+
 		</div>
-		
-      </div>
 	</div>
-	
-			<!--  Bouton pour proceder au paiement -->
-			<h:form style="margin-left : 130px; margin-top : 20px">	
-				<p:commandButton  value="Procéder au paiement" size="lg" rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}" 
-								action="#{AuthentificationAdminBean.Paiement()}"/>
-					
-			</h:form>		
-	
+
+	<!--  Bouton pour proceder au paiement -->
+	<h:form style="margin-left : 130px; margin-top : 20px">
+		<p:commandButton value="Procéder au paiement" size="lg"
+			rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}"
+			action="#{AuthentificationAdminBean.Paiement()}" />
+
+	</h:form>
+
 	<!--  FOOTER  -->
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 

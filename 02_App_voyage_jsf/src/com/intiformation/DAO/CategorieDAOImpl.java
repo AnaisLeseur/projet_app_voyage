@@ -27,6 +27,7 @@ public class CategorieDAOImpl implements ICategorieDAO {
 	/**
 	 * AJOUTER UNE CATEGORIE
 	 * @param pCategorie : catégorie à ajouter à la database
+	 * @return boolean: true si ajout validé, sinon false
 	 */
 	@Override
 	public boolean add(Categorie pCategorie) {
@@ -64,6 +65,7 @@ public class CategorieDAOImpl implements ICategorieDAO {
 	/**
 	 * MODIFIER UNE CATEGORIE
 	 * @param pCategorie : catégorie à modifier dans la database
+	 * @return boolean: true si modification validée, sinon false
 	 */
 	@Override
 	public boolean update(Categorie pCategorie) {
@@ -102,6 +104,7 @@ public class CategorieDAOImpl implements ICategorieDAO {
 	/**
 	 * SUPPRIMER UNE CATEGORIE
 	 * @param idCategorie : id de la catégorie à supprimer de la database
+	 * @return boolean: true si suppression validée, sinon false
 	 */
 	@Override
 	public boolean delete(Integer idCategorie) {
@@ -134,6 +137,7 @@ public class CategorieDAOImpl implements ICategorieDAO {
 
 	/**
 	 * AFFICHER LA LISTE DE TOUTES LES CATEGORIES
+	 * @return listeCategories : la liste de toutes les catégories contenues dans la database
 	 */
 	@Override
 	public List<Categorie> getAll() {
@@ -177,6 +181,7 @@ public class CategorieDAOImpl implements ICategorieDAO {
 	/**
 	 * AFFICHER CATEGORIE PAR SON ID
 	 * @param idCategorie : id de la catégorie à retrouver dans la database 
+	 * @return categorie : la catégorie recherchée
 	 */
 	@Override
 	public Categorie getById(Integer idCategorie) {

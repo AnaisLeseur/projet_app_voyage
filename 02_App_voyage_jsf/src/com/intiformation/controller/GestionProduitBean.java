@@ -116,15 +116,13 @@ public class GestionProduitBean implements Serializable {
 	
 	
 	/**
-<<<<<<< HEAD
 	 * Récupération de la liste de produits dont le nom ou la description contienne le mot clé
 	 * Méthode appelée dans la barre de recherche du header
 	 * @param motCle: paramètre de type String qui doit etre retrouvé
 	 * @return
-=======
 	 * Méthode appelée dans la barre de recherche du header lors de la recherche par mot clé 
 	 * @return la page d'affichage de la liste des produit trouvés pour ce mot clé
->>>>>>> b506f927e2e569d9fdcc3b5c0c5b03a3705deec0
+
 	 */
 	public String findProduitByMotCleRedirect() {
 
@@ -147,10 +145,7 @@ public class GestionProduitBean implements Serializable {
 		listeProduits = produitDAO.getByKeyword(motCle);
 
 		return listeProduits;
-<<<<<<< HEAD
-=======
 
->>>>>>> b506f927e2e569d9fdcc3b5c0c5b03a3705deec0
 	}// end findProduitByMotClé
 	
 	
@@ -366,13 +361,11 @@ public class GestionProduitBean implements Serializable {
 	/* ============================================================================= */
 
 	/**
-<<<<<<< HEAD
+
 	 * Récupération d'un produit via son ID
 	 * Appelée dans plusieurs méthodes 
 	 *
-=======
 	 * recupération d'un produit via son id, par la methode getById de la DAO
->>>>>>> b506f927e2e569d9fdcc3b5c0c5b03a3705deec0
 	 * @param event
 	 */
 	public void recupProduit(ActionEvent event) {
@@ -493,13 +486,7 @@ public class GestionProduitBean implements Serializable {
 			} // end else pour msg ajout
 		} // end if modif
 	}// end saveBook()
-<<<<<<< HEAD
 
-	
-=======
-	
-	
-	
 	/* ============================================================================= */
 	
 	
@@ -507,7 +494,7 @@ public class GestionProduitBean implements Serializable {
 	 * methode pour récupérer les produits d'une catégorie et récupérer le nom de la catégorie selectionnée
 	 * @param event
 	 */
->>>>>>> b506f927e2e569d9fdcc3b5c0c5b03a3705deec0
+
 	public void findProduitParCategorie(ActionEvent event) {
 
 		// récupération de l'id de la catégorie sélectionnée
@@ -700,5 +687,17 @@ public class GestionProduitBean implements Serializable {
 	public void setProduitCateg(ProduitCategorie produitCateg) {
 		this.produitCateg = produitCateg;
 	}
+
+
+	public List<LigneCommande> getListeLigneCommande() {
+		return listeLigneCommande;
+	}
+
+
+	public void setListeLigneCommande(List<LigneCommande> listeLigneCommande) {
+		this.listeLigneCommande = listeLigneCommande;
+	}
+	
+	
 
 }// end classe

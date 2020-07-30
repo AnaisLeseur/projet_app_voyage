@@ -11,16 +11,8 @@
 	<title>Votre commande</title>
 
 </h:head>
-<<<<<<< HEAD
-<body>
-
-	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
-
-	<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 10px">Votre
-		commande :</h2>
 
 
-=======
 
 <body>
 
@@ -30,17 +22,14 @@
 	<!--  Titre principal de la page  -->
 	<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 10px">Votre commande :</h2>
 		
->>>>>>> b506f927e2e569d9fdcc3b5c0c5b03a3705deec0
-
 	<b:column col-md="12" style="margin-left : 100px; margin-top : 10px">
 
 		<b:column col-md="3">
 
-<<<<<<< HEAD
-=======
+
 			<!--  LISTE DES PRODUITS DU PANIER -->
 			
->>>>>>> b506f927e2e569d9fdcc3b5c0c5b03a3705deec0
+
 			<h:dataTable styleClass="table"
 				value="#{GestionProduitBean.ListeProduitsSelectionnes()}"
 				var="produit"
@@ -69,11 +58,9 @@
 
 		<b:column col-md="7">
 
-<<<<<<< HEAD
-=======
 			<!--  LISTE DES LIGNES DE COMMANDE QUI COMPOSENT LE PANIER -->
 			
->>>>>>> b506f927e2e569d9fdcc3b5c0c5b03a3705deec0
+
 			<h:dataTable styleClass="table"
 				value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
 				rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
@@ -106,29 +93,26 @@
 				value="#{GestionProduitBean.ListeLigneCommande()}" var="ligne"
 				rendered="#{not empty GestionProduitBean.ListeProduitsSelectionnes()}">
 
-<<<<<<< HEAD
 
 
 
-=======
+
+
 				<!--  Affichage du prix total du panier  -->
->>>>>>> b506f927e2e569d9fdcc3b5c0c5b03a3705deec0
+
 				<f:facet name="footer">
 					<h3>Total: #{GestionLigneCommandeBean.PrixTotal()} €</h3>
 				</f:facet>
 
-<<<<<<< HEAD
 
 			</h:dataTable>
 
-=======
 			</h:dataTable>
->>>>>>> b506f927e2e569d9fdcc3b5c0c5b03a3705deec0
+
 		</b:column>
 
 	</b:column>
 
-<<<<<<< HEAD
 	<h:form style="margin-left : 130px; margin-top : 20px">
 		<p:commandButton value="Procéder au paiement" size="lg"
 			action="#{GestionProduitBean.ApresPaiement()}" />
@@ -140,7 +124,7 @@
 
 
 	<ui:decorate template="/templates/footer.xhtml" />
-=======
+	
 	<!--  Bouton pour valider la commande et pour revenir au panier -->
 	<h:form style="margin-left : 130px; margin-top : 20px">
 		<p:commandButton value="Procéder au paiement" size="lg"
@@ -154,6 +138,5 @@
 	<!--  FOOTER  -->
 	<ui:decorate template="/templates/footer.xhtml" />
 	
->>>>>>> b506f927e2e569d9fdcc3b5c0c5b03a3705deec0
 </body>
 </html>

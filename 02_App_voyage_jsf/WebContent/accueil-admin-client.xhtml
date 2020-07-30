@@ -11,30 +11,34 @@
 
 <h:body>
 
+	<!-- Header -->
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+
+	<!-- Liens de navigation vers les différentes pages pour l'administrateur: produits, catégories, client et commandes -->
 	<b:tabLinks>
 		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" href="accueil-admin.xhtml" />
 		<b:navLink value="Catégories" outcome="/bootstrap/labelsbadge"
-			icon="tag" iconAlign="right" href="accueil-admin-categorie.xhtml"/>
-		<b:navLink value="Clients" outcome="/bootstrap/labelsbadge"
-			icon="tag" iconAlign="right"   active="true" />
+			icon="tag" iconAlign="right" href="accueil-admin-categorie.xhtml" />
+		<b:navLink value="Clients" outcome="/bootstrap/labelsbadge" icon="tag"
+			iconAlign="right" active="true" />
 		<b:navLink value="Commandes" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" href="accueil-admin-commande.xhtml" />
-
 	</b:tabLinks>
 
-<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 20px ">Liste des clients :</h2>	
-	
+	<!-- Titre de la page -->
+	<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 20px">Liste
+		des clients :</h2>
+
 	<b:row>
 
 		<b:column col-md="9" style="margin-left : 150px">
-		
 
+			<!-- Tableau pour afficher la liste des clients -->
 			<h:dataTable styleClass="table"
 				value="#{GestionClientBean.findAllClientsBdd()}" var="client"
 				rows="8">
-					
+
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Id" />
@@ -78,55 +82,46 @@
 					<h:outputText value="#{client.identifiant_client}" />
 				</h:column>
 
-
+				<!-- Lien pour supprimer un client -->
 				<h:column>
-
 					<f:facet name="header">
 						<h:outputText value="Suppression" />
 					</f:facet>
 					<h:form>
 						<h:commandLink id="supp"
 							actionListener="#{GestionClientBean.supprimerClient}">
-
 							<f:param id="deleteId" name="id" value="#{client.id_client}" />
-
 							<h:outputText value="Supprimer ce client" />
 						</h:commandLink>
 					</h:form>
 				</h:column>
 
+				<!-- Lien pour afficher les commandes liées un client -->
 				<h:column>
-		<!-- Rajouter un lien qui affiche toutes les commandes associées à ce client ! -->
 					<f:facet name="header">
 						<h:outputText value="Commandes associées" />
 					</f:facet>
 					<h:form>
 						<h:commandLink id="commandeDuClient" action="CommandeClient"
 							actionListener="#{GestionCommandeBean.findAllCommandeDuClient}">
-
 							<f:param id="clientID" name="id" value="#{client.id_client}" />
-							
 							<h:outputText value="Voir les commandes " />
-
 						</h:commandLink>
 					</h:form>
 				</h:column>
-
+				
+				<!-- Affichage des messages -->
 				<h:column>
 					<h:message for="supp" styleClass="error" />
 					<h:message for="modif" styleClass="error" />
 				</h:column>
 
 			</h:dataTable>
-			
-
-
 		</b:column>
 	</b:row>
-
+	
+	<!-- Footer -->
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 
-
-
-</h:body> 
+</h:body>
 </html>

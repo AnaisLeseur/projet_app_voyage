@@ -16,9 +16,14 @@ import com.intiformation.DAO.IClientDAO;
 import com.intiformation.modeles.Client;
 
 /**
- * MB pour le gestion des clients
+ * <pre>
+ * ManagedBean pour la gestion des clients tels que: 
+ * Ajout, suppression et modification de client
+ * Affichage de la liste des clients contenues dans la database
+ * Récupération d'un client à partir de son id
+ * </pre>
  * 
- * @author vincent
+ * @author hannahlevardon
  *
  */
 
@@ -26,18 +31,22 @@ import com.intiformation.modeles.Client;
 @SessionScoped
 public class GestionClientBean implements Serializable {
 
-	// ---- Props ----
+	// _____________________ Propriétés ______________________ //
+	
 	private List<Client> listeClientsDAO;
 	private Client client;
 
+	// Déclaration de la couche DAO 
 	private IClientDAO clientDAO;
 
-	// ---- Ctors ----
+	// _____________________ Constructeurs ______________________ //
+	
 	public GestionClientBean() {
 		clientDAO = new ClientDAOImpl();
 	}// end ctor
 
-	// ---- Getters/setters ----
+	// _____________________ Getter / Setter ______________________ //
+	
 	public Client getClient() {
 		return client;
 	}
@@ -46,49 +55,50 @@ public class GestionClientBean implements Serializable {
 		this.client = client;
 	}
 
-	// ---- Meths ----
+	// _____________________ Méthodes ______________________ //
+	
+
 	/**
-	 * permet de récup la liste des clients dans la bdd via la dao la meth est
-	 * utilisée par le composant : pour afficher la liste des clients dans la bdd
+	 * Méthode pour récupérer la liste des clients dans la database 
+	 * Fait appel à la méthode getAll() de ClientDAOImpl
+	 * Invoquée dans la <h:dataTable> de la page 'accueil-admin-client.xhtml'
 	 * 
-	 * @return
+	 * @return listeClientsDAO : liste de tous les clients contenus dans la database
 	 */
 	public List<Client> findAllClientsBdd() {
 		listeClientsDAO = clientDAO.getAll();
 		return listeClientsDAO;
 	}// end findAllClientsBdd
 
+	
 	/**
-	 * meth permet de supprimer un livre dans la bdd . meth invoquée au click sur le
-	 * lien 'supprimer' de la page 'accueil.xhtml'. au click, l'évenement
-	 * 'javax.faces.event.ActionEvent' se déclenche. l'évenement encapsule ttes les
-	 * infos concernant le composant.
+	 * Méthode pour supprimer un client dans la databse . 
+	 * Fait appel à la méthode delete() de ClientDAOImpl()
+	 * Invoquée au clic sur le <h:commandLink><h:outputText value="Supprimer ce client" /></h:commandLink>
+	 * dans la page 'accueil-admin-client.xhtml'
 	 * 
 	 */
 	public void supprimerClient(ActionEvent event) {
 
-		// 1. récup du param passé dans le composant au click sur le lien 'supprimer'
+		// 1. récupération du paramètre passé dans le composant
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("deleteId");
 
-		// 2. récup de la valeur du param
+		// 2. récup de la valeur du paramètre
 		int clientId = (int) uip.getValue();
 
-		// 3. suppression du livre dans la bdd via id
+		// 3. suppression du client de la database
 
-		// 3.1 récup du context de JSF
+		// 3.1 récupération du context de JSF
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 
-		// 3.2 suppression du livre
+		// 3.2 suppression du client
 		if (clientDAO.delete(clientId)) {
 
-			// sup OK
-			// envoi d'un msg vers la vue via context de JSF
 			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "suppression du client",
 					" - le client a été supprimé avec succès"));
 
 		} else {
-			// sup PAS OK
-			// envoi d'un msg vers la vue via context de JSF
+			
 			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
 					" la suppression du client à échouée", " - le client n'a pas été supprimé"));
 
@@ -96,121 +106,99 @@ public class GestionClientBean implements Serializable {
 	}// end supprimerClient()
 
 	/**
-	 * meth qui permet de récup le client dans la bdd avant sa modification. meth
-	 * invoquée au click sur le lien 'modification' au click, l'évenement
-	 * 'javax.faces.event.ActionEvent' se déclenche. l'évenement encapsule ttes les
-	 * infos concernant le composant.
+	 * Méthode pour récupérer un client dans la database
+	 * Fait appel à la méthode getById() de ClientDAOImpl()
+	 * Invoquée au clic sur le <h:commandButton value="Modifier mes informations" dans la page 'compte-client.xhtml'
+	 * 
+	 * 
 	 */
 	public void selectionnerClient(ActionEvent event) {
 
-		// 1; récup du param passé au composant au click du lien "modification"
+		// 1. récupération du paramètre passé au composant via <f:param>
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("updateId");
 
-		// 2. récup de la valeur du param (id du client à modifier)
+		// 2. récupération de la valeur du paramètre (id du client à modifier)
 		int clientId = (int) uip.getValue();
 
-		// 3. récup du client à modifier via l'id dans la bdd
+		// 3. récupération du client à modifier 
 		Client clientAModifier = clientDAO.getById(clientId);
 
-		// 4. affectation du client à modifier à la variable 'client' du MB
+		// 4. affectation du client à modifier à la variable 'client'
 		setClient(clientAModifier);
 
 	}// end selectionnerClient
 
 	/**
-	 * meth permet de modifier un client dans la bdd. meth invoquée au click sur le
-	 * lien 'modifier' au click, l'évenement 'javax.faces.event.ActionEvent' se
-	 * déclenche. l'évenement encapsule ttes les infos concernant le composant.
-	 * 
+	 * Méthode pour modifier un client dans la database
+	 * Fait appel à la méthode update() dans ClientDAOImpl 
+	 * Invoquée au clic sur le <h:commandButton value="Valider les informations"> dans la page 'modif-infos-client.xhtml'
+	 * @return: vers la page 'compte-client.xhtml'
 	 */
 	public String modifierClient() {
 
 		/**
-		 * la prop 'client' du MB encapsule les infos du client à modifier dans la bdd
+		 * la propriété 'client' encapsule les information du client à modifier dans la database
 		 */
-
-		// 1; récup du param passé au composant au click du lien "modification"
-		//UIParameter clientModif = (UIParameter) event.getComponent().findComponent("clientModif");
-		
-		//Client client = (Client) clientModif.getValue();
-		
-		// 1.récup du contexteJSF
+	
+		// 1. Récupération du contexteJSF
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) contextJSF.getExternalContext().getSession(false);
 		
+		// 2. Récupération du client via l'attribut 'client' enregistré dans AuthentificationAdminBean  
 		Client client = (Client) session.getAttribute("client");
 
-		// 2. modification du client dans la bdd
+		// 3. Modification du client dans la database 
 		if (clientDAO.update(client)) {
-			// modification ok
-
-			// msg vers la vue
+			
 			FacesMessage messageOk = new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification réussie",
 					" - Le client a été correctement modifié");
-
-			// envoi du msg
 			contextJSF.addMessage(null, messageOk);
 
 		} else {
-			// modif pas OK
-
-			// msg vers la vue
 			FacesMessage messageNotOk = new FacesMessage(FacesMessage.SEVERITY_INFO, "Echec de la modification",
 					" - La modification du client à échouée");
 
-			// envoi du msg
 			contextJSF.addMessage(null, messageNotOk);
 
 		} // end else
+		
 		return "compte-client.xhtml?faces-redirect=true";
 	}// end modifierClient
 
 	/**
-	 * meth permet d'initialiser un nouveau objet client vide. meth invoquée au
-	 * click sur le lien 'ajouter' ou 's'inscrire' au click, l'évenement
-	 * 'javax.faces.event.ActionEvent' se déclenche. l'évenement encapsule ttes les
-	 * infos concernant le composant.
+	 * Méthode pour initialiser un nouvel objet client vide. 
+	 * Invoquée au clic sur le <h:commandLink action="editClient" <h:outputText value="Nouveau client ? C'est ici pour s'incrire" >
+	 * Déclare une client 'vide'
 	 */
 	public void initialiserClient(ActionEvent event) {
 
-		// instanciation d'un nouvel objet de type 'Client'
 		Client clientAdd = new Client();
-
-		// affectation du clientAdd à la prop 'client' du MB
-		// cet objet va receptionner les infos du client envoyées à partir du formulaire
-		// d'ajout
 		setClient(clientAdd);
 
 	}// end initialiserClient
 
 	/**
-	 * meth permet d'ajouter un nouveau client dans la bdd. meth invoquée au click
-	 * sur le lien 'ajouter' ou 's'inscrire'
+	 * Méthode pour ajouter un nouveau client dans la database. 
+	 * Fait appel à la méthode add() dans ClientDAOImpl 
+	 * Invoquée au clic sur le <h:commandButton value="Enregistrer-vous"> dans la page 'inscription.xhtml'
 	 */
 	public void ajouterClient() {
-		// 1. récup du context de JSF
+		// 1. Récupération du context de JSF
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
 
-		// 2. ajout du nouveau client dans la bdd via DAO
+		// 2. Ajout du nouveau client 
 		boolean verifAjout = clientDAO.add(client);
 
-		// 3. test résultat
+		// 3. Test du résultat
 		if (verifAjout) {
 
-			// Ajout OK
-			// envoi d'un msg vers la vue
 			contextJSF.addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout du client", " - L'ajout est réussi "));
 
 		} else {
-			// Ajout PAS OK
 
-			// envoi d'un msg vers la vue
-			FacesMessage messageAddNotOk = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Ajout du client",
-					" - L'ajout à échoué !");
-
-			// envoi du msg
-			contextJSF.addMessage(null, messageAddNotOk);
+			contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Ajout du client",
+					" - L'ajout à échoué !"));
 
 		} // end else
 	}// end ajouterClient()

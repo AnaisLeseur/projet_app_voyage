@@ -21,12 +21,12 @@ public class ClientDAOImpl implements IClientDAO {
 
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
-	
 
 	/**
 	 * Ajouter un client
 	 * 
 	 * @param pClient: client à ajouter à la database
+	 * @return boolean: true si ajout validé, sinon false
 	 */
 	@Override
 	public boolean add(Client pClient) {
@@ -65,7 +65,9 @@ public class ClientDAOImpl implements IClientDAO {
 	/**
 	 * Modifier un client
 	 * 
-	 * @param pClient: client à modifier dans la database
+	 * @param pClient:
+	 *            client à modifier dans la database
+	 * @return boolean: true si modification validée, sinon false
 	 * 
 	 */
 	@Override
@@ -101,12 +103,14 @@ public class ClientDAOImpl implements IClientDAO {
 			} // end catch
 		} // end finally
 		return false;
-	}//end update()
+	}// end update()
 
 	/**
 	 * Supprimer un client
 	 * 
-	 * @param pIdClient: Id du client à supprimer de la database
+	 * @param pIdClient:
+	 *            Id du client à supprimer de la database
+	 * @return boolean: true si suppression validée, sinon false
 	 */
 	@Override
 	public boolean delete(Integer pIdClient) {
@@ -128,7 +132,6 @@ public class ClientDAOImpl implements IClientDAO {
 			try {
 				ps.close();
 			} catch (Exception e) {
-				// TODO: handle exception
 			} // end catch
 		} // end finally
 		return false;
@@ -136,7 +139,8 @@ public class ClientDAOImpl implements IClientDAO {
 
 	/**
 	 * Récupération de la liste des clients dans la database
-	 *  
+	 * @return listeClientsBDD: liste de toutes les clients de la database
+	 * 
 	 */
 	@Override
 	public List<Client> getAll() {
@@ -176,7 +180,9 @@ public class ClientDAOImpl implements IClientDAO {
 	/**
 	 * Récupération d'un client dans la databse via son Id
 	 * 
-	 * @param pIdClient: Id du client à retrouver dans la database
+	 * @param pIdClient:
+	 *            Id du client à retrouver dans la database
+	 * @return: le client recherché
 	 */
 	@Override
 	public Client getById(Integer pidClient) {
@@ -226,6 +232,9 @@ public class ClientDAOImpl implements IClientDAO {
 	 *            Utilisation de la méthode 'count()' de mysql pour déterminer le
 	 *            nombre de lignes contenant le mot de passe et l'identitifiant
 	 * 
+	 * @return true si un seul client avec l'identifiant et le mot de passe existe, 
+	 * false si plusieurs clients qui possèdent les memes identifiant et mot de passe ou si aucun client n'est trouvé
+	 * 
 	 */
 	@Override
 	public boolean isClientExists(String pIdentifiant, String pMdp) {
@@ -257,19 +266,17 @@ public class ClientDAOImpl implements IClientDAO {
 		} // end finally
 
 		return false;
-	}//end isClientExists()
+	}// end isClientExists()
 
-	
-	
 	/**
-	 * Récupération d'un client dans la database via ses identifiant
-	 * et mot de passe
+	 * Récupération d'un client dans la database via ses identifiant et mot de passe
 	 * 
 	 * @param pIdentifiant:
 	 *            identifiant à vérifier
 	 * @param pMdp:
 	 *            mot de passe à vérifier
-	 * 
+	 *      
+	 * @return: le client ayant pIdentifiant et pMdp
 	 * 
 	 */
 	@Override

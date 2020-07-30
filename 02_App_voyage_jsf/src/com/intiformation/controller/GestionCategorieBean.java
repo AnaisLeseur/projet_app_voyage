@@ -1,6 +1,5 @@
 package com.intiformation.controller;
 
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,7 +25,12 @@ import com.intiformation.DAO.ICategorieDAO;
 import com.intiformation.modeles.Categorie;
 
 /**
- * ManagedBean pour la gestion des catégories
+ * <pre>
+ * ManagedBean pour la gestion des catégories tels que: 
+ * Ajout, suppression et modification de catégories
+ * Affichage de la liste des catégories contenues dans la database
+ * Récupération d'une catégorie à partir de son id
+ * </pre>
  * 
  * @author hannahlevardon
  *
@@ -37,7 +41,6 @@ public class GestionCategorieBean implements Serializable {
 
 	// _____________________ Propriétés ______________________ //
 
-	
 	private List<Categorie> listeCategories;
 	private Categorie categorie;
 
@@ -52,23 +55,22 @@ public class GestionCategorieBean implements Serializable {
 	// _____________________ Constructeurs ______________________ //
 
 	/**
-	 * Constructeur vide 
+	 * Constructeur vide
 	 */
 	public GestionCategorieBean() {
 
 		categorieDAO = new CategorieDAOImpl();
 
-	}// end ctor
+	}// end constructeur
 
 	// _____________________ Méthodes _____________________ //
-	
-	
+
 	/**
 	 * <pre>
 	 * Méthode pour afficher la liste de toutes les catégories de la database
-	 * Fait appel à la méthode getAll() de la DAO
+	 * Fait appel à la méthode getAll() de CategorieDAOImpl
 	 * Invoquée dans différentes pages xhtml de l'application, notamment dans la <h:datatable> de 'accueil-admin-categorie' 
-	 * @return listeCategories de la database
+	 * &#64;return listeCategories : liste de toutes les catégories contenues dans la database
 	 * </pre>
 	 */
 	public List<Categorie> findAllCategoriesBDD() {
@@ -79,24 +81,25 @@ public class GestionCategorieBean implements Serializable {
 
 	}// end findAllCategoriesBDD
 
-	
 	/**
 	 * <pre>
 	 * Méthode pour supprimer une catégorie dans la database
-	 * Fait appel à la méthode delete() de la DAO
+	 * Fait appel à la méthode delete() de CategorieDAOImpl
 	 * Invoquée dans 'accueil-admin-categorie', au clic sur le <h:commandLink> Supprimer une catégorie de la datatable
-	 * @param event
 	 * </pre>
+	 * 
+	 * @param event
+	 * 
 	 */
 	public void supprimerCategorie(ActionEvent event) {
 
-		// 1. Récupération du param passé dans le composant au clic sur le lien 'supprimer'
+		// 1. Récupération du paramètre passé par <f:param>
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("suppID");
 
-		// 2. Récupération de la valeur du param
+		// 2. Récupération de la valeur du paramètre
 		int idCategorie = (int) uip.getValue();
 
-		// 3. Suppression de la catégorie dans la bdd via id
+		// 3. Suppression de la catégorie dans la database via son id
 
 		// 3.1 Récupération du context de JSF
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
@@ -116,27 +119,28 @@ public class GestionCategorieBean implements Serializable {
 	}// end supprimerCategorie()
 
 	/**
-	  * <pre>
-	 * Méthode pour initialiser une catégorie dans la database
-	 * 
-	 * Invoquée dans 'accueil-admin-categorie', au clic sur le <h:commandLink> "Ajouter une catégorie" 
-	 * 
-	 * Déclare une catégorie 'vide'
-	 * @param event
+	 * <pre>
+	* Méthode pour initialiser une catégorie dans la database
+	* Invoquée dans 'accueil-admin-categorie', au clic sur le <h:commandLink> "Ajouter une catégorie" 
+	* Déclare une catégorie 'vide'
 	 * </pre>
+	 * 
+	 * @param event
+	 *
 	 */
 	public void initCategorie(ActionEvent event) {
 		setCategorie(new Categorie());
 	}// end initCategorie
 
 	/**
-	  * <pre>
+	 * <pre>
 	 * Méthode pour récupérer une catégorie dans la database via son Id
-	 * 
-	 * Invoquée dans plusieurs pages xhtml
-
-	 * @param event
+	 * Fait appel à la méthode getById de CategorieDAOImpl
+	 * Invoquée dans plusieurs pages xhtml, lorsque des infos sur la catégorie sont requises (Id, nom, description...)
 	 * </pre>
+	 * 
+	 * @param event
+	 *
 	 */
 	public void recupCategorie(ActionEvent event) {
 
@@ -146,26 +150,43 @@ public class GestionCategorieBean implements Serializable {
 		// 2. Récupération de la valeur du paramètre
 		int idCategorie = (int) uip.getValue();
 
+		// 3. Récupération de la catégorie via son Id
 		Categorie categorie = categorieDAO.getById(idCategorie);
 
+		// 4. Enregistrement des informations dans la variable 'categorie'
 		setCategorie(categorie);
 
 	}// end recupCategorie
 
+	/**
+	 * <pre>
+	 * Méthode pour ajouter ou modifier une catégorie
+	 * Fait appel aux méthodes add() ou update() de CategorieDAOImpl
+	 * Invoquée par <h:commandButton  value=
+	 "Enregistrer la catégorie"> dans la page edit-categorie.xhtml
+	 * </pre>
+	 * 
+	 * @param event
+	 * 
+	 */
 	public void saveCategorie(ActionEvent event) {
 
 		FacesContext contextJSF = FacesContext.getCurrentInstance();
+
 		// -------------------------------------------
 		// cas : ajout
 		// -------------------------------------------
-
+		// Cas lorsque la méthode initCategorie() est invoquée avant : existence d'une
+		// catégorie avec idCategorie = 0
 		if (categorie.getId_categorie() == 0) {
 
 			try {
-				String fileName = uploadedFile.getSubmittedFileName();
 
-				categorie.setUrlImageCategorie(fileName);
+				
+				// 1. Ajout du chemin absolu à la propriété UrlImageCategorie
+				categorie.setUrlImageCategorie(uploadedFile.getSubmittedFileName());
 
+				// 2. Ajout de la catégorie à la database
 				if (categorieDAO.add(categorie)) {
 					contextJSF.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout de la catégorie",
 							"- la catégorie a bien été ajoutée avec succès"));
@@ -182,13 +203,17 @@ public class GestionCategorieBean implements Serializable {
 
 				InputStream imageContent = uploadedFile.getInputStream();
 
+				// 3. Récupération de l'image uplaodée dans 'edit-catégorie.xhtml'
+				
 				FacesContext fContext = FacesContext.getCurrentInstance();
+				
 				String pathImg = fContext.getExternalContext().getInitParameter("file-upload");
-
+				
 				String filePath = fContext.getExternalContext().getRealPath(pathImg);
+				
+				File targetFile = new File(filePath, uploadedFile.getSubmittedFileName());
 
-				File targetFile = new File(filePath, fileName);
-
+				// 4. Enregistrement de l'image dans le dossier image
 				OutputStream outStream = new FileOutputStream(targetFile);
 				byte[] buf = new byte[1024];
 				int len;
@@ -197,6 +222,7 @@ public class GestionCategorieBean implements Serializable {
 					outStream.write(buf, 0, len);
 				} // end while
 
+				
 				outStream.close();
 
 			} catch (IOException e) {
@@ -210,16 +236,20 @@ public class GestionCategorieBean implements Serializable {
 		// cas : modif
 		// -------------------------------------------
 
+
 		if (categorie.getId_categorie() != 0) {
 
 			if (uploadedFile != null) {
 
+				// 1. Ajout du chemin absolu à la propriété UrlImageCategorie
 				String fileNameToUpdate = uploadedFile.getSubmittedFileName();
 
+				// 2. Vérification que le chemin n'est pas null et sans caractère
 				if (!"".equals(fileNameToUpdate) && fileNameToUpdate != null) {
 
-					// affectation du nouveau nom à la prop urlImage du voyage
+					// 3. affectation du nouveau nom à la propriété urlImage de la catégorie
 					categorie.setUrlImageCategorie(fileNameToUpdate);
+
 				} // end if equals
 			} // end ifUploadedFile
 
@@ -238,23 +268,26 @@ public class GestionCategorieBean implements Serializable {
 				 * " la modification de la catégorie a échoué",
 				 * " - la catégorie n'a pas été modifiée"));
 				 */
+				
 			} // end else pour msg ajout
-
 		} // end if modif
-
 	}// end saveCategorie
 
-	// _______ METHODES EN DEVELOPPEMENT _______
+	/* _____________________________________________________ */
+	/* _____________ Méthodes en developpement _____________ */
+	/* _____________________________________________________ */
 
 	/**
-	 * Méthode pour afficher la liste des items (catégories) non selectionnés 
-	 * 
+	 * Méthode pour afficher la liste des items (catégories) non selectionnés
+	 * Non invoquée pour l'instant
 	 * @param event
 	 */
 	public void onItemUnselect(UnselectEvent event) {
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		FacesMessage msg = new FacesMessage();
+
+		// Affichage d'un message donnant la liste des items nont selectionnés
 		msg.setSummary("Item unselected: " + event.getObject().toString());
 		msg.setSeverity(FacesMessage.SEVERITY_INFO);
 

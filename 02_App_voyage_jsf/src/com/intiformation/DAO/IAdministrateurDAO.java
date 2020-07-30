@@ -19,7 +19,7 @@ public interface IAdministrateurDAO extends IGenerique<Administrateur> {
 	 * et mot de passe
 	 * @param pIdentifiant
 	 * @param pMdp
-	 * @return
+	 * @return true si administrateur existe, sinon false
 	 */
 	public boolean isAdministrateurExists(String pIdentifiant, String pMdp);
 

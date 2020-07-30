@@ -54,7 +54,7 @@
 		<b:column col-md="3" >	
 			<h:dataTable styleClass="table"
 				value="#{GestionCommandeBean.AfficheLigneCommande()}" var="commande"
-				rendered="#{not empty GestionCommandeBean.AfficheLigneCommande()}" >
+				rendered="#{not empty GestionCommandeBean.AfficheLigneCommande}" >
 				
 				<h:column>
 					<f:facet name="header">
