@@ -12,29 +12,32 @@
 
 </h:head>
 <h:body>
+
+	<!-- TEMPLATE POUR LE HEADER -->
+	
+	
 	<ui:composition>
 
+		<!-- Barre de navigation vers différentes pages du site  -->
 		<b:navBar brand="Travel Company" brandHref="accueil-client.xhtml" brand-style="padding-top: 50px" inverse="true" fixed="top"
 			position="absolute">
 			<h:form styleClass="navbar-form navbar-left" >
 				<b:navbarLinks styleClass="linkHeader" >
 					<b:navLink><b:navLink value="Accueil" href="accueil-client.xhtml"></b:navLink></b:navLink>	
 					<b:navLink><b:navLink value="Contact" href="mailto:AppVoyage@voyage.com"></b:navLink></b:navLink>
-					<b:navLink><b:navLink value="Connectez-vous" href="authentication.xhtml"></b:navLink></b:navLink>
-					
-					<b:navLink><b:commandLink value="Mon compte" action="#{AuthentificationAdminBean.VoirLesInfos()}"></b:commandLink></b:navLink>
-			
+					<b:navLink><b:navLink value="Connectez-vous" href="authentication.xhtml"></b:navLink></b:navLink>					
+					<b:navLink><b:commandLink value="Mon compte" action="#{AuthentificationAdminBean.VoirLesInfos()}"></b:commandLink></b:navLink>		
 					<b:navLink><b:navLink value="Panier" href="panier.xhtml" ></b:navLink></b:navLink>
 					<b:navLink ><b:commandLink value="Se déconnecter" action="#{AuthentificationAdminBean.deconnecterUser()}" ></b:commandLink></b:navLink>
 				</b:navbarLinks>
 			</h:form>
 			
-			<h:form styleClass="navbar-form navbar-right" style="padding-top: 40px">
-				
+			
+			<!-- Formulaire de avec barre de recherche -->
+			<h:form styleClass="navbar-form navbar-right" style="padding-top: 40px">	
 				<div class="form-group">
 					<b:inputText id="motcle" value="#{GestionProduitBean.motCle}" placeholder="rechercher..."
-						fieldSize="sm">
-						
+						fieldSize="sm">	
 					</b:inputText>
 
 				</div>
@@ -42,18 +45,13 @@
 					action="#{GestionProduitBean.findProduitByMotCleRedirect()}"
 					value="Recherche" look="success" icon="chevron-right"
 					iconAlign="right">
-
 				</b:commandButton>
-			</h:form>
-
-			
+			</h:form>		
 		</b:navBar>
 		
-		<h:messages globalOnly="true" layout="table" showDetail="true"
+	<!--  <h:messages globalOnly="true" layout="table" showDetail="true"
 		styleClass="error" fatalClass="error" infoClass="message" />
-		
-		
-		
+	-->		
 
 	</ui:composition>
 </h:body>

@@ -2,28 +2,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	>
+	xmlns:h="http://java.sun.com/jsf/html">
 
 
 
 <h:head>
 
-<h:outputStylesheet library="style" name="bootstrap.css" />
+	<h:outputStylesheet library="style" name="bootstrap.css" />
 </h:head>
-<h:body >
+
+
+<h:body>
+
+	<!-- TEMPLATE POUR LE FOOTER -->
 	<ui:composition>
 
-	<!-- Footer -->
-		<footer class="page-footer font-small special-color-dark pt-4" >
+		<!-- Footer -->
+		<footer class="page-footer font-small special-color-dark pt-4">
 
-		<!-- Footer Elements -->
-		<div class="container" style="padding-top: 100px"  >
 
-			<!--Grid row-->
+		<div class="container" style="padding-top: 100px">
+
+
 			<div class="row" style="text-align: center">
 
-				<!--Grid column-->
+				<!--Information sur le site : adresse, numéro de téléphon et mail-->
 				<div class="col-md-4 mb-4">
 					<h:graphicImage
 						value="https://img.icons8.com/material-rounded/64/000000/worldwide-location.png"
@@ -44,44 +47,33 @@
 				</div>
 
 			</div>
-			<div class="row" >
+			<div class="row">
+				<div style="text-align: center; padding-top: 30px">
 
-				<!--Grid column-->
-	
-				<div style="text-align: center ; padding-top: 30px " >
-				
-					<ul class="list-unstyled" >
+					<!-- Liste de liens vers differents pages: non implémentées pour l'instant -->
+					<ul class="list-unstyled">
 						<li class="float-lg-right"><a href="#top">Back to top</a></li>
 						<li><a href="https://blog.bootswatch.com"
 							onclick="pageTracker._link(this.href); return false;">A
 								propos</a></li>
 						<li><a href="https://blog.bootswatch.com/rss/">Assistance</a></li>
 						<li><a href="https://twitter.com/bootswatch">FAQ</a></li>
-						<li><a href="authentification-admin.xhtml">Connexion Administrateur</a></li>
-
+						<li><a href="authentification-admin.xhtml">Connexion
+								Administrateur</a></li>
 					</ul>
-				
 				</div>
 				<br />
-
 			</div>
 
 
 		</div>
-		<!-- Footer Elements --> <!-- Copyright -->
-		<div class="footer-copyright text-center py-3" style="padding-bottom: 50px">
+		<!-- Copyright -->
+		<div class="footer-copyright text-center py-3"
+			style="padding-bottom: 50px">
 			© 2020 Copyright: <a href="https://mdbootstrap.com/">
 				Leseur-Levardon Travel Company</a>
 		</div>
-		<!-- Copyright --> 
-		
-		
 		</footer>
-		<!-- Footer -->
-
-
-
-
 	</ui:composition>
 
 </h:body>

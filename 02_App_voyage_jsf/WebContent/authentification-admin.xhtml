@@ -6,6 +6,8 @@
 	xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
+
+	<h:outputStylesheet library="style" name="perso.css" />
 	<style type="text/css">
 .form-signin {
 	margin: 0 auto;
@@ -14,27 +16,25 @@
 }
 
 body {
-	background-color: white;
+	background-image: none;
 }
 </style>
-
 	<title>page d'authentification administrateur</title>
-
-
 </h:head>
+
 <h:body>
 
-	<ui:decorate template="/templates/header.xhtml">
+	<!-- Header -->
+	<ui:decorate template="/templates/header.xhtml" />
 
-	</ui:decorate>
-
+	<!-- Affichage des messages -->
 	<h:messages globalOnly="true" layout="table" showDetail="true"
 		styleClass="error" fatalClass="error" infoClass="message" />
 
-	<h:body style="background-color: white;">
+	
 
 		<b:container>
-
+			<!-- Formulaire d'authentification -->
 			<h:form styleClass="form-signin" prependId="false">
 				<h2 class="form-signin-heading" align="center">Veuillez vous
 					connecter</h2>
@@ -61,16 +61,15 @@ body {
 						styleClass="error" fatalClass="error" infoClass="message" />
 				</b:inputText>
 
-
+				<!-- Bonton de connexion -->
 				<b:commandButton look="default btn-block" value="Se connecter"
 					icon="log-in" size="lg"
 					action="#{AuthentificationAdminBean.connecterAdministrateur()}" />
 			</h:form>
 		</b:container>
-
-		<ui:decorate template="/templates/footer.xhtml">
-
-		</ui:decorate>
-	</h:body>
+		
+		<!-- footer -->
+		<ui:decorate template="/templates/footer.xhtml"/>
+	
 </h:body>
 </html>
