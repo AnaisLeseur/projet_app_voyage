@@ -3,11 +3,12 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:b="http://bootsfaces.net/ui"
-	>
+	xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
-<style type="text/css">
+	<h:outputStylesheet library="style" name="perso.css" />
+	
+	<style type="text/css">
 .form-signin {
 	margin: 0 auto;
 	max-width: 350px;
@@ -15,66 +16,68 @@
 }
 
 body {
-	background-color: white;
+	background-image: none;
 }
 </style>
-
 	<title>page d'authentification client</title>
 </h:head>
 <h:body>
 
-	<ui:decorate template="/templates/header.xhtml">
+	<!-- Header -->
+	<ui:decorate template="/templates/header.xhtml" />
 
-	</ui:decorate>
-	
-	<h:messages globalOnly="true" layout="table" showDetail="true" styleClass="error" fatalClass="error" infoClass="message"/>
-	
-	<h:body style="background-color: white;">
-	
-	
-	
-		<b:container>
-	
-			<h:form styleClass="form-signin" prependId="false">
-				<h2 class="form-signin-heading" align="center">Veuillez
-					vous connecter</h2>
-				<b:inputText id="idlogin" placeholder="Identifiant" required="true"
-							requiredMessage="Identifiant obligatoire" 
-							value="#{AuthentificationAdminBean.clientIdentifiant}">
-					<f:facet name="prepend">
-						<b:icon name="user" />
-					</f:facet>
-					<h:message for="idlogin" layout="table" showDetail="true" styleClass="error" fatalClass="error"/>
-				</b:inputText>
+	<!-- Affichage des messages -->
+	<h:messages globalOnly="true" layout="table" showDetail="true"
+		styleClass="error" fatalClass="error" infoClass="message" />
 
- 
-				<b:inputText id="password" placeholder="Mot de passe" required="true"
-					type="password" requiredMessage="Mot de passe obligatoire"
-						value="#{AuthentificationAdminBean.clientMotDePasse}">
-					<f:facet name="prepend">
-						<b:iconAwesome name="key" />
-					</f:facet>
-					<h:message for="password" layout="table" showDetail="true" styleClass="error" fatalClass="error" infoClass="message"/>
-					
-				</b:inputText>
+	<b:container>
+		<!-- Formulaire d'authentification -->
+		<h:form styleClass="form-signin" prependId="false">
+			<h2 class="form-signin-heading" align="center">Veuillez vous
+				connecter</h2>
 
-				<b:commandButton look="default btn-block" value="Se connecter"
-					icon="log-in" size="lg" action="#{AuthentificationAdminBean.connecterClient()}" />
-	
-			</h:form>
-			<h:form styleClass="form-signin">
-				<h:commandLink action="editClient"
+			<b:inputText id="idlogin" placeholder="Identifiant" required="true"
+				requiredMessage="Identifiant obligatoire"
+				value="#{AuthentificationAdminBean.clientIdentifiant}">
+				<f:facet name="prepend">
+					<b:icon name="user" />
+				</f:facet>
+				<h:message for="idlogin" layout="table" showDetail="true"
+					styleClass="error" fatalClass="error" />
+			</b:inputText>
+
+
+			<b:inputText id="password" placeholder="Mot de passe" required="true"
+				type="password" requiredMessage="Mot de passe obligatoire"
+				value="#{AuthentificationAdminBean.clientMotDePasse}">
+				<f:facet name="prepend">
+					<b:iconAwesome name="key" />
+				</f:facet>
+				<h:message for="password" layout="table" showDetail="true"
+					styleClass="error" fatalClass="error" infoClass="message" />
+			</b:inputText>
+
+			<!-- Bonton de connexion -->
+			<b:commandButton look="default btn-block" value="Se connecter"
+				icon="log-in" size="lg"
+				action="#{AuthentificationAdminBean.connecterClient()}" />
+
+		</h:form>
+
+		<!-- Lien pour créer un compte si le client n'en a pas -->
+		<h:form styleClass="form-signin">
+			<h:commandLink action="editClient"
 				actionListener="#{GestionClientBean.initialiserClient}">
-				<h:outputText value="Nouveau client ? C'est ici pour s'incrire" 
-				style="text-aling : center; font-size: 15px"/>
-				</h:commandLink>	
-			</h:form>	
-		
-		</b:container>
+				<h:outputText value="Nouveau client ? C'est ici pour s'incrire"
+					style="text-aling : center; font-size: 15px ; font-weight: bold; color: black " />
+			</h:commandLink>
+		</h:form>
 
-		<ui:decorate template="/templates/footer.xhtml">
+	</b:container>
 
-		</ui:decorate>
-		</h:body>
+	<!-- footer -->
+	<ui:decorate template="/templates/footer.xhtml" />
+
+
 </h:body>
 </html>

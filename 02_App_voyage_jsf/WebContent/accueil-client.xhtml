@@ -9,33 +9,26 @@
 
 	<title>page d'accueil client</title>
 
-	<h:outputStylesheet library="style" name="perso.css" />
-	<style type="text/css">
-.value {
-	font-weight: bold;
-	font-size: 20px;
-}
-
-.ui-carousel {
-	margin-bottom: 20px;
-}
-</style>
+	<!-- Feuille de style css -->
+	<h:outputStylesheet library="style" name="perso.css"/>
 
 </h:head>
 <h:body>
-
+	<!-- Header -->
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
 
+	<!-- Titre de la page -->
 	<h1
-		style="text-align: center; margin-bottom: 30px; font-family: cursive; font-weight: bold; font-size: 50px; color: black;">
+		style="margin-bottom: 30px; font-family: cursive; font-size: 50px; color: black;">
 		Trouvez le voyage de vos rêves !</h1>
 
 
 	<b:row style="margin-bottom: 340px;">
-
 		<b:column col-md="10" style="margin-left : 120px">
 
+
 			<h:form>
+				<!-- Caroussel affichant les voyages pour la catégorie 'Monde' -->
 				<p:carousel
 					value="#{GestionProduitBean.AfficherlisteProduitMonde()}"
 					headerText="A la découverte du monde !" var="produit"
@@ -44,7 +37,7 @@
 						style="width:100%;margin:20px 0px; height:320px"
 						columnClasses="label,value" layout="grid"
 						styleClass="ui-panelgrid-blank">
-						
+
 						<f:facet name="header">
 							<h:graphicImage library="images"
 								name="#{produit.urlImageProduit}" width="300" height="220" />
@@ -57,24 +50,21 @@
 						<h:outputText value="#{produit.prixProduit}€/pers"
 							style="color: black; font-size: 17px" />
 
-
+						<!-- Lien vers les détails sur le voyage -->
 						<h:commandLink id="ParCateg" action="ProduitDetail"
 							actionListener="#{GestionProduitBean.recupProduit}">
-
 							<f:param id="modifId" name="id" value="#{produit.idProduit}" />
-
 							<h:outputText
 								style="font-size: large; margin-bottom: 20px; margin-top: 30px"
 								value="Voir les détails !" />
-
 						</h:commandLink>
-
 					</p:panelGrid>
-
 				</p:carousel>
 			</h:form>
 
 			<h:form id="form" style="margin-bottom: 80px; margin-top: 80px">
+
+				<!-- Caroussel affichant toutes les catégories -->
 				<p:carousel value="#{GestionCategorieBean.findAllCategoriesBDD()}"
 					headerText="Des voyages selon vos envies..." var="categ"
 					itemStyle="text-align:center" responsive="true" rows="4">
@@ -88,39 +78,35 @@
 								style="opacity: 1" />
 						</f:facet>
 						<h:outputText />
-
-						<h:outputText style="font-size: 20px; margin-bottom: 20px; margin-top: 30px; color: black"
+						<h:outputText
+							style="font-size: 20px; margin-bottom: 20px; margin-top: 30px; color: black"
 							value="#{categ.nom_categorie}" />
 						<h:outputText value="#{categ.description_categorie}"
 							style="color: black; font-size: 13px" />
-
 						<h:outputText />
 
+						<!-- Lien pour afficher les voyages contenus dans la catégorie -->
 						<h:commandLink id="ParCateg" action="ProduitCateg"
 							actionListener="#{GestionProduitBean.findProduitParCategorie}">
-
 							<f:param id="CategorieID" name="id" value="#{categ.id_categorie}" />
 							<f:param id="CategorieNom" name="nom"
 								value="#{categ.nom_categorie}" />
-
 							<h:outputText
 								style="font-size: 15px; margin-bottom: 20px; margin-top: 30px"
 								value="Voir les voyages de cette catégorie" />
-
 						</h:commandLink>
-
 					</p:panelGrid>
-
 				</p:carousel>
 			</h:form>
 
 
 
 			<h:form id="form2">
+				<!-- Datagrid qui affiche tous les voyages -->
 				<p:dataGrid var="produit"
 					value="#{GestionProduitBean.findAllProduitsBDD()}" columns="3"
 					layout="grid" rows="12" paginator="true"
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					rowsPerPageTemplate="6,12,16">
 
 					<f:facet name="header">
@@ -133,34 +119,26 @@
 						<h:panelGrid columns="1" style="width:100%; height: 350px">
 							<h:graphicImage library="images"
 								name="#{produit.urlImageProduit}" width="300px" height="200px" />
-
 							<h:outputText style="font-size: medium;"
 								value="#{produit.descriptionProduit}" />
 
-
+							<!-- Lien vers les détails sur le voyage -->
 							<h:commandLink id="ParCateg" action="ProduitDetail"
 								actionListener="#{GestionProduitBean.recupProduit}">
-
 								<f:param id="modifId" name="id" value="#{produit.idProduit}" />
-
 								<h:outputText style="font-size: large; color: black;"
 									value="Voir les détails !" />
-
 							</h:commandLink>
 
 						</h:panelGrid>
 					</p:panel>
-
 				</p:dataGrid>
-
-
 			</h:form>
-
-
+			
 		</b:column>
 	</b:row>
 
-
+	<!-- Footer -->
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 
 </h:body>

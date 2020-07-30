@@ -6,13 +6,15 @@
 	xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
-
-	<title>page d'accueil administrateur</title>
-
+	<title>Administrateur - voyages</title>
 </h:head>
 
 <h:body>
+
+	<!-- Header -->
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+
+	<!-- Liens de navigation vers les différentes pages pour l'administrateur: produits, catégories, client et commandes -->
 	<b:tabLinks>
 		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" active="true" />
@@ -22,35 +24,35 @@
 			iconAlign="right" href="accueil-admin-client.xhtml" />
 		<b:navLink value="Commandes" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" href="accueil-admin-commande.xhtml" />
-
 	</b:tabLinks>
 
+	<!-- Lien pour ajouter un voyage -->
 	<b:panel>
-
 		<h:form>
 			<f:facet name="heading">
 				<i class="fa fa-battery-three-quarters" style="padding-right: 20px" />
 			</f:facet>
-
 			<h:commandLink id="edit" action="editVoyage"
 				actionListener="#{GestionProduitBean.initVoyage}">
 				<h:outputText value="Ajouter un produit" />
 			</h:commandLink>
 			<b:badge style="margin-left:10px; background-color:#5cb85c"
 				value="New" />
-
 		</h:form>
 	</b:panel>
 
+	<!-- Affichage des messages -->
 	<h:messages globalOnly="true" layout="table" showDetail="true"
 		styleClass="error" fatalClass="error" infoClass="message" infoStyle="color:green;" />
 
+	<!-- Titre de la page -->	
 	<h1 style="text-align: center;">Bienvenue, #{user_login}</h1>
 	<h2 style="margin-left: 150px">Liste des produits :</h2>
 	<b:row>
 
 		<b:column col-md="10" style="margin-left : 150px">
-
+		
+			<!-- Tableau pour afficher la liste des catégories -->
 			<h:dataTable styleClass="table"
 				value="#{GestionProduitBean.findAllProduitsBDD()}" var="produit">
 				<h:column>
@@ -93,55 +95,44 @@
 				</h:column>
 
 
-
+				<!-- Lien pour modifier un voyage -->
 				<h:column>
-
 					<f:facet name="header">
 						<h:outputText value="Modification" />
 					</f:facet>
 					<h:form>
 						<h:commandLink id="modif" action="editVoyage"
 							actionListener="#{GestionProduitBean.recupProduit}">
-
 							<f:param id="modifId" name="id" value="#{produit.idProduit}" />
-
 							<h:outputText value="Modifier le voyage" />
-
 						</h:commandLink>
 					</h:form>
 				</h:column>
 
-
+				<!-- Lien pour supprimer un voyage -->
 				<h:column>
-
 					<f:facet name="header">
 						<h:outputText value="Suppression" />
 					</f:facet>
 					<h:form>
 						<h:commandLink id="supp"
 							actionListener="#{GestionProduitBean.supprimerProduit}">
-
 							<f:param id="suppID" name="id" value="#{produit.idProduit}" />
-
 							<h:outputText value="Supprimer le voyage" />
-
 						</h:commandLink>
 					</h:form>
 				</h:column>
 
+				<!-- Lien pour lier un voyage à des catégories -->
 				<h:column>
-
 					<f:facet name="header">
 						<h:outputText value="Relier à des catégories" />
 					</f:facet>
 					<h:form>
 						<h:commandLink id="supp" action="setCategorie"
 							actionListener="#{GestionProduitBean.recupProduit}">
-
 							<f:param id="modifId" name="id" value="#{produit.idProduit}" />
-
 							<h:outputText value="Lier" />
-
 						</h:commandLink>
 					</h:form>
 				</h:column>
@@ -153,11 +144,10 @@
 				</h:column>
 
 			</h:dataTable>
-
-
 		</b:column>
 	</b:row>
-
+	
+	<!-- footer -->
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 
 

@@ -6,13 +6,14 @@
 	xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
-
-	<title>page d'accueil administrateur</title>
-
+	<title>Administrateur - commandes</title>
 </h:head>
 
 <h:body>
+	<!-- Header -->
 	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+	
+	<!-- Liens de navigation vers les différentes pages pour l'administrateur: produits, catégories, client et commandes -->	
 	<b:tabLinks>
 		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" href="accueil-admin.xhtml" />
@@ -22,14 +23,15 @@
 			iconAlign="right" href="accueil-admin-client.xhtml" />
 		<b:navLink value="Commandes" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" active="true" />
-
 	</b:tabLinks>
 
+	<!-- Titre de la page -->
 	<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 20px ">Liste des commandes :</h2>
 	<b:row>
 
 		<b:column col-md="9" style="margin-left : 150px">
 
+			<!-- Tableau pour afficher la liste des commandes -->
 			<h:dataTable styleClass="table"
 				value="#{GestionCommandeBean.findAllLigneCommandePourToutesCommandes()}" var="lignecommande">
 				
@@ -60,14 +62,11 @@
 					</f:facet>
 					<h:outputText value="#{lignecommande.prix_ligne} €" />
 				</h:column>
-				
-
 			</h:dataTable>
-
-
 		</b:column>
 	</b:row>
-
+	
+	<!-- Footer -->
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 
 

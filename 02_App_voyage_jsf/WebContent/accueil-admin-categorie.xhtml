@@ -11,9 +11,11 @@
 
 <h:body>
 
-	<ui:decorate template="/templates/header.xhtml"/>
-	
-	
+	<!-- Header -->
+	<ui:decorate template="/templates/header.xhtml"></ui:decorate>
+
+
+	<!-- Liens de navigation vers les différentes pages pour l'administrateur: produits, catégories, client et commandes -->
 	<b:tabLinks>
 		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" href="accueil-admin.xhtml" />
@@ -23,11 +25,11 @@
 			icon="tag" iconAlign="right" href="accueil-admin-client.xhtml" />
 		<b:navLink value="Commandes" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" href="accueil-admin-commande.xhtml" />
-
 	</b:tabLinks>
-
+	
+	
+	<!-- Lien pour ajouter une catégorie -->
 	<b:panel>
-
 		<h:form>
 			<f:facet name="heading">
 				<i class="fa fa-battery-three-quarters" style="padding-right: 20px" />
@@ -39,15 +41,16 @@
 			</h:commandLink>
 			<b:badge style="margin-left:10px; background-color:#5cb85c"
 				value="New" />
-
 		</h:form>
 	</b:panel>
 
+	<!-- Titre de la page -->
 	<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 20px ">Liste des catégories :</h2>
 	<b:row>
 
 		<b:column col-md="9" style="margin-left : 150px">
-
+		
+			<!-- Tableau pour afficher la liste des catégories -->
 			<h:dataTable styleClass="table"
 				value="#{GestionCategorieBean.findAllCategoriesBDD()}" var="categ"
 				rows="20">
@@ -77,73 +80,62 @@
 					<h:outputText value="#{categ.description_categorie}" />
 				</h:column>
 
-
+				<!-- Lien pour modifier une catégorie -->
 				<h:column>
-
 					<f:facet name="header">
 						<h:outputText value="Modification" />
 					</f:facet>
 					<h:form>
 						<h:commandLink id="modif" action="editCategorie"
 							actionListener="#{GestionCategorieBean.recupCategorie}">
-
 							<f:param id="modifId" name="id" value="#{categ.id_categorie}" />
-
 							<h:outputText value="Modifier la catégorie" />
-
 						</h:commandLink>
 					</h:form>
 				</h:column>
-
+				
+				<!-- Lien pour supprimer une catégorie -->
 				<h:column>
-
 					<f:facet name="header">
 						<h:outputText value="Suppression" />
 					</f:facet>
 					<h:form>
 						<h:commandLink id="supp"
 							actionListener="#{GestionCategorieBean.supprimerCategorie}">
-
 							<f:param id="suppID" name="id" value="#{categ.id_categorie}" />
-
 							<h:outputText value="Supprimer la catégorie" />
-
 						</h:commandLink>
 					</h:form>
 				</h:column>
 
-				<h:column>
-					<!-- =========== V$Affichage des voyages dans cette catégorie ===========  -->
+
+				<!-- Lien pour afficher les voyages liés une catégorie -->
+				<h:column>				
 					<f:facet name="header">
 						<h:outputText value="Voyages dans cette catégorie" />
 					</f:facet>
 					<h:form>
 						<h:commandLink id="voyageParCateg" action="ProduitCategorie"
 							actionListener="#{GestionProduitBean.findProduitParCategorie}">
-
 							<f:param id="CategorieID" name="id" value="#{categ.id_categorie}" />
-							<f:param id="CategorieNom" name="id2"
-								value="#{categ.nom_categorie}" />
+							<f:param id="CategorieNom" name="id2" value="#{categ.nom_categorie}" />
 							<h:outputText value="Voir les voyages de cette catégorie" />
-
 						</h:commandLink>
 					</h:form>
 				</h:column>
 
+				<!-- Affichage des messages -->
 				<h:column>
 					<h:message for="supp" styleClass="error" />
 					<h:message for="modif" styleClass="error" />
 				</h:column>
 
 			</h:dataTable>
-
-
 		</b:column>
 	</b:row>
 
+	<!-- Footer -->
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 
-
 </h:body>
-
 </html>

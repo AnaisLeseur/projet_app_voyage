@@ -19,63 +19,81 @@ import com.intiformation.DAO.ProduitCategorieDAOImpl;
 import com.intiformation.modeles.Categorie;
 import com.intiformation.modeles.ProduitCategorie;
 
+/**
+ * <pre>
+ * ManagedBean pour la gestion des liens entre produits-catégories
+ * </pre>
+ * 
+ * @author hannahlevardon
+ */
 @ManagedBean(name = "GestionProduitCategorieBean")
 @SessionScoped
 public class GestionProduitCategorieBean implements Serializable {
 
-	// _________________ Props __________________//
 
+	// _____________________ Propriétés ______________________ //
+	
 	private Map<Integer, Boolean> listeCategorieSelectionnes = new HashMap<Integer, Boolean>();
 	private List<Categorie> Listecategorie;
-	
-	ProduitCategorie produitCategorie; 
+
+	ProduitCategorie produitCategorie;
 
 	IProduitCategorie produitCategorieDAO;
 
-	// ___________________ Ctor ____________________//
-
+	// _____________________ Constructeurs ______________________ //
+	
 	public GestionProduitCategorieBean() {
 		produitCategorieDAO = new ProduitCategorieDAOImpl();
 	}// end ctor
 
 	// _________________ Méthodes __________________//
-	
+
 	/**
+	 * <pre>
 	 * Méthode pour créer un lien entre le produit et la catégorie via la table d'association produit-catgorie
+	 * Fait appel à la méthode addVersion2() de ProduitCategorieDAOImpl
+	 * Invoquée au clic sur <h:commandButton value=
+	"Lier ce voyage aux catégories selectionnées"> dans la page 'set-categorie.xhtml'
+	 * </pre>
 	 * 
 	 * @param event
 	 */
 	public void creerLiaisonProduitCategorie(ActionEvent event) {
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
-		
-		// Récupération de l'ID du produit envoyé via le f:param
+
+		// 1. Récupération de l'ID du produit envoyé via le f:param
 		UIParameter uip = (UIParameter) event.getComponent().findComponent("ProduitID");
 		int produitID = (int) uip.getValue();
-		
-		
-		// Récupération des ID des catégories sous forme de liste, selectionnées via les booleancheckbox cochées en true
+
+		// 2. Récupération des ID des catégories sous forme de liste, selectionnées via les
+		// booleancheckbox cochées en true
 		List<Integer> listeIdCategorieSelectionnees = listeCategorieSelectionnes.entrySet().stream()
 				.filter(Entry::getValue).map(Entry::getKey).collect(Collectors.toList());
 
-		// Boucle for pour chaque ID de catégorie à lier au produit
+		// 3. Boucle for pour chaque ID de catégorie à lier au produit
 		for (Integer integer : listeIdCategorieSelectionnees) {
 			System.out.println(integer);
-			
-			// Creation d'une ligne dans la table produit-catégorie
-			if(produitCategorieDAO.addVersion2(integer, produitID)) {
-				
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Ajout Livre", "Ajout du livre effectué avec succès"));
-			} else {
-	
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
-						"Ajout Livre", "Echec de l'Ajout du livre ..."));
 
-			}// end else
-		}//end for
+			// 4. Creation d'une ligne dans la table produit-catégorie
+			if (produitCategorieDAO.addVersion2(integer, produitID)) {
+
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Liaison réussie",
+						"Le voyage a bien été liée aux catégories sélectionnées"));
+			} else {
+
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Echec de la liaison",
+						"Le voyage n'a pas été lié aux catégories sélectionnées"));
+
+			} // end else
+		} // end for
 	}// end creerLiaisonProduitCategorie
-	
+
+	/* _____________________________________________________ */
+	/* _____________ Méthodes en developpement _____________ */
+	/* _____________________________________________________ */
+
+	// Nécessité d'ajouter des méthodes pour modifier et supprimer les liaisons
 
 	// __________________ Getter / Setter __________________ //
 

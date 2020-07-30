@@ -1,22 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
-<title>Commande du client</title>
+	<title>Commande du client</title>
+</h:head>
+<h:body>
 
-</h:head> 
-<h:body> 
+	<!-- Header -->
+	<ui:decorate template="/templates/header.xhtml"/>
 
-<ui:decorate template="/templates/header.xhtml"></ui:decorate>
-
-
-
-
-<b:tabLinks>
+	<!-- Liens de navigation vers les différentes pages pour l'administrateur: produits, catégories, client et commandes -->
+	<b:tabLinks>
 		<b:navLink value="Produits" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" href="accueil-admin.xhtml" />
 		<b:navLink value="Catégories" outcome="/bootstrap/labelsbadge"
@@ -25,116 +23,110 @@
 			iconAlign="right" href="accueil-admin-client.xhtml" />
 		<b:navLink value="Commandes" outcome="/bootstrap/labelsbadge"
 			icon="tag" iconAlign="right" href="accueil-admin-commande.xhtml" />
-
 	</b:tabLinks>
-	
-<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 20px ">Liste des commandes du client : </h2>
 
-<b:row>
+	<!-- Titre principal -->
+	<h2 style="margin-left: 120px; margin-top: 40px; margin-bottom: 20px">Liste
+		des commandes du client :</h2>
+
+	<b:row>
+		<!-- Message afficher sur le client n'a pas de commandes -->
+		<h3 style="font-style: italic; text-decoration: underline;">
+			<h:outputText value="Le client n'a pas de commande"
+				rendered="#{empty GestionCommandeBean.AfficherCommande()}" />
+		</h3>
 
 
-		<h3 style="font-style: italic; text-decoration: underline;"><h:outputText value="Le client n'a pas de commande" 
-				rendered="#{empty GestionCommandeBean.AfficherCommande()}"/></h3>
-
-	
-		<b:column col-md="12" style="margin-left : 100px; margin-top : 10px; margin-bottom: 100px" >
-		
-				
-				
-		<b:column col-md="5" >
-		
-			<h:dataTable styleClass="table"
-				value="#{GestionCommandeBean.AfficherCommande()}" var="commande"
-				rendered="#{not empty GestionCommandeBean.AfficherCommande()}" >
-				
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Id de la commande" />
-					</f:facet>
-					<h:outputText value="#{commande.id_commande}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Id du client" />
-					</f:facet>
-					<h:outputText value="#{commande.client_id}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Date de la commande" />
-					</f:facet>
-					<h:outputText value="#{commande.date_commande}" />
-				</h:column>
-
-			</h:dataTable>
-		</b:column>	
-		<b:column col-md="3" >	
-			<h:dataTable styleClass="table"
-				value="#{GestionCommandeBean.AfficheLigneCommande()}" var="commande"
-				rendered="#{not empty GestionCommandeBean.AfficheLigneCommande()}" >
-				
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Id du voyage" />
-					</f:facet>
-					<h:outputText value="#{commande.produit_id}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Quantité" />
-					</f:facet>
-					<h:outputText value="#{commande.quantite_ligne}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Prix payé" />
-					</f:facet>
-					<h:outputText value="#{commande.prix_ligne} €" />
-				</h:column>
-
-			</h:dataTable>
-			</b:column>	
-			<b:column col-md="3" >
+		<b:column col-md="12"
+			style="margin-left : 100px; margin-top : 10px; margin-bottom: 100px">
+			
+		<!-- Affichage des informations liées aux commandes -->
+		<b:column col-md="5">
 				<h:dataTable styleClass="table"
-				value="#{GestionCommandeBean.AfficheProduit()}" var="commande"
-				rendered="#{not empty GestionCommandeBean.AfficheProduit()}">
-				
+					value="#{GestionCommandeBean.AfficherCommande()}" var="commande"
+					rendered="#{not empty GestionCommandeBean.AfficherCommande()}">
 
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Nom du voyage" />
-					</f:facet>
-					<h:outputText value="#{commande.nomProduit}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Prix par personne" />
-					</f:facet>
-					<h:outputText value="#{commande.prixProduit} €" />
-				</h:column>
-
-				<br/><br/>
-<br/>
-
-			</h:dataTable>
-				</b:column>	
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Id de la commande" />
+						</f:facet>
+						<h:outputText value="#{commande.id_commande}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Id du client" />
+						</f:facet>
+						<h:outputText value="#{commande.client_id}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Date de la commande" />
+						</f:facet>
+						<h:outputText value="#{commande.date_commande}" />
+					</h:column>
+				</h:dataTable>
+			</b:column>
 			
+			<!-- Affichage des informations liées aux ligne de commandes -->
+			<b:column col-md="3">
+				<h:dataTable styleClass="table"
+					value="#{GestionCommandeBean.AfficheLigneCommande()}"
+					var="commande"
+					rendered="#{not empty GestionCommandeBean.AfficheLigneCommande()}">
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Id du voyage" />
+						</f:facet>
+						<h:outputText value="#{commande.produit_id}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Quantité" />
+						</f:facet>
+						<h:outputText value="#{commande.quantite_ligne}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Prix payé" />
+						</f:facet>
+						<h:outputText value="#{commande.prix_ligne} €" />
+					</h:column>
+
+				</h:dataTable>
+			</b:column>
 			
-
-	</b:column>		
-		
-	</b:row>	
-		
-		
-		
+			<!-- Affichage des informations liées aux produits -->
+			<b:column col-md="3">
+				<h:dataTable styleClass="table"
+					value="#{GestionCommandeBean.AfficheProduit()}" var="commande"
+					rendered="#{not empty GestionCommandeBean.AfficheProduit()}">
 
 
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Nom du voyage" />
+						</f:facet>
+						<h:outputText value="#{commande.nomProduit}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Prix par personne" />
+						</f:facet>
+						<h:outputText value="#{commande.prixProduit} €" />
+					</h:column>
+
+					<br />
+					<br />
+					<br />
+
+				</h:dataTable>
+			</b:column>
+		</b:column>
+	</b:row>
+
+	<!-- Footer -->
 	<ui:decorate template="/templates/footer.xhtml"></ui:decorate>
 
-
-
-
-
-
-</h:body> 
+</h:body>
 </html>

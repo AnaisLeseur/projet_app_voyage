@@ -11,7 +11,10 @@ import com.intiformation.modeles.Categorie;
 import sun.security.x509.CertificateAlgorithmId;
 
 /**
- * Implémentation concrète de la classe Categorie
+ * <pre>
+ * Implémentation concrète de la couche DAO pour une catégorie 
+ * Implémente l'interface ICategorieDAO
+ * </pre>
  * 
  * @author hannahlevardon
  *
@@ -23,6 +26,8 @@ public class CategorieDAOImpl implements ICategorieDAO {
 
 	/**
 	 * AJOUTER UNE CATEGORIE
+	 * @param pCategorie : catégorie à ajouter à la database
+	 * @return boolean: true si ajout validé, sinon false
 	 */
 	@Override
 	public boolean add(Categorie pCategorie) {
@@ -59,6 +64,8 @@ public class CategorieDAOImpl implements ICategorieDAO {
 
 	/**
 	 * MODIFIER UNE CATEGORIE
+	 * @param pCategorie : catégorie à modifier dans la database
+	 * @return boolean: true si modification validée, sinon false
 	 */
 	@Override
 	public boolean update(Categorie pCategorie) {
@@ -96,6 +103,8 @@ public class CategorieDAOImpl implements ICategorieDAO {
 
 	/**
 	 * SUPPRIMER UNE CATEGORIE
+	 * @param idCategorie : id de la catégorie à supprimer de la database
+	 * @return boolean: true si suppression validée, sinon false
 	 */
 	@Override
 	public boolean delete(Integer idCategorie) {
@@ -128,6 +137,7 @@ public class CategorieDAOImpl implements ICategorieDAO {
 
 	/**
 	 * AFFICHER LA LISTE DE TOUTES LES CATEGORIES
+	 * @return listeCategories : la liste de toutes les catégories contenues dans la database
 	 */
 	@Override
 	public List<Categorie> getAll() {
@@ -170,14 +180,16 @@ public class CategorieDAOImpl implements ICategorieDAO {
 
 	/**
 	 * AFFICHER CATEGORIE PAR SON ID
+	 * @param idCategorie : id de la catégorie à retrouver dans la database 
+	 * @return categorie : la catégorie recherchée
 	 */
 	@Override
-	public Categorie getById(Integer idCategories) {
+	public Categorie getById(Integer idCategorie) {
 
 		try {
 			ps = this.connexion.prepareStatement("select * from categories where id_categorie = ? ");
 
-			ps.setInt(1, idCategories);
+			ps.setInt(1, idCategorie);
 
 			rs = ps.executeQuery();
 
